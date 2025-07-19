@@ -1,8 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "Eu13QkBVrTI=",
+  "dgSpecHash": "Z0DCo2999LY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\EsteP\\.nuget\\packages\\dapper\\2.1.66\\dapper.2.1.66.nupkg.sha512",
+    "C:\\Users\\EsteP\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\EsteP\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\EsteP\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\EsteP\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\EsteP\\.nuget\\packages\\system.data.sqlclient\\4.9.0\\system.data.sqlclient.4.9.0.nupkg.sha512"
+  ],
   "logs": []
 }

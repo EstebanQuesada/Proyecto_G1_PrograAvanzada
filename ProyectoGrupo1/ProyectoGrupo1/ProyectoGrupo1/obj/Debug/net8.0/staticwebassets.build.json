@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "9ovEE09BVKcHH3TFfZ2HE2ojBRAOlEneb7BLFeTlce8=",
+  "Hash": "kCcvFRsOoGmlAdqVS+4o52E3xRFmQ6/poQmnayx/cLg=",
   "Source": "ProyectoGrupo1",
   "BasePath": "_content/ProyectoGrupo1",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "ProyectoGrupo1\\wwwroot",
       "Source": "ProyectoGrupo1",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoGrupo1.styles.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoGrupo1.styles.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "ProyectoGrupo1#[.{fingerprint}]?.styles.css",
       "AssetKind": "All",
@@ -35,13 +35,13 @@
       "Integrity": "o2SaAwNfHXUiFr5Gn9SOpGTa4WrrASehQq/+tSiMTI0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoGrupo1.styles.css"
+      "OriginalItemSpec": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoGrupo1.styles.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProyectoGrupo1.bundle.scp.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProyectoGrupo1.bundle.scp.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "ProyectoGrupo1#[.{fingerprint}]!.bundle.scp.css",
       "AssetKind": "All",
@@ -56,13 +56,13 @@
       "Integrity": "o2SaAwNfHXUiFr5Gn9SOpGTa4WrrASehQq/+tSiMTI0=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProyectoGrupo1.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProyectoGrupo1.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\bootstrap.min.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\bootstrap.min.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/bootstrap.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -80,10 +80,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\cryptocoins.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\cryptocoins.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/cryptocoins#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -101,10 +101,10 @@
       "OriginalItemSpec": "wwwroot\\css\\cryptocoins.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\custom.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\custom.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/custom#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -122,10 +122,10 @@
       "OriginalItemSpec": "wwwroot\\css\\custom.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\flag-icon.min.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\flag-icon.min.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/flag-icon.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -143,10 +143,10 @@
       "OriginalItemSpec": "wwwroot\\css\\flag-icon.min.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome.min.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome.min.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/fontawesome.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -164,10 +164,10 @@
       "OriginalItemSpec": "wwwroot\\css\\fontawesome.min.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome-all.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome-all.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/fontawesome-all#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -185,10 +185,10 @@
       "OriginalItemSpec": "wwwroot\\css\\fontawesome-all.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fonts\\themify.woff",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fonts\\themify.woff",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/fonts/themify#[.{fingerprint}]?.woff",
       "AssetKind": "All",
@@ -206,10 +206,31 @@
       "OriginalItemSpec": "wwwroot\\css\\fonts\\themify.woff"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\materialdesignicons.min.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\login.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "BasePath": "_content/ProyectoGrupo1",
+      "RelativePath": "css/login#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "0crqsn9lnc",
+      "Integrity": "IMvA5pIiBNOwMieYmmb7aVvhGnw5Lwd3PhO1EPh5AXM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\login.css"
+    },
+    {
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\materialdesignicons.min.css",
+      "SourceId": "ProyectoGrupo1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/materialdesignicons.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -227,10 +248,31 @@
       "OriginalItemSpec": "wwwroot\\css\\materialdesignicons.min.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\simple-line-icons.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\registro.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "BasePath": "_content/ProyectoGrupo1",
+      "RelativePath": "css/registro#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "2oezn16d6v",
+      "Integrity": "/g/5IWIqhGHDW3aHrwBn+xHb8/sBhHopE7b5HZec/Ec=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\registro.css"
+    },
+    {
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\simple-line-icons.css",
+      "SourceId": "ProyectoGrupo1",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/simple-line-icons#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -248,10 +290,10 @@
       "OriginalItemSpec": "wwwroot\\css\\simple-line-icons.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\site.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/site#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -269,10 +311,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/style#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -290,10 +332,10 @@
       "OriginalItemSpec": "wwwroot\\css\\style.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.min.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.min.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/style.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -311,10 +353,10 @@
       "OriginalItemSpec": "wwwroot\\css\\style.min.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/templatemo#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -332,10 +374,10 @@
       "OriginalItemSpec": "wwwroot\\css\\templatemo.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.min.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.min.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/templatemo.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -353,10 +395,10 @@
       "OriginalItemSpec": "wwwroot\\css\\templatemo.min.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\themify-icons.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\themify-icons.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/themify-icons#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -374,10 +416,10 @@
       "OriginalItemSpec": "wwwroot\\css\\themify-icons.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\weather-icons.min.css",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\weather-icons.min.css",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "css/weather-icons.min#[.{fingerprint}]?.css",
       "AssetKind": "All",
@@ -395,10 +437,10 @@
       "OriginalItemSpec": "wwwroot\\css\\weather-icons.min.css"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\favicon.ico",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "favicon#[.{fingerprint}]?.ico",
       "AssetKind": "All",
@@ -416,10 +458,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_01.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_01.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/banner_img_01#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -437,10 +479,10 @@
       "OriginalItemSpec": "wwwroot\\img\\banner_img_01.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_02.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_02.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/banner_img_02#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -458,10 +500,10 @@
       "OriginalItemSpec": "wwwroot\\img\\banner_img_02.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_03.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_03.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/banner_img_03#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -479,10 +521,10 @@
       "OriginalItemSpec": "wwwroot\\img\\banner_img_03.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_01.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_01.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/category_img_01#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -500,10 +542,10 @@
       "OriginalItemSpec": "wwwroot\\img\\category_img_01.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_02.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_02.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/category_img_02#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -521,10 +563,10 @@
       "OriginalItemSpec": "wwwroot\\img\\category_img_02.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_03.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_03.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/category_img_03#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -542,10 +584,10 @@
       "OriginalItemSpec": "wwwroot\\img\\category_img_03.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\favicon.ico",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\favicon.ico",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/favicon#[.{fingerprint}]?.ico",
       "AssetKind": "All",
@@ -563,10 +605,10 @@
       "OriginalItemSpec": "wwwroot\\img\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_01.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_01.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/feature_prod_01#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -584,10 +626,10 @@
       "OriginalItemSpec": "wwwroot\\img\\feature_prod_01.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_02.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_02.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/feature_prod_02#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -605,10 +647,10 @@
       "OriginalItemSpec": "wwwroot\\img\\feature_prod_02.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_03.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_03.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/feature_prod_03#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -626,10 +668,10 @@
       "OriginalItemSpec": "wwwroot\\img\\feature_prod_03.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Fondo5.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Fondo5.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/Fondo5#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -647,10 +689,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Fondo5.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Icon_Logo.jpg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Icon_Logo.jpg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "img/Icon_Logo#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
@@ -668,31 +710,10 @@
       "OriginalItemSpec": "wwwroot\\img\\Icon_Logo.jpg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\logo-icon.png",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\bootstrap.bundle.min.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
-      "BasePath": "_content/ProyectoGrupo1",
-      "RelativePath": "img/logo-icon#[.{fingerprint}]?.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "Fingerprint": "7bsix8fwpg",
-      "Integrity": "Lc/sKv2BrxaviP9NUzUqdaX0B+0FLMJgk6mOo8ghvSI=",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\img\\logo-icon.png"
-    },
-    {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\bootstrap.bundle.min.js",
-      "SourceId": "ProyectoGrupo1",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "js/bootstrap.bundle.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -710,10 +731,10 @@
       "OriginalItemSpec": "wwwroot\\js\\bootstrap.bundle.min.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\custom.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\custom.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "js/custom#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -731,10 +752,10 @@
       "OriginalItemSpec": "wwwroot\\js\\custom.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-1.11.0.min.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-1.11.0.min.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "js/jquery-1.11.0.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -752,10 +773,10 @@
       "OriginalItemSpec": "wwwroot\\js\\jquery-1.11.0.min.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-migrate-1.2.1.min.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-migrate-1.2.1.min.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "js/jquery-migrate-1.2.1.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -773,10 +794,10 @@
       "OriginalItemSpec": "wwwroot\\js\\jquery-migrate-1.2.1.min.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\site.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\site.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "js/site#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -794,10 +815,10 @@
       "OriginalItemSpec": "wwwroot\\js\\site.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\slick.min.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\slick.min.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "js/slick.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -815,10 +836,10 @@
       "OriginalItemSpec": "wwwroot\\js\\slick.min.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "js/templatemo#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -836,10 +857,10 @@
       "OriginalItemSpec": "wwwroot\\js\\templatemo.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.min.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.min.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "js/templatemo.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -857,10 +878,10 @@
       "OriginalItemSpec": "wwwroot\\js\\templatemo.min.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\bootstrap.min.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\bootstrap.min.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "lib/bootstrap.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -878,10 +899,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\bootstrap.min.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\jquery.min.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\jquery.min.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "lib/jquery.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -899,10 +920,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\jquery.min.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\popper.min.js",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\popper.min.js",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "lib/popper.min#[.{fingerprint}]?.js",
       "AssetKind": "All",
@@ -920,10 +941,10 @@
       "OriginalItemSpec": "wwwroot\\lib\\popper.min.js"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.eot",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.eot",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-brands-400#[.{fingerprint}]?.eot",
       "AssetKind": "All",
@@ -941,10 +962,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.eot"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.svg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.svg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-brands-400#[.{fingerprint}]?.svg",
       "AssetKind": "All",
@@ -962,10 +983,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.svg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.ttf",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.ttf",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-brands-400#[.{fingerprint}]?.ttf",
       "AssetKind": "All",
@@ -983,10 +1004,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.ttf"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-brands-400#[.{fingerprint}]?.woff",
       "AssetKind": "All",
@@ -1004,10 +1025,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.woff"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff2",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff2",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-brands-400#[.{fingerprint}]?.woff2",
       "AssetKind": "All",
@@ -1025,10 +1046,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-brands-400.woff2"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.eot",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.eot",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-regular-400#[.{fingerprint}]?.eot",
       "AssetKind": "All",
@@ -1046,10 +1067,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.eot"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.svg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.svg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-regular-400#[.{fingerprint}]?.svg",
       "AssetKind": "All",
@@ -1067,10 +1088,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.svg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.ttf",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.ttf",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-regular-400#[.{fingerprint}]?.ttf",
       "AssetKind": "All",
@@ -1088,10 +1109,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.ttf"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-regular-400#[.{fingerprint}]?.woff",
       "AssetKind": "All",
@@ -1109,10 +1130,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.woff"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff2",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff2",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-regular-400#[.{fingerprint}]?.woff2",
       "AssetKind": "All",
@@ -1130,10 +1151,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-regular-400.woff2"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.eot",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.eot",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-solid-900#[.{fingerprint}]?.eot",
       "AssetKind": "All",
@@ -1151,10 +1172,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.eot"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.svg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.svg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-solid-900#[.{fingerprint}]?.svg",
       "AssetKind": "All",
@@ -1172,10 +1193,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.svg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.ttf",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.ttf",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-solid-900#[.{fingerprint}]?.ttf",
       "AssetKind": "All",
@@ -1193,10 +1214,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.ttf"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-solid-900#[.{fingerprint}]?.woff",
       "AssetKind": "All",
@@ -1214,10 +1235,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.woff"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff2",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff2",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/fa-solid-900#[.{fingerprint}]?.woff2",
       "AssetKind": "All",
@@ -1235,10 +1256,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\fa-solid-900.woff2"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.eot",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.eot",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/slick#[.{fingerprint}]?.eot",
       "AssetKind": "All",
@@ -1256,10 +1277,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\slick.eot"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.svg",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.svg",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/slick#[.{fingerprint}]?.svg",
       "AssetKind": "All",
@@ -1277,10 +1298,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\slick.svg"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.ttf",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.ttf",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/slick#[.{fingerprint}]?.ttf",
       "AssetKind": "All",
@@ -1298,10 +1319,10 @@
       "OriginalItemSpec": "wwwroot\\webfonts\\slick.ttf"
     },
     {
-      "Identity": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.woff",
+      "Identity": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.woff",
       "SourceId": "ProyectoGrupo1",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\",
       "BasePath": "_content/ProyectoGrupo1",
       "RelativePath": "webfonts/slick#[.{fingerprint}]?.woff",
       "AssetKind": "All",
@@ -1322,7 +1343,7 @@
   "Endpoints": [
     {
       "Route": "css/bootstrap.min.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\bootstrap.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1359,7 +1380,7 @@
     },
     {
       "Route": "css/bootstrap.min.qho4ofxiy3.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\bootstrap.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\bootstrap.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1404,7 +1425,7 @@
     },
     {
       "Route": "css/cryptocoins.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\cryptocoins.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\cryptocoins.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1441,7 +1462,7 @@
     },
     {
       "Route": "css/cryptocoins.u18dy9pdig.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\cryptocoins.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\cryptocoins.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1486,7 +1507,7 @@
     },
     {
       "Route": "css/custom.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\custom.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\custom.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1523,7 +1544,7 @@
     },
     {
       "Route": "css/custom.vj7byx5peo.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\custom.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\custom.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1568,7 +1589,7 @@
     },
     {
       "Route": "css/flag-icon.min.aai9rgocwx.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\flag-icon.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\flag-icon.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1613,7 +1634,7 @@
     },
     {
       "Route": "css/flag-icon.min.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\flag-icon.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\flag-icon.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1650,7 +1671,7 @@
     },
     {
       "Route": "css/fontawesome.min.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1687,7 +1708,7 @@
     },
     {
       "Route": "css/fontawesome.min.jxpt6dpari.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1732,7 +1753,7 @@
     },
     {
       "Route": "css/fontawesome-all.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome-all.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome-all.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1769,7 +1790,7 @@
     },
     {
       "Route": "css/fontawesome-all.ozkaofpawa.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome-all.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fontawesome-all.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1814,7 +1835,7 @@
     },
     {
       "Route": "css/fonts/themify.nvkla53trw.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fonts\\themify.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fonts\\themify.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1859,7 +1880,7 @@
     },
     {
       "Route": "css/fonts/themify.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fonts\\themify.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\fonts\\themify.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1895,8 +1916,90 @@
       ]
     },
     {
+      "Route": "css/login.0crqsn9lnc.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\login.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1615"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IMvA5pIiBNOwMieYmmb7aVvhGnw5Lwd3PhO1EPh5AXM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 19 Jul 2025 21:30:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "0crqsn9lnc"
+        },
+        {
+          "Name": "label",
+          "Value": "css/login.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-IMvA5pIiBNOwMieYmmb7aVvhGnw5Lwd3PhO1EPh5AXM="
+        }
+      ]
+    },
+    {
+      "Route": "css/login.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\login.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1615"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"IMvA5pIiBNOwMieYmmb7aVvhGnw5Lwd3PhO1EPh5AXM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 19 Jul 2025 21:30:32 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-IMvA5pIiBNOwMieYmmb7aVvhGnw5Lwd3PhO1EPh5AXM="
+        }
+      ]
+    },
+    {
       "Route": "css/materialdesignicons.min.9i1qh1a636.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\materialdesignicons.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\materialdesignicons.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1941,7 +2044,7 @@
     },
     {
       "Route": "css/materialdesignicons.min.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\materialdesignicons.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\materialdesignicons.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -1977,8 +2080,90 @@
       ]
     },
     {
+      "Route": "css/registro.2oezn16d6v.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\registro.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2214"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/g/5IWIqhGHDW3aHrwBn+xHb8/sBhHopE7b5HZec/Ec=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 19 Jul 2025 21:15:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "2oezn16d6v"
+        },
+        {
+          "Name": "label",
+          "Value": "css/registro.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/g/5IWIqhGHDW3aHrwBn+xHb8/sBhHopE7b5HZec/Ec="
+        }
+      ]
+    },
+    {
+      "Route": "css/registro.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\registro.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2214"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/g/5IWIqhGHDW3aHrwBn+xHb8/sBhHopE7b5HZec/Ec=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 19 Jul 2025 21:15:15 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/g/5IWIqhGHDW3aHrwBn+xHb8/sBhHopE7b5HZec/Ec="
+        }
+      ]
+    },
+    {
       "Route": "css/simple-line-icons.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\simple-line-icons.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\simple-line-icons.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2015,7 +2200,7 @@
     },
     {
       "Route": "css/simple-line-icons.u269fq8sw8.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\simple-line-icons.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\simple-line-icons.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2060,7 +2245,7 @@
     },
     {
       "Route": "css/site.c2tiyv64ts.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\site.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2105,7 +2290,7 @@
     },
     {
       "Route": "css/site.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\site.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2142,7 +2327,7 @@
     },
     {
       "Route": "css/style.8z9aoa6dp2.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2187,7 +2372,7 @@
     },
     {
       "Route": "css/style.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2224,7 +2409,7 @@
     },
     {
       "Route": "css/style.min.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2261,7 +2446,7 @@
     },
     {
       "Route": "css/style.min.l1l312p2u4.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\style.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2306,7 +2491,7 @@
     },
     {
       "Route": "css/templatemo.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2343,7 +2528,7 @@
     },
     {
       "Route": "css/templatemo.eqopdnva4z.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2388,7 +2573,7 @@
     },
     {
       "Route": "css/templatemo.min.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2425,7 +2610,7 @@
     },
     {
       "Route": "css/templatemo.min.f3ddy5lm9s.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\templatemo.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2470,7 +2655,7 @@
     },
     {
       "Route": "css/themify-icons.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\themify-icons.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\themify-icons.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2507,7 +2692,7 @@
     },
     {
       "Route": "css/themify-icons.qh5gl838o2.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\themify-icons.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\themify-icons.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2552,7 +2737,7 @@
     },
     {
       "Route": "css/weather-icons.min.c4g9q0u72p.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\weather-icons.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\weather-icons.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2597,7 +2782,7 @@
     },
     {
       "Route": "css/weather-icons.min.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\weather-icons.min.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\weather-icons.min.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2634,7 +2819,7 @@
     },
     {
       "Route": "favicon.61n19gt1b8.ico",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\favicon.ico",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2679,7 +2864,7 @@
     },
     {
       "Route": "favicon.ico",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\favicon.ico",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2716,7 +2901,7 @@
     },
     {
       "Route": "img/banner_img_01.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_01.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_01.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2753,7 +2938,7 @@
     },
     {
       "Route": "img/banner_img_01.rtmrm52mzg.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_01.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_01.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2798,7 +2983,7 @@
     },
     {
       "Route": "img/banner_img_02.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_02.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_02.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2835,7 +3020,7 @@
     },
     {
       "Route": "img/banner_img_02.ttyp0ijwve.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_02.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_02.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2880,7 +3065,7 @@
     },
     {
       "Route": "img/banner_img_03.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_03.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_03.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2917,7 +3102,7 @@
     },
     {
       "Route": "img/banner_img_03.t32qk3c8bd.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_03.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\banner_img_03.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2962,7 +3147,7 @@
     },
     {
       "Route": "img/category_img_01.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_01.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_01.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -2999,7 +3184,7 @@
     },
     {
       "Route": "img/category_img_01.y2rsgiq8ga.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_01.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_01.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3044,7 +3229,7 @@
     },
     {
       "Route": "img/category_img_02.eiah0sn3w2.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_02.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_02.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3089,7 +3274,7 @@
     },
     {
       "Route": "img/category_img_02.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_02.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_02.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3126,7 +3311,7 @@
     },
     {
       "Route": "img/category_img_03.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_03.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_03.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3163,7 +3348,7 @@
     },
     {
       "Route": "img/category_img_03.qq1j4dqhrw.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_03.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\category_img_03.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3208,7 +3393,7 @@
     },
     {
       "Route": "img/favicon.ico",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\favicon.ico",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3245,7 +3430,7 @@
     },
     {
       "Route": "img/favicon.p19h7peqzs.ico",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\favicon.ico",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\favicon.ico",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3290,7 +3475,7 @@
     },
     {
       "Route": "img/feature_prod_01.3qmuv9z4i2.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_01.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_01.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3335,7 +3520,7 @@
     },
     {
       "Route": "img/feature_prod_01.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_01.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_01.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3372,7 +3557,7 @@
     },
     {
       "Route": "img/feature_prod_02.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_02.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_02.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3409,7 +3594,7 @@
     },
     {
       "Route": "img/feature_prod_02.ms9z3v7suo.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_02.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_02.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3454,7 +3639,7 @@
     },
     {
       "Route": "img/feature_prod_03.6gjh65sbu4.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_03.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_03.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3499,7 +3684,7 @@
     },
     {
       "Route": "img/feature_prod_03.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_03.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\feature_prod_03.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3536,7 +3721,7 @@
     },
     {
       "Route": "img/Fondo5.53v8rf20mu.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Fondo5.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Fondo5.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3581,7 +3766,7 @@
     },
     {
       "Route": "img/Fondo5.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Fondo5.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Fondo5.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3618,7 +3803,7 @@
     },
     {
       "Route": "img/Icon_Logo.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Icon_Logo.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Icon_Logo.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3655,7 +3840,7 @@
     },
     {
       "Route": "img/Icon_Logo.xfu2sj8wdd.jpg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Icon_Logo.jpg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\Icon_Logo.jpg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3699,90 +3884,8 @@
       ]
     },
     {
-      "Route": "img/logo-icon.7bsix8fwpg.png",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\logo-icon.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "15508"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Lc/sKv2BrxaviP9NUzUqdaX0B+0FLMJgk6mOo8ghvSI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 04:00:05 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "7bsix8fwpg"
-        },
-        {
-          "Name": "label",
-          "Value": "img/logo-icon.png"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-Lc/sKv2BrxaviP9NUzUqdaX0B+0FLMJgk6mOo8ghvSI="
-        }
-      ]
-    },
-    {
-      "Route": "img/logo-icon.png",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\img\\logo-icon.png",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "15508"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "image/png"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"Lc/sKv2BrxaviP9NUzUqdaX0B+0FLMJgk6mOo8ghvSI=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 04:00:05 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=3600, must-revalidate"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "integrity",
-          "Value": "sha256-Lc/sKv2BrxaviP9NUzUqdaX0B+0FLMJgk6mOo8ghvSI="
-        }
-      ]
-    },
-    {
       "Route": "js/bootstrap.bundle.min.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\bootstrap.bundle.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3819,7 +3922,7 @@
     },
     {
       "Route": "js/bootstrap.bundle.min.kt15t08tud.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\bootstrap.bundle.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\bootstrap.bundle.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3864,7 +3967,7 @@
     },
     {
       "Route": "js/custom.5ipweew5fc.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\custom.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\custom.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3909,7 +4012,7 @@
     },
     {
       "Route": "js/custom.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\custom.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\custom.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3946,7 +4049,7 @@
     },
     {
       "Route": "js/jquery-1.11.0.min.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-1.11.0.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-1.11.0.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -3983,7 +4086,7 @@
     },
     {
       "Route": "js/jquery-1.11.0.min.u9xpkrg1c3.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-1.11.0.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-1.11.0.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4028,7 +4131,7 @@
     },
     {
       "Route": "js/jquery-migrate-1.2.1.min.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-migrate-1.2.1.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-migrate-1.2.1.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4065,7 +4168,7 @@
     },
     {
       "Route": "js/jquery-migrate-1.2.1.min.q6ne85ne1u.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-migrate-1.2.1.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\jquery-migrate-1.2.1.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4110,7 +4213,7 @@
     },
     {
       "Route": "js/site.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\site.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\site.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4147,7 +4250,7 @@
     },
     {
       "Route": "js/site.xtxxf3hu2r.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\site.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\site.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4192,7 +4295,7 @@
     },
     {
       "Route": "js/slick.min.8vxybdbzmv.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\slick.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\slick.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4237,7 +4340,7 @@
     },
     {
       "Route": "js/slick.min.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\slick.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\slick.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4274,7 +4377,7 @@
     },
     {
       "Route": "js/templatemo.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4311,7 +4414,7 @@
     },
     {
       "Route": "js/templatemo.min.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4348,7 +4451,7 @@
     },
     {
       "Route": "js/templatemo.min.wmidt8ty7k.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4393,7 +4496,7 @@
     },
     {
       "Route": "js/templatemo.p6vihhe79a.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\js\\templatemo.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4438,7 +4541,7 @@
     },
     {
       "Route": "lib/bootstrap.min.bsp2r8k2wz.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\bootstrap.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\bootstrap.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4483,7 +4586,7 @@
     },
     {
       "Route": "lib/bootstrap.min.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\bootstrap.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\bootstrap.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4520,7 +4623,7 @@
     },
     {
       "Route": "lib/jquery.min.2ye1g148en.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\jquery.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\jquery.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4565,7 +4668,7 @@
     },
     {
       "Route": "lib/jquery.min.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\jquery.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\jquery.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4602,7 +4705,7 @@
     },
     {
       "Route": "lib/popper.min.98yftnaxr0.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\popper.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\popper.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4647,7 +4750,7 @@
     },
     {
       "Route": "lib/popper.min.js",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\popper.min.js",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\lib\\popper.min.js",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4684,7 +4787,7 @@
     },
     {
       "Route": "ProyectoGrupo1.bundle.scp.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProyectoGrupo1.bundle.scp.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProyectoGrupo1.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4705,7 +4808,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 04:00:03 GMT"
+          "Value": "Sat, 19 Jul 2025 21:21:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4721,7 +4824,7 @@
     },
     {
       "Route": "ProyectoGrupo1.nvjkr2cvse.bundle.scp.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProyectoGrupo1.bundle.scp.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ProyectoGrupo1.bundle.scp.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4742,7 +4845,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 04:00:03 GMT"
+          "Value": "Sat, 19 Jul 2025 21:21:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4766,7 +4869,7 @@
     },
     {
       "Route": "ProyectoGrupo1.nvjkr2cvse.styles.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoGrupo1.styles.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoGrupo1.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4787,7 +4890,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 04:00:03 GMT"
+          "Value": "Sat, 19 Jul 2025 21:21:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4811,7 +4914,7 @@
     },
     {
       "Route": "ProyectoGrupo1.styles.css",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoGrupo1.styles.css",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\ProyectoGrupo1.styles.css",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4832,7 +4935,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Thu, 05 Jun 2025 04:00:03 GMT"
+          "Value": "Sat, 19 Jul 2025 21:21:41 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -4848,7 +4951,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.225cap7yex.woff2",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff2",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff2",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4893,7 +4996,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.48x50yrkyp.ttf",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.ttf",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.ttf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4938,7 +5041,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.eot",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.eot",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.eot",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -4975,7 +5078,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.nop9icxts3.eot",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.eot",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.eot",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5020,7 +5123,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.q6rwnntcoe.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5065,7 +5168,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.svg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.svg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.svg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5102,7 +5205,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.ttf",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.ttf",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.ttf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5139,7 +5242,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5176,7 +5279,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.woff2",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff2",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.woff2",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5213,7 +5316,7 @@
     },
     {
       "Route": "webfonts/fa-brands-400.ze17r51rl3.svg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.svg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-brands-400.svg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5258,7 +5361,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.eot",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.eot",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.eot",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5295,7 +5398,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.exttdlk9rh.ttf",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.ttf",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.ttf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5340,7 +5443,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.ff2xj7ux2s.svg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.svg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.svg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5385,7 +5488,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.izpv3v3fni.woff2",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff2",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff2",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5430,7 +5533,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.ov7c7b79xc.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5475,7 +5578,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.rip8htfhri.eot",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.eot",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.eot",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5520,7 +5623,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.svg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.svg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.svg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5557,7 +5660,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.ttf",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.ttf",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.ttf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5594,7 +5697,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5631,7 +5734,7 @@
     },
     {
       "Route": "webfonts/fa-regular-400.woff2",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff2",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-regular-400.woff2",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5668,7 +5771,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.0l9o3lrzdo.ttf",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.ttf",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.ttf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5713,7 +5816,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.4lxk8icrjl.woff2",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff2",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff2",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5758,7 +5861,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.5ryhpqtbj9.eot",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.eot",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.eot",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5803,7 +5906,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.e567c5zwr9.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5848,7 +5951,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.eot",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.eot",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.eot",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5885,7 +5988,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.onw8ykpuvm.svg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.svg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.svg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5930,7 +6033,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.svg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.svg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.svg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -5967,7 +6070,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.ttf",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.ttf",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.ttf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6004,7 +6107,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6041,7 +6144,7 @@
     },
     {
       "Route": "webfonts/fa-solid-900.woff2",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff2",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\fa-solid-900.woff2",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6078,7 +6181,7 @@
     },
     {
       "Route": "webfonts/slick.6tyrrxu1yi.eot",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.eot",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.eot",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6123,7 +6226,7 @@
     },
     {
       "Route": "webfonts/slick.9869s41upd.ttf",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.ttf",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.ttf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6168,7 +6271,7 @@
     },
     {
       "Route": "webfonts/slick.eot",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.eot",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.eot",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6205,7 +6308,7 @@
     },
     {
       "Route": "webfonts/slick.m6wwoyv29g.svg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.svg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.svg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6250,7 +6353,7 @@
     },
     {
       "Route": "webfonts/slick.mcq75vfguu.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6295,7 +6398,7 @@
     },
     {
       "Route": "webfonts/slick.svg",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.svg",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.svg",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6332,7 +6435,7 @@
     },
     {
       "Route": "webfonts/slick.ttf",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.ttf",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.ttf",
       "Selectors": [],
       "ResponseHeaders": [
         {
@@ -6369,7 +6472,7 @@
     },
     {
       "Route": "webfonts/slick.woff",
-      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.woff",
+      "AssetFile": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\webfonts\\slick.woff",
       "Selectors": [],
       "ResponseHeaders": [
         {

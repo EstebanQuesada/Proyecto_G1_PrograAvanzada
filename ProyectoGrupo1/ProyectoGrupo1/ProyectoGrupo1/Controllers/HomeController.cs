@@ -1,32 +1,46 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using ProyectoGrupo1.Models;
+using Dapper;
+using System.Data.SqlClient;
+using Microsoft.AspNetCore.Http;
+using System.Security.Cryptography;
+using System.Text;
+using ProyectoGrupo1.Services;
 
 namespace ProyectoGrupo1.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly DbService _dbService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(DbService dbService)
         {
-            _logger = logger;
+            _dbService = dbService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            if (HttpContext.Session.GetInt32("UsuarioID") == null)
+                return RedirectToAction("Login", "Usuario");
+
+            return View(); 
         }
 
-        public IActionResult Principal()
+        public IActionResult Logout()
         {
-            return View();
+            HttpContext.Session.Clear();
+            return RedirectToAction("Login", "Usuario");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        private string HashPassword(string password)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            if (string.IsNullOrWhiteSpace(password))
+                return string.Empty;
+
+            using var sha256 = SHA256.Create();
+            byte[] bytes = Encoding.UTF8.GetBytes(password);
+            byte[] hashBytes = sha256.ComputeHash(bytes);
+            return Convert.ToBase64String(hashBytes);
         }
     }
 }

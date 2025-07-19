@@ -1,0 +1,96 @@
+﻿@model ProyectoGrupo1.Models.Usuario
+
+@{
+    ViewData["Title"] = "Registro";
+    Layout = "~/Views/Shared/_LayoutExterno.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/registro.css" />
+
+<div class="registro-contenedor">
+    <div class="registro-formulario">
+        <h2 class="registro-titulo">Registro de Usuario</h2>
+
+        <div class="registro-pasos">
+            <span class="paso activo" id="paso-1">1</span>
+            <span class="linea"></span>
+            <span class="paso" id="paso-2">2</span>
+            <span class="linea"></span>
+            <span class="paso" id="paso-3">3</span>
+            <span class="linea"></span>
+            <span class="paso" id="paso-4">4</span>
+        </div>
+
+        <form asp-action="Register" method="post" id="formulario-registro">
+ 
+            <div class="form-step active" id="step-1">
+                <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+                <input asp-for="Apellido" class="form-control" placeholder="Apellido" />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+                <button type="button" class="btn-siguiente" onclick="mostrarPaso(2)">Siguiente</button>
+            </div>
+
+            <div class="form-step" id="step-2">
+                <input asp-for="Correo" class="form-control" placeholder="Correo electrónico" />
+                <span asp-validation-for="Correo" class="text-danger"></span>
+                <div class="botones">
+                    <button type="button" class="btn-anterior" onclick="mostrarPaso(1)">Anterior</button>
+                    <button type="button" class="btn-siguiente" onclick="mostrarPaso(3)">Siguiente</button>
+                </div>
+            </div>
+
+            <div class="form-step" id="step-3">
+                <input asp-for="Contrasena" type="password" class="form-control" placeholder="Contraseña" />
+                <span asp-validation-for="Contrasena" class="text-danger"></span>
+                <div class="botones">
+                    <button type="button" class="btn-anterior" onclick="mostrarPaso(2)">Anterior</button>
+                    <button type="submit" class="btn-finalizar">Registrarse</button>
+                </div>
+            </div>
+
+            @if (ViewBag.Mensaje != null)
+            {
+                <div class="alert alert-danger mt-3">@ViewBag.Mensaje</div>
+            }
+
+            <p class="text-center mt-3">
+                ¿Ya tienes cuenta? <a asp-controller="Usuario" asp-action="Login">Inicia sesión</a>
+            </p>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function mostrarPaso(paso) {
+
+            const pasoActual = paso - 1;
+            if (pasoActual >= 1) {
+                const campos = document.querySelectorAll(`#step-${pasoActual} input`);
+                let valido = true;
+                campos.forEach(input => {
+                    if (!input.value.trim()) {
+                        valido = false;
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+                });
+                if (!valido) return;
+            }
+
+            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+            document.querySelector(`#step-${paso}`).classList.add('active');
+
+            document.querySelectorAll('.paso').forEach(p => p.classList.remove('activo'));
+            for (let i = 1; i <= paso; i++) {
+                document.querySelector(`#paso-${i}`).classList.add('activo');
+            }
+        }
+    </script>
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

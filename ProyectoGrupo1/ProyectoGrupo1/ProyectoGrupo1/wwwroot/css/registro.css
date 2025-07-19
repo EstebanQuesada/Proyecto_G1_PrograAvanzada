@@ -1,0 +1,111 @@
+﻿body {
+    background: linear-gradient(to bottom right, #ffffff, #f4fdf7);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.registro-contenedor {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registro-formulario {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 420px;
+}
+
+.registro-titulo {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #1f5138;
+    margin-bottom: 20px;
+}
+
+.registro-pasos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+    .registro-pasos .paso {
+        background: #d6eadc;
+        color: #1f5138;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        font-weight: bold;
+        transition: background 0.3s;
+    }
+
+        .registro-pasos .paso.activo {
+            background: #1f5138;
+            color: white;
+        }
+
+    .registro-pasos .linea {
+        width: 30px;
+        height: 3px;
+        background-color: #c2e3ce;
+        margin: 0 5px;
+    }
+
+.form-control {
+    width: 100%;
+    height: 45px;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+.form-step {
+    display: none;
+}
+
+    .form-step.active {
+        display: block;
+    }
+
+.botones {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-siguiente, .btn-anterior, .btn-finalizar {
+    background-color: #1f5138;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    font-weight: bold;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    .btn-siguiente:hover, .btn-anterior:hover, .btn-finalizar:hover {
+        background-color: #14402b;
+    }
+
+.text-danger {
+    font-size: 13px;
+}
+
+.text-center a {
+    color: #1f5138;
+    text-decoration: none;
+}
+input.is-invalid {
+    border-color: #dc3545;
+    background-color: #fff0f0;
+}

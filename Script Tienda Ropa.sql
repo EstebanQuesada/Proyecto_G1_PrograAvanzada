@@ -193,13 +193,13 @@ CREATE TABLE CorreoEnviado (
     FOREIGN KEY (UsuarioID) REFERENCES Usuario(UsuarioID)
 );
 
-CREATE TABLE ReseÃ±a (
-    ReseÃ±aID INT PRIMARY KEY IDENTITY,
+CREATE TABLE Reseña (
+    ReseñaID INT PRIMARY KEY IDENTITY,
     UsuarioID INT,
     ProductoID INT,
     Calificacion INT,
     Comentario NVARCHAR(255),
-    FechaReseÃ±a DATETIME DEFAULT GETDATE(),
+    FechaReseña DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (UsuarioID) REFERENCES Usuario(UsuarioID),
     FOREIGN KEY (ProductoID) REFERENCES Producto(ProductoID)
 );
@@ -227,3 +227,6 @@ CREATE TABLE BitacoraErrores (
     FechaError DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (UsuarioID) REFERENCES Usuario(UsuarioID)
 );
+
+INSERT INTO Rol (NombreRol) VALUES ('Cliente');
+INSERT INTO Rol (NombreRol) VALUES ('Administrador');

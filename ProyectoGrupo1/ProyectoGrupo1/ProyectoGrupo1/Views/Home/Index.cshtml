@@ -1,112 +1,15 @@
-﻿<!DOCTYPE html>
-<html lang="es">
+﻿@{
+    ViewData["Title"] = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var nombre = Context.Session.GetString("Nombre") ?? "Usuario";
+}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Iniciar Sesión - Loop Store</title>
-    <link rel="apple-touch-icon" href="/img/Icon_Logo.jpg">
-    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
-
-    <link rel="stylesheet" href="~/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/css/fontawesome.min.css">
-    <link rel="stylesheet" href="~/css/templatemo.css">
-    <link rel="stylesheet" href="~/css/custom.css">
-    <link href="~/css/style.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;200;300;400;500;700;900&display=swap">
-</head>
-
-<body>
-
-    @{
-        Layout = "_LayoutExterno";
-    }
-
-    <div class="auth-wrapper d-flex no-gutters justify-content-center align-items-center" style="background:url(/img/fondo5.jpg) no-repeat center center / cover;">
-        <div class="auth-box" style="background-color: white; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.1); padding: 30px;">
-            <div id="loginform">
-                <div class="logo" style="text-align: center; margin-bottom: 30px;">
-                    <span class="db"><img src="/img/logo-icon.png" alt="logo" style="width: 80px; height: auto;" /></span>
-                    <h5 class="font-medium m-b-20" style="color: #28a745; margin-top: 15px;">Iniciar Sesión en el Panel de Administración</h5>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <form class="form-horizontal m-t-20" id="loginform" action="index.html">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon1" style="background-color: #28a745; color: white; border-color: #28a745;"><i class="ti-user"></i></span>
-                                </div>
-                                <input type="text" class="form-control form-control-lg" placeholder="Nombre de Usuario" aria-label="Nombre de Usuario" aria-describedby="basic-addon1" style="border-color: #28a745;">
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="basic-addon2" style="background-color: #28a745; color: white; border-color: #28a745;"><i class="ti-pencil"></i></span>
-                                </div>
-                                <input type="password" class="form-control form-control-lg" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon1" style="border-color: #28a745;">
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-md-12">
-                                    <div class="custom-control custom-checkbox" style="display: flex; align-items: center; justify-content: space-between;">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1" style="color: #333; margin-left: 5px;">Recordarme</label>
-                                        <a href="javascript:void(0)" id="to-recover" class="float-right" style="color: #28a745; text-decoration: none;"><i class="fa fa-lock m-r-5"></i> ¿Olvidaste tu contraseña?</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group text-center" style="margin-top: 20px;">
-                                <div class="col-xs-12 p-b-20">
-                                    <button class="btn btn-block btn-lg" type="submit" style="background-color: #28a745; color: white; border-color: #28a745; font-size: 1.1rem;">Ingresar</button>
-                                </div>
-                            </div>
-                            <div class="form-group m-b-0 m-t-10">
-                                <div class="col-sm-12 text-center" style="margin-top: 20px;">
-                                    ¿No tienes una cuenta? <a href="authentication-register1.html" class="m-l-5" style="color: #28a745; text-decoration: none;"><b>Registrarse</b></a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div id="recoverform" style="display: none;">
-                <div class="logo" style="text-align: center; margin-bottom: 30px;">
-                    <span class="db"><img src="/img/logo-icon.png" alt="logo" style="width: 80px; height: auto;" /></span>
-                    <h5 class="font-medium m-b-20" style="color: #28a745; margin-top: 15px;">Recuperar Contraseña</h5>
-                    <span style="color: #333;">¡Introduce tu correo electrónico y te enviaremos las instrucciones!</span>
-                </div>
-                <div class="row m-t-20">
-                    <form class="col-12" action="index.html">
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <input class="form-control form-control-lg" type="email" required="" placeholder="Correo Electrónico" style="border-color: #28a745;">
-                            </div>
-                        </div>
-                        <div class="row m-t-20">
-                            <div class="col-12">
-                                <button class="btn btn-block btn-lg" type="submit" name="action" style="background-color: #28a745; color: white; border-color: #28a745; font-size: 1.1rem;">Restablecer</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<section class="container py-5">
+    <div class="row text-center pt-3">
+        <div class="col-lg-8 m-auto">
+            <h1 class="h1 mb-3">Bienvenido, @nombre</h1>
+            <p class="lead">Has iniciado sesión correctamente en <strong>Loop Store</strong>.</p>
+            <a class="btn btn-danger mt-3" asp-controller="Usuario" asp-action="Logout">Cerrar Sesión</a>
         </div>
     </div>
-
-    <script src="~/js/jquery-1.11.0.min.js"></script>
-    <script src="~/js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="~/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/templatemo.js"></script>
-    <script src="~/js/custom.js"></script>
-
-    <script>
-        $(function() {
-            $('[data-toggle="tooltip"]').tooltip();
-            $('#to-recover').on("click", function() {
-                $("#loginform").slideUp();
-                $("#recoverform").fadeIn();
-            });
-           
-        });
-    </script>
-</body>
-</html>
+</section>

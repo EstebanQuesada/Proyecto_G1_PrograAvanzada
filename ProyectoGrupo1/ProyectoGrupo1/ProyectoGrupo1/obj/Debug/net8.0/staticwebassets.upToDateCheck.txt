@@ -5,7 +5,9 @@ wwwroot\css\flag-icon.min.css
 wwwroot\css\fontawesome.min.css
 wwwroot\css\fontawesome-all.css
 wwwroot\css\fonts\themify.woff
+wwwroot\css\login.css
 wwwroot\css\materialdesignicons.min.css
+wwwroot\css\registro.css
 wwwroot\css\simple-line-icons.css
 wwwroot\css\site.css
 wwwroot\css\style.css
@@ -27,7 +29,6 @@ wwwroot\img\feature_prod_02.jpg
 wwwroot\img\feature_prod_03.jpg
 wwwroot\img\Fondo5.jpg
 wwwroot\img\Icon_Logo.jpg
-wwwroot\img\logo-icon.png
 wwwroot\js\bootstrap.bundle.min.js
 wwwroot\js\custom.js
 wwwroot\js\jquery-1.11.0.min.js
