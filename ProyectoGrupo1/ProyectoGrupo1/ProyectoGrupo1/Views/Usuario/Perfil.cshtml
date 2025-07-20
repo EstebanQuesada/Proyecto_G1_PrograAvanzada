@@ -1,0 +1,77 @@
+﻿@model ProyectoGrupo1.Models.Usuario
+@{
+    ViewData["Title"] = "Mi Perfil";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var nombre = Context.Session.GetString("Nombre") ?? "Usuario";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Bienvenido, @nombre</h2>
+
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success text-center">@TempData["Mensaje"]</div>
+    }
+
+    <form asp-action="ActualizarPerfil" method="post" class="row g-3">
+        @Html.HiddenFor(model => model.UsuarioID)
+
+        <div class="col-md-6">
+            <label asp-for="Nombre" class="form-label">Nombre</label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="Apellido" class="form-label">Apellido</label>
+            <input asp-for="Apellido" class="form-control" />
+            <span asp-validation-for="Apellido" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-12">
+            <label asp-for="Correo" class="form-label">Correo</label>
+            <input asp-for="Correo" class="form-control" />
+            <span asp-validation-for="Correo" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-12">
+            <label asp-for="Direccion" class="form-label">Dirección</label>
+            <input asp-for="Direccion" class="form-control" />
+            <span asp-validation-for="Direccion" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Ciudad" class="form-label">Ciudad</label>
+            <input asp-for="Ciudad" class="form-control" />
+            <span asp-validation-for="Ciudad" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="Provincia" class="form-label">Provincia</label>
+            <input asp-for="Provincia" class="form-control" />
+            <span asp-validation-for="Provincia" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-4">
+            <label asp-for="CodigoPostal" class="form-label">Código Postal</label>
+            <input asp-for="CodigoPostal" class="form-control" />
+            <span asp-validation-for="CodigoPostal" class="text-danger"></span>
+        </div>
+
+        <div class="col-12 text-center mt-3">
+            <button type="submit" class="btn btn-success">Actualizar Perfil</button>
+        </div>
+    </form>
+
+    <hr class="my-5" />
+
+    <div class="text-center">
+        <a asp-controller="Usuario" asp-action="CambiarContrasena" class="btn btn-outline-primary">
+            Cambiar Contraseña
+        </a>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

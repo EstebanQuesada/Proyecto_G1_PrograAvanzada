@@ -17,17 +17,6 @@ wwwroot\css\templatemo.min.css
 wwwroot\css\themify-icons.css
 wwwroot\css\weather-icons.min.css
 wwwroot\favicon.ico
-wwwroot\img\banner_img_01.jpg
-wwwroot\img\banner_img_02.jpg
-wwwroot\img\banner_img_03.jpg
-wwwroot\img\category_img_01.jpg
-wwwroot\img\category_img_02.jpg
-wwwroot\img\category_img_03.jpg
-wwwroot\img\favicon.ico
-wwwroot\img\feature_prod_01.jpg
-wwwroot\img\feature_prod_02.jpg
-wwwroot\img\feature_prod_03.jpg
-wwwroot\img\Fondo5.jpg
 wwwroot\img\Icon_Logo.jpg
 wwwroot\js\bootstrap.bundle.min.js
 wwwroot\js\custom.js

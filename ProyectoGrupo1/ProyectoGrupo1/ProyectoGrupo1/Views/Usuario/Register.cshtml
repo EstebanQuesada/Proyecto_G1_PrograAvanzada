@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Registro";
-    Layout = "~/Views/Shared/_LayoutExterno.cshtml";
+    Layout = null;
 }
 
 <link rel="stylesheet" href="~/css/registro.css" />
@@ -17,23 +17,27 @@
             <span class="paso" id="paso-2">2</span>
             <span class="linea"></span>
             <span class="paso" id="paso-3">3</span>
-            <span class="linea"></span>
-            <span class="paso" id="paso-4">4</span>
         </div>
 
         <form asp-action="Register" method="post" id="formulario-registro">
- 
+
             <div class="form-step active" id="step-1">
                 <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
                 <span asp-validation-for="Nombre" class="text-danger"></span>
+
                 <input asp-for="Apellido" class="form-control" placeholder="Apellido" />
                 <span asp-validation-for="Apellido" class="text-danger"></span>
+
                 <button type="button" class="btn-siguiente" onclick="mostrarPaso(2)">Siguiente</button>
             </div>
 
             <div class="form-step" id="step-2">
                 <input asp-for="Correo" class="form-control" placeholder="Correo electrónico" />
                 <span asp-validation-for="Correo" class="text-danger"></span>
+
+                <input asp-for="Contrasena" type="password" class="form-control" placeholder="Contraseña" />
+                <span asp-validation-for="Contrasena" class="text-danger"></span>
+
                 <div class="botones">
                     <button type="button" class="btn-anterior" onclick="mostrarPaso(1)">Anterior</button>
                     <button type="button" class="btn-siguiente" onclick="mostrarPaso(3)">Siguiente</button>
@@ -41,8 +45,18 @@
             </div>
 
             <div class="form-step" id="step-3">
-                <input asp-for="Contrasena" type="password" class="form-control" placeholder="Contraseña" />
-                <span asp-validation-for="Contrasena" class="text-danger"></span>
+                <input asp-for="Direccion" class="form-control" placeholder="Dirección" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+
+                <input asp-for="Ciudad" class="form-control" placeholder="Ciudad" />
+                <span asp-validation-for="Ciudad" class="text-danger"></span>
+
+                <input asp-for="Provincia" class="form-control" placeholder="Provincia" />
+                <span asp-validation-for="Provincia" class="text-danger"></span>
+
+                <input asp-for="CodigoPostal" class="form-control" placeholder="Código Postal" />
+                <span asp-validation-for="CodigoPostal" class="text-danger"></span>
+
                 <div class="botones">
                     <button type="button" class="btn-anterior" onclick="mostrarPaso(2)">Anterior</button>
                     <button type="submit" class="btn-finalizar">Registrarse</button>
@@ -61,36 +75,35 @@
     </div>
 </div>
 
-@section Scripts {
-    <script>
-        function mostrarPaso(paso) {
 
-            const pasoActual = paso - 1;
-            if (pasoActual >= 1) {
-                const campos = document.querySelectorAll(`#step-${pasoActual} input`);
-                let valido = true;
-                campos.forEach(input => {
-                    if (!input.value.trim()) {
-                        valido = false;
-                        input.classList.add('is-invalid');
-                    } else {
-                        input.classList.remove('is-invalid');
-                    }
-                });
-                if (!valido) return;
-            }
+<script>
+    function mostrarPaso(paso) {
+        const pasoActual = paso - 1;
+        const grupo = document.querySelector(`#step-${pasoActual}`);
+        let valido = true;
 
-            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-            document.querySelector(`#step-${paso}`).classList.add('active');
+        if (grupo) {
+            const inputs = grupo.querySelectorAll("input");
+            inputs.forEach(input => {
+                if (!input.value.trim()) {
+                    input.classList.add("is-invalid");
+                    valido = false;
+                } else {
+                    input.classList.remove("is-invalid");
+                }
+            });
 
-            document.querySelectorAll('.paso').forEach(p => p.classList.remove('activo'));
-            for (let i = 1; i <= paso; i++) {
-                document.querySelector(`#paso-${i}`).classList.add('activo');
-            }
+            if (!valido) return;
         }
-    </script>
 
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        document.querySelectorAll(".form-step").forEach(s => s.classList.remove("active"));
+        document.querySelector(`#step-${paso}`).classList.add("active");
+
+        document.querySelectorAll(".paso").forEach(p => p.classList.remove("activo"));
+        for (let i = 1; i <= paso; i++) {
+            document.querySelector(`#paso-${i}`).classList.add("activo");
+        }
     }
-}
+</script>
+
+@await Html.PartialAsync("_ValidationScriptsPartial")

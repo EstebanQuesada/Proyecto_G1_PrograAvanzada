@@ -93,10 +93,7 @@ C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGr
 C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\ProyectoGrupo1.RazorAssemblyInfo.cache
 C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\ProyectoGrupo1.RazorAssemblyInfo.cs
 C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\ProyectoGrupo1.sourcelink.json
-C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
-C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\scopedcss\Views\Shared\_LayoutExterno.cshtml.rz.scp.css
 C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\scopedcss\bundle\ProyectoGrupo1.styles.css
-C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\scopedcss\projectbundle\ProyectoGrupo1.bundle.scp.css
 C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\EsteP\source\repos\Proyecto_G1_PrograAvanzada\ProyectoGrupo1\ProyectoGrupo1\ProyectoGrupo1\obj\Debug\net8.0\staticwebassets.build.endpoints.json

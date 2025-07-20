@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Cambiar Contraseña";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Cambiar Contraseña</h2>
+
+    @if (TempData["MensajeClave"] != null)
+    {
+        <div class="alert alert-info text-center">@TempData["MensajeClave"]</div>
+    }
+
+    <form asp-action="CambiarContrasena" method="post" class="row g-3">
+        <div class="col-md-12">
+            <label for="ContrasenaActual" class="form-label">Contraseña Actual</label>
+            <input type="password" name="ContrasenaActual" class="form-control" required />
+        </div>
+        <div class="col-md-6">
+            <label for="NuevaContrasena" class="form-label">Nueva Contraseña</label>
+            <input type="password" name="NuevaContrasena" class="form-control" required />
+        </div>
+        <div class="col-md-6">
+            <label for="ConfirmarContrasena" class="form-label">Confirmar Contraseña</label>
+            <input type="password" name="ConfirmarContrasena" class="form-control" required />
+        </div>
+
+        <div class="col-12 text-center mt-3">
+            <button type="submit" class="btn btn-primary">Guardar Nueva Contraseña</button>
+        </div>
+    </form>
+</div>

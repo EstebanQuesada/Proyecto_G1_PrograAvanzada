@@ -41,11 +41,9 @@ namespace ProyectoGrupo1.Controllers
         {
             try
             {
-                var exito = _usuarioService.RegistrarUsuario(usuario);
-                if (exito)
-                {
+                bool registrado = _usuarioService.RegistrarUsuario(usuario);
+                if (registrado)
                     return RedirectToAction("Login");
-                }
 
                 ViewBag.Mensaje = "No se pudo registrar el usuario.";
                 return View(usuario);
@@ -55,6 +53,65 @@ namespace ProyectoGrupo1.Controllers
                 ViewBag.Mensaje = ex.Message;
                 return View(usuario);
             }
+        }
+
+        [HttpGet]
+        public IActionResult Perfil()
+        {
+            var usuarioId = HttpContext.Session.GetInt32("UsuarioID");
+            if (usuarioId == null) return RedirectToAction("Login");
+
+            var usuario = _usuarioService.ObtenerPerfilCompleto(usuarioId.Value);
+            return View(usuario);
+        }
+
+        [HttpPost]
+        public IActionResult ActualizarPerfil(Usuario usuario)
+        {
+            if (!ModelState.IsValid)
+            {
+                var datosCompletos = _usuarioService.ObtenerPerfilCompleto(usuario.UsuarioID);
+                return View("Perfil", datosCompletos);
+            }
+
+            var exito = _usuarioService.ActualizarPerfilYDireccion(usuario);
+            TempData["Mensaje"] = exito ? "Perfil actualizado correctamente" : "No se pudo actualizar el perfil";
+
+            if (exito)
+                HttpContext.Session.SetString("Nombre", usuario.Nombre);
+
+            var usuarioActualizado = _usuarioService.ObtenerPerfilCompleto(usuario.UsuarioID);
+            return View("Perfil", usuarioActualizado);
+        }
+
+        [HttpGet]
+        public IActionResult CambiarContrasena()
+        {
+            if (HttpContext.Session.GetInt32("UsuarioID") == null)
+                return RedirectToAction("Login");
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CambiarContrasena(string ContrasenaActual, string NuevaContrasena, string ConfirmarContrasena)
+        {
+            int? usuarioId = HttpContext.Session.GetInt32("UsuarioID");
+            if (usuarioId == null) return RedirectToAction("Login");
+
+            if (NuevaContrasena != ConfirmarContrasena)
+            {
+                TempData["MensajeClave"] = "La nueva contraseña y la confirmación no coinciden.";
+                return View();
+            }
+
+            bool cambiado = _usuarioService.CambiarContrasena(usuarioId.Value, ContrasenaActual, NuevaContrasena);
+
+            TempData["MensajeClave"] = cambiado
+                ? "Contraseña cambiada exitosamente."
+                : "La contraseña actual no es válida.";
+
+            return View();
         }
 
         public IActionResult Logout()

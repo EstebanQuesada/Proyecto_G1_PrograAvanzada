@@ -230,3 +230,22 @@ CREATE TABLE BitacoraErrores (
 
 INSERT INTO Rol (NombreRol) VALUES ('Cliente');
 INSERT INTO Rol (NombreRol) VALUES ('Administrador');
+
+
+
+SELECT * FROM Usuario WHERE Correo = 'hola@gmail.com';
+USE TiendaRopaDB;
+GO
+
+SELECT 
+    u.UsuarioID,
+    u.Nombre,
+    u.Apellido,
+    u.Correo,
+    d.Direccion,
+    d.Ciudad,
+    d.Provincia,
+    d.CodigoPostal
+FROM Usuario u
+INNER JOIN DireccionUsuario d ON u.UsuarioID = d.UsuarioID
+WHERE u.UsuarioID = 11;

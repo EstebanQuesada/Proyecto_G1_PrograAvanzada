@@ -1,15 +1,21 @@
 ﻿@{
     ViewData["Title"] = "Inicio";
-    Layout = "~/Views/Shared/_Layout.cshtml";
     var nombre = Context.Session.GetString("Nombre") ?? "Usuario";
 }
 
 <section class="container py-5">
-    <div class="row text-center pt-3">
-        <div class="col-lg-8 m-auto">
-            <h1 class="h1 mb-3">Bienvenido, @nombre</h1>
-            <p class="lead">Has iniciado sesión correctamente en <strong>Loop Store</strong>.</p>
-            <a class="btn btn-danger mt-3" asp-controller="Usuario" asp-action="Logout">Cerrar Sesión</a>
+    <div class="row justify-content-center text-center">
+        <div class="col-lg-8">
+            <h1 class="display-5 mb-3">¡Bienvenido, @nombre!</h1>
+            <p class="fs-5">Gracias por ingresar a <strong>Tienda Ropa</strong>. Explora nuestro catálogo, gestiona tu perfil y realiza compras de forma fácil y segura.</p>
+
+            <div class="mt-4">
+                <a class="btn btn-outline-primary me-2" asp-controller="Producto" asp-action="Index">Ver Catálogo</a>
+                <a class="btn btn-outline-secondary me-2" asp-controller="Carrito" asp-action="Index">Ir al Carrito</a>
+                <a class="btn btn-outline-dark" asp-controller="Usuario" asp-action="Perfil">Mi Perfil</a>
+            </div>
+
+            <a class="btn btn-danger mt-4 d-block mx-auto" style="max-width: 200px;" asp-controller="Usuario" asp-action="Logout">Cerrar Sesión</a>
         </div>
     </div>
 </section>
