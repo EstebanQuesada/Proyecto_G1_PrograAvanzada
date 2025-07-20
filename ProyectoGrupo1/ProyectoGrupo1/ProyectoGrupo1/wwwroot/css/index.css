@@ -1,0 +1,101 @@
+﻿/* index.css */
+
+.hero-section {
+    background: linear-gradient(to right, #0f0f0f 50%, #ffffff 50%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 4rem 2rem;
+    min-height: 80vh;
+    position: relative;
+}
+
+    .hero-section .text-content {
+        max-width: 500px;
+        z-index: 2;
+    }
+
+        .hero-section .text-content h1 {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .hero-section .text-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #ddd;
+        }
+
+        .hero-section .text-content .btn {
+            margin-right: 1rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+        }
+
+    .hero-section .shoe-image {
+        position: absolute;
+        right: 50px;
+        bottom: 0;
+        max-width: 400px;
+        z-index: 1;
+    }
+
+.new-collection {
+    background-color: #fff;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+    .new-collection h2 {
+        font-weight: bold;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .new-collection p {
+        color: #555;
+        max-width: 700px;
+        margin: 0 auto 2rem;
+        font-size: 1.05rem;
+    }
+.hero-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.hero-left {
+    background-color: #111;
+    width: 50%;
+    padding: 60px 30px;
+    text-align: center;
+}
+
+.hero-right {
+    background-color: #f1f1f1;
+    width: 50%;
+    padding: 60px 30px;
+    text-align: center;
+}
+
+.hero-left h1,
+.hero-left p {
+    max-width: 600px;
+}
+
+.btn {
+    min-width: 140px;
+}
+
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column;
+    }
+
+    .hero-left, .hero-right {
+        width: 100%;
+        height: auto;
+    }
+}
+

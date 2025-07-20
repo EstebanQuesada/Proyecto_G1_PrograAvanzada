@@ -29,6 +29,14 @@
       "PackagePath": "staticwebassets\\css\\fonts\\themify.woff"
     },
     {
+      "Id": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\index.css",
+      "PackagePath": "staticwebassets\\css\\index.css"
+    },
+    {
+      "Id": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\layout.css",
+      "PackagePath": "staticwebassets\\css\\layout.css"
+    },
+    {
       "Id": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1\\ProyectoGrupo1\\ProyectoGrupo1\\wwwroot\\css\\login.css",
       "PackagePath": "staticwebassets\\css\\login.css"
     },

@@ -6,69 +6,80 @@
 }
 
 <div class="container mt-5">
-    <h2 class="text-center mb-4">Bienvenido, @nombre</h2>
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-dark text-white text-center py-4">
+                    <h2 class="mb-0">Perfil de Usuario</h2>
+                    <small>Bienvenido, <strong>@nombre</strong></small>
+                </div>
 
-    @if (TempData["Mensaje"] != null)
-    {
-        <div class="alert alert-success text-center">@TempData["Mensaje"]</div>
-    }
+                <div class="card-body px-5 py-4">
+                    @if (TempData["Mensaje"] != null)
+                    {
+                        <div class="alert alert-success text-center">@TempData["Mensaje"]</div>
+                    }
 
-    <form asp-action="ActualizarPerfil" method="post" class="row g-3">
-        @Html.HiddenFor(model => model.UsuarioID)
+                    <form asp-action="ActualizarPerfil" method="post" class="row g-4">
+                        @Html.HiddenFor(model => model.UsuarioID)
 
-        <div class="col-md-6">
-            <label asp-for="Nombre" class="form-label">Nombre</label>
-            <input asp-for="Nombre" class="form-control" />
-            <span asp-validation-for="Nombre" class="text-danger"></span>
+                        <div class="col-md-6">
+                            <label asp-for="Nombre" class="form-label">Nombre</label>
+                            <input asp-for="Nombre" class="form-control" />
+                            <span asp-validation-for="Nombre" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label asp-for="Apellido" class="form-label">Apellido</label>
+                            <input asp-for="Apellido" class="form-control" />
+                            <span asp-validation-for="Apellido" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="Correo" class="form-label">Correo</label>
+                            <input asp-for="Correo" class="form-control" />
+                            <span asp-validation-for="Correo" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-12">
+                            <label asp-for="Direccion" class="form-label">Dirección</label>
+                            <input asp-for="Direccion" class="form-control" />
+                            <span asp-validation-for="Direccion" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="Ciudad" class="form-label">Ciudad</label>
+                            <input asp-for="Ciudad" class="form-control" />
+                            <span asp-validation-for="Ciudad" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="Provincia" class="form-label">Provincia</label>
+                            <input asp-for="Provincia" class="form-control" />
+                            <span asp-validation-for="Provincia" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label asp-for="CodigoPostal" class="form-label">Código Postal</label>
+                            <input asp-for="CodigoPostal" class="form-control" />
+                            <span asp-validation-for="CodigoPostal" class="text-danger small"></span>
+                        </div>
+
+                        <div class="col-12 text-center mt-4">
+                            <button type="submit" class="btn btn-success px-4 py-2">Actualizar Perfil</button>
+                        </div>
+                    </form>
+
+                    <hr class="my-5" />
+
+                    <div class="text-center">
+                        <a asp-controller="Usuario" asp-action="CambiarContrasena" class="btn btn-outline-primary px-4">
+                            Cambiar Contraseña
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-md-6">
-            <label asp-for="Apellido" class="form-label">Apellido</label>
-            <input asp-for="Apellido" class="form-control" />
-            <span asp-validation-for="Apellido" class="text-danger"></span>
-        </div>
-
-        <div class="col-md-12">
-            <label asp-for="Correo" class="form-label">Correo</label>
-            <input asp-for="Correo" class="form-control" />
-            <span asp-validation-for="Correo" class="text-danger"></span>
-        </div>
-
-        <div class="col-md-12">
-            <label asp-for="Direccion" class="form-label">Dirección</label>
-            <input asp-for="Direccion" class="form-control" />
-            <span asp-validation-for="Direccion" class="text-danger"></span>
-        </div>
-
-        <div class="col-md-4">
-            <label asp-for="Ciudad" class="form-label">Ciudad</label>
-            <input asp-for="Ciudad" class="form-control" />
-            <span asp-validation-for="Ciudad" class="text-danger"></span>
-        </div>
-
-        <div class="col-md-4">
-            <label asp-for="Provincia" class="form-label">Provincia</label>
-            <input asp-for="Provincia" class="form-control" />
-            <span asp-validation-for="Provincia" class="text-danger"></span>
-        </div>
-
-        <div class="col-md-4">
-            <label asp-for="CodigoPostal" class="form-label">Código Postal</label>
-            <input asp-for="CodigoPostal" class="form-control" />
-            <span asp-validation-for="CodigoPostal" class="text-danger"></span>
-        </div>
-
-        <div class="col-12 text-center mt-3">
-            <button type="submit" class="btn btn-success">Actualizar Perfil</button>
-        </div>
-    </form>
-
-    <hr class="my-5" />
-
-    <div class="text-center">
-        <a asp-controller="Usuario" asp-action="CambiarContrasena" class="btn btn-outline-primary">
-            Cambiar Contraseña
-        </a>
     </div>
 </div>
 
