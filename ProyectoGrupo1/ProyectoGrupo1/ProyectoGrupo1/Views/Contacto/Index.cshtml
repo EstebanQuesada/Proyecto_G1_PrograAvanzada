@@ -1,0 +1,45 @@
+﻿@model ProyectoGrupo1.Models.ContactoViewModel
+@{
+    ViewData["Title"] = "Contacto";
+    var descripcion = ViewBag.Descripcion ?? "";
+}
+
+<link rel="stylesheet" href="~/css/index.css" />
+
+<h1>Contacto</h1>
+
+<p class="descripcion">@descripcion</p>
+
+<form asp-controller="Contacto" asp-action="Index" method="post">
+    <div>
+        <label asp-for="Nombre"></label>
+        <input asp-for="Nombre" />
+        <span asp-validation-for="Nombre"></span>
+    </div>
+
+    <div>
+        <label asp-for="Correo"></label>
+        <input asp-for="Correo" type="email" />
+        <span asp-validation-for="Correo"></span>
+    </div>
+
+    <div>
+        <label asp-for="Mensaje"></label>
+        <textarea asp-for="Mensaje"></textarea>
+        <span asp-validation-for="Mensaje"></span>
+    </div>
+
+    <button type="submit">Enviar</button>
+</form>
+
+@if (ViewBag.Confirmacion != null)
+{
+    <p class="confirmacion">@ViewBag.Confirmacion</p>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+

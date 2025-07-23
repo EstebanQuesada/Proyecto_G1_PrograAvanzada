@@ -193,13 +193,13 @@ CREATE TABLE CorreoEnviado (
     FOREIGN KEY (UsuarioID) REFERENCES Usuario(UsuarioID)
 );
 
-CREATE TABLE Rese�a (
-    Rese�aID INT PRIMARY KEY IDENTITY,
+CREATE TABLE Reseña (
+    ReseñaID INT PRIMARY KEY IDENTITY,
     UsuarioID INT,
     ProductoID INT,
     Calificacion INT,
     Comentario NVARCHAR(255),
-    FechaRese�a DATETIME DEFAULT GETDATE(),
+    FechaReseña DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (UsuarioID) REFERENCES Usuario(UsuarioID),
     FOREIGN KEY (ProductoID) REFERENCES Producto(ProductoID)
 );
@@ -228,6 +228,29 @@ CREATE TABLE BitacoraErrores (
     FOREIGN KEY (UsuarioID) REFERENCES Usuario(UsuarioID)
 );
 
+CREATE TABLE TextosGenerales (
+    Clave NVARCHAR(100) PRIMARY KEY,
+    Valor NVARCHAR(MAX) NOT NULL
+);
+
+CREATE TABLE Contactos (
+    Id INT IDENTITY PRIMARY KEY,
+    Nombre NVARCHAR(100) NOT NULL,
+    Correo NVARCHAR(100) NOT NULL,
+    Mensaje NVARCHAR(MAX) NOT NULL,
+    FechaEnvio DATETIME NOT NULL DEFAULT GETDATE()
+);
+
+CREATE PROCEDURE ObtenerDescripcionContacto
+AS
+BEGIN
+    SELECT Valor FROM TextosGenerales WHERE Clave = 'DescripcionContacto'
+END
+
+INSERT INTO TextosGenerales (Clave, Valor)
+VALUES ('DescripcionContacto', 'Aquí podrán enviar consultas, sugerencias o reclamos. Estamos para ayudarte en lo que necesites.');
+
+
 INSERT INTO Rol (NombreRol) VALUES ('Cliente');
 INSERT INTO Rol (NombreRol) VALUES ('Administrador');
 
@@ -249,3 +272,5 @@ SELECT
 FROM Usuario u
 INNER JOIN DireccionUsuario d ON u.UsuarioID = d.UsuarioID
 WHERE u.UsuarioID = 11;
+
+

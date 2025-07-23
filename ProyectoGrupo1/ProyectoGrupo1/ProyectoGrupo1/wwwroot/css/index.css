@@ -99,3 +99,147 @@
     }
 }
 
+---
+/* Reset básico */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-top: 40px;
+}
+
+/* Contenedor del formulario */
+form {
+    background: #fff;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+    /* Etiquetas */
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+        font-weight: bold;
+    }
+
+    /* Inputs y textarea */
+    form input[type="text"],
+    form input[type="email"],
+    form textarea {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        transition: border-color 0.3s;
+        font-size: 15px;
+    }
+
+        form input[type="text"]:focus,
+        form input[type="email"]:focus,
+        form textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+    /* Botón */
+    form button {
+        background: #007bff;
+        color: #fff;
+        border: none;
+        padding: 12px 25px;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+
+        form button:hover {
+            background: #0056b3;
+        }
+
+/* Mensaje de confirmación */
+p {
+    text-align: center;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* Mensajes de error */
+span[style*="color:red"] {
+    display: block;
+    margin-top: -15px;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.descripcion {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+form div {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+    input:focus, textarea:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+span.field-validation-error {
+    color: #d9534f;
+    font-size: 0.9rem;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    button:hover {
+        background-color: #0056b3;
+    }
+
+.confirmacion {
+    color: green;
+    font-weight: 600;
+    margin-top: 20px;
+    text-align: center;
+}
+
+
+

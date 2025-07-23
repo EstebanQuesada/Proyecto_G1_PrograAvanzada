@@ -1,10 +1,15 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using ProyectoGrupo1.Services;
+
+var builder = WebApplication.CreateBuilder(args);
 
 
 builder.Services.AddSingleton<ProyectoGrupo1.Services.DbService>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<TextoService>();
+builder.Services.AddScoped<ContactoService>();
+
 
 var app = builder.Build();
 
@@ -13,6 +18,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
