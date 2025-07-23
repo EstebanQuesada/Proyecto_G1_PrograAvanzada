@@ -1,0 +1,39 @@
+# Carpeta de configuración local de Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Archivos de caché y temporales
+*.vsidx
+*.v9.bin
+*.cache
+*.log
+*.tmp
+*.bak
+
+# Archivos de compilación
+bin/
+obj/
+*.dll
+*.exe
+
+# Archivos de paquetes
+packages/
+project.lock.json
+project.assets.json
+
+# Archivos de configuración del editor
+*.json
+!appsettings.json
+*.backup.json
+
+# Archivos de depuración
+*.pdb
+*.mdb
+
+# Otros archivos innecesarios
+*.dbmdl
+*.db
+*.sqlite
