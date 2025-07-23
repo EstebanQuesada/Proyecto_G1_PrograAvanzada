@@ -100,7 +100,6 @@
 }
 
 ---
-/* Reset básico */
 body {
     font-family: Arial, Helvetica, sans-serif;
     background: #f4f4f4;
@@ -114,7 +113,6 @@ h1 {
     margin-top: 40px;
 }
 
-/* Contenedor del formulario */
 form {
     background: #fff;
     max-width: 500px;
@@ -124,7 +122,6 @@ form {
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-    /* Etiquetas */
     form label {
         display: block;
         margin-bottom: 5px;
@@ -132,7 +129,6 @@ form {
         font-weight: bold;
     }
 
-    /* Inputs y textarea */
     form input[type="text"],
     form input[type="email"],
     form textarea {
@@ -152,7 +148,6 @@ form {
             outline: none;
         }
 
-    /* Botón */
     form button {
         background: #007bff;
         color: #fff;
@@ -168,14 +163,12 @@ form {
             background: #0056b3;
         }
 
-/* Mensaje de confirmación */
 p {
     text-align: center;
     font-size: 16px;
     margin-top: 20px;
 }
 
-/* Mensajes de error */
 span[style*="color:red"] {
     display: block;
     margin-top: -15px;
@@ -240,6 +233,23 @@ button {
     margin-top: 20px;
     text-align: center;
 }
+
+.card {
+    border-radius: 6px;
+}
+
+h2 {
+    margin-bottom: 30px;
+}
+
+.btn-dark {
+    background: #333;
+    border: none;
+}
+
+    .btn-dark:hover {
+        background: #000;
+    }
 
 
 

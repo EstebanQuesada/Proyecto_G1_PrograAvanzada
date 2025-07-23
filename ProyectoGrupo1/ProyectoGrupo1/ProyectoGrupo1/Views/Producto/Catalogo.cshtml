@@ -6,34 +6,63 @@
 
 <h2 class="text-center mb-4">Catálogo de Productos</h2>
 
-<form method="get" asp-action="Catalogo" class="mb-4">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <select name="categoria" class="form-select" onchange="this.form.submit()">
-                <option value="">-- Todas las categorías --</option>
-                @foreach (var cat in (List<string>)ViewBag.Categorias)
-                {
-                    <option value="@cat" selected="@(cat == (string)ViewBag.CategoriaSeleccionada ? "selected" : null)">@cat</option>
-                }
-            </select>
+<form method="get" asp-action="Catalogo" class="mb-5">
+    <div class="card p-4 shadow-sm">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <input type="text" name="busqueda" class="form-control" placeholder="Buscar por nombre..."
+                       value="@ViewBag.Busqueda" />
+            </div>
+
+            <div class="col-md-3">
+                <select name="categoria" class="form-select">
+                    <option value="">-- Todas las categorías --</option>
+                    @foreach (var cat in (List<string>)ViewBag.Categorias)
+                    {
+                        <option value="@cat" selected="@(cat == (string)ViewBag.CategoriaSeleccionada ? "selected" : null)">
+                            @cat
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <input type="number" step="0.01" name="precioMin" class="form-control" placeholder="Precio mínimo"
+                       value="@ViewBag.PrecioMin" />
+            </div>
+
+            <div class="col-md-2">
+                <input type="number" step="0.01" name="precioMax" class="form-control" placeholder="Precio máximo"
+                       value="@ViewBag.PrecioMax" />
+            </div>
+
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-dark w-100">Buscar</button>
+            </div>
         </div>
     </div>
 </form>
+
+<hr />
 
 <div class="row row-cols-1 row-cols-md-3 g-4">
     @foreach (var producto in Model)
     {
         <div class="col">
             <div class="card h-100 shadow-sm">
-                <img src="@producto.UrlImagenPrincipal" class="card-img-top" alt="@producto.Nombre" style="height: 250px; object-fit: cover;">
+                <img src="@producto.UrlImagenPrincipal" class="card-img-top" alt="@producto.Nombre"
+                     style="height: 250px; object-fit: cover;">
                 <div class="card-body">
                     <h5 class="card-title">@producto.Nombre</h5>
                     <p class="card-text text-muted">@producto.Categoria</p>
                     <p class="card-text">@producto.DescripcionCorta</p>
                     <p class="fw-bold text-success">₡@producto.Precio</p>
-                    <a href="@Url.Action("Detalle", "Producto", new { id = producto.ProductoID })" class="btn btn-dark w-100">Ver Detalles</a>
+                    <a href="@Url.Action("Detalle", "Producto", new { id = producto.ProductoID })"
+                       class="btn btn-dark w-100">Ver Detalles</a>
                 </div>
             </div>
         </div>
     }
 </div>
+
+

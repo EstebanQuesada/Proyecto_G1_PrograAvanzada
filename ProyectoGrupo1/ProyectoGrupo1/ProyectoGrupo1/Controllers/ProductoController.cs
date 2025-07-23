@@ -1,41 +1,72 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoGrupo1.Models;
 using ProyectoGrupo1.Service;
+using System.Linq;
 
-public class ProductoController : Controller
+namespace ProyectoGrupo1.Controllers
 {
-    private readonly ProductoService _productoService;
-
-    public ProductoController(ProductoService productoService)
+    public class ProductoController : Controller
     {
-        _productoService = productoService;
-    }
+        private readonly ProductoService _productoService;
 
-    public IActionResult Catalogo(string categoria = null)
-    {
-        var productos = _productoService.ObtenerProductosCatalogo();
-
-        if (!string.IsNullOrEmpty(categoria))
+        public ProductoController(ProductoService productoService)
         {
-            productos = productos.Where(p => p.Categoria == categoria).ToList();
+            _productoService = productoService;
         }
 
-        ViewBag.Categorias = _productoService.ObtenerCategorias();
-        ViewBag.CategoriaSeleccionada = categoria;
-
-        return View(productos);
-    }
-
-    public IActionResult Detalle(int id)
-    {
-        var producto = _productoService.ObtenerDetalleProducto(id);
-        if (producto == null)
+        public IActionResult Catalogo(
+            string busqueda = null,
+            string categoria = null,
+            decimal? precioMin = null,
+            decimal? precioMax = null)
         {
-            return NotFound();
+            var productos = _productoService.ObtenerProductosCatalogo();
+
+            if (!string.IsNullOrEmpty(busqueda))
+            {
+                productos = productos
+                    .Where(p => p.Nombre != null && p.Nombre.Contains(busqueda, System.StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
+            if (!string.IsNullOrEmpty(categoria))
+            {
+                productos = productos
+                    .Where(p => p.Categoria == categoria)
+                    .ToList();
+            }
+
+            if (precioMin.HasValue)
+            {
+                productos = productos
+                    .Where(p => p.Precio >= precioMin.Value)
+                    .ToList();
+            }
+            if (precioMax.HasValue)
+            {
+                productos = productos
+                    .Where(p => p.Precio <= precioMax.Value)
+                    .ToList();
+            }
+
+            ViewBag.Categorias = _productoService.ObtenerCategorias();
+            ViewBag.CategoriaSeleccionada = categoria;
+            ViewBag.Busqueda = busqueda;
+            ViewBag.PrecioMin = precioMin;
+            ViewBag.PrecioMax = precioMax;
+
+            return View(productos);
         }
 
-        return View(producto);
+        public IActionResult Detalle(int id)
+        {
+            var producto = _productoService.ObtenerDetalleProducto(id);
+            if (producto == null)
+            {
+                return NotFound();
+            }
+            return View(producto);
+        }
     }
-
 }
+
