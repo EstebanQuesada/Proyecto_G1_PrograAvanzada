@@ -273,4 +273,93 @@ FROM Usuario u
 INNER JOIN DireccionUsuario d ON u.UsuarioID = d.UsuarioID
 WHERE u.UsuarioID = 11;
 
+--inserts de categorias
+INSERT INTO CategoriaProducto (NombreCategoria) VALUES ('Camisas'), ('Pantalones'), ('Zapatos');
+
+INSERT INTO Marca (NombreMarca) VALUES ('Nike'), ('Adidas'), ('Zara');
+
+INSERT INTO Proveedor (NombreProveedor, Correo, Telefono)
+VALUES ('Proveedor A', 'proveedorA@mail.com', '1111-2222');
+
+--inserts de productos
+INSERT INTO Producto (Nombre, Descripcion, Precio, CategoriaID, MarcaID, ProveedorID)
+VALUES 
+('Camisa Blanca', 'Camisa blanca de algodón, ideal para clima cálido.', 12900, 1, 3, 1),
+('Pantalón Casual', 'Pantalón cómodo de mezclilla para uso diario.', 19900, 2, 2, 1),
+('Zapatos Deportivos', 'Zapatos livianos y cómodos para correr.', 34900, 3, 1, 1);
+
+INSERT INTO Producto (Nombre, Descripcion, Precio, CategoriaID, MarcaID, ProveedorID)
+VALUES 
+('Camisa Negra', 'Camisa de Mujer negra de algodón', 25000, 1, 1, 1),
+('Camisa Adidas','Camisa blanco con verde', 22000, 1, 2, 1),
+('Pantalon Mujer', 'Pantalon negro casual', 30000, 2,1, 1),
+('Pantalon Zara Hombre','Pantalon de mezclilla', 32000, 2, 3,1);
+
+
+--insert de imagenes 
+INSERT INTO ImagenProducto (ProductoID, UrlImagen) 
+VALUES 
+(1, 'https://static.zara.net/assets/public/575b/1329/64dd4d359b7e/7d1416255c09/07446431250-p/07446431250-p.jpg?ts=1738314991683&w={width}'),
+(2, 'https://www.hola.com/horizon/original_aspect_ratio/bbb788e9ffd9-chaleco-a.jpg'),
+(3, 'https://img.pacifiko.com/PROD/resize/1/500x500/Y2FkY2UxYj.jpg');
+
+INSERT INTO ImagenProducto (ProductoID, UrlImagen) 
+VALUES 
+(4, 'https://dpjye2wk9gi5z.cloudfront.net/wcsstore/ExtendedSitesCatalogAssetStore/images/catalog/zoom/3020471-0002V1.jpg'),
+(5, 'https://resize.sprintercdn.com/b/1440x2160/products/0394116/adidas-collegiate_0394116_00_5_1322578255.jpg?w=1440&q=75'),
+(6, 'https://woker.vtexassets.com/arquivos/ids/524375-800-800?v=638672829049170000&width=800&height=800&aspect=true'),
+(7, 'https://static.zara.net/assets/public/4529/0343/9ec149a0b17f/a391362a4d7e/08062410406-p/08062410406-p.jpg?ts=1741276877704&w=560&f=auto');
+
+---inserts de tallas
+INSERT INTO Talla (NombreTalla) VALUES ('S'), ('M'), ('L'),('40');
+INSERT INTO Color (NombreColor) VALUES ('Blanco'), ('Azul'), ('Negro');
+
+---vinculacion producto con talla y color+ stock
+-- Camisa Blanca
+INSERT INTO ProductoTallaColor (ProductoID, TallaID, ColorID, Stock)
+VALUES 
+(1, 1, 1, 10), -- S, Blanco
+(1, 2, 1, 5);  -- M, Blanco
+
+--camisa negra
+INSERT INTO ProductoTallaColor (ProductoID, TallaID, ColorID, Stock)
+VALUES 
+(4, 2, 3, 11),
+(4, 3, 3, 15);
+
+--camisa adidas blanco
+INSERT INTO ProductoTallaColor (ProductoID, TallaID, ColorID, Stock)
+VALUES 
+(5, 1, 1, 4),
+(5, 2, 1, 8);
+
+-- Pantalón
+INSERT INTO ProductoTallaColor (ProductoID, TallaID, ColorID, Stock)
+VALUES 
+(2, 2, 3, 7), -- M, negro
+(2, 3, 3, 3); -- L, negro
+
+--pantalon mujer negro
+INSERT INTO ProductoTallaColor (ProductoID, TallaID, ColorID, Stock)
+VALUES 
+(6, 1, 3, 15),
+(6, 3, 3, 16);
+
+---pantalon azul hombre
+INSERT INTO ProductoTallaColor (ProductoID, TallaID, ColorID, Stock)
+VALUES 
+(7, 2, 2, 20),
+(7, 3, 2, 16);
+
+-- Zapatos
+INSERT INTO ProductoTallaColor (ProductoID, TallaID, ColorID, Stock)
+VALUES 
+(3, 4, 1, 8); -- 40, blanco
+
+
+
+
+
+
+
 

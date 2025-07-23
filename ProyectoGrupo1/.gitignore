@@ -37,3 +37,29 @@ project.assets.json
 *.dbmdl
 *.db
 *.sqlite
+
+# Archivos temporales del editor
+*.dtbcache.v2
+*.futdcache.v2
+*.suo
+*.backup.json
+DocumentLayout.json
+
+# Ignorar archivos de configuración local de Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignorar archivos de caché de build
+bin/
+obj/
+
+# Ignorar cachés de proyectos
+*.db
+*.dbmdl
+*.dtbcache.v2
+*.futdcache.v2
+*.DocumentLayout.*
+*.backup.json

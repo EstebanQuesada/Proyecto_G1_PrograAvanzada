@@ -1,15 +1,15 @@
-﻿using ProyectoGrupo1.Services;
+﻿using ProyectoGrupo1.Service;
+using ProyectoGrupo1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddScoped<ProductoService>();
 builder.Services.AddSingleton<ProyectoGrupo1.Services.DbService>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<TextoService>();
 builder.Services.AddScoped<ContactoService>();
-
 
 var app = builder.Build();
 
