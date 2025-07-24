@@ -356,10 +356,45 @@ INSERT INTO ProductoTallaColor (ProductoID, TallaID, ColorID, Stock)
 VALUES 
 (3, 4, 1, 8); -- 40, blanco
 
+-- Insertar estados
+INSERT INTO EstadoPedido (NombreEstado) VALUES 
+('Pendiente'),
+('Procesando'),
+('Enviado'),
+('Entregado'),
+('Cancelado'),
+('Devuelto');
 
 
-
-
-
-
+CREATE OR ALTER PROCEDURE spObtenerHistorialPedidos
+    @UsuarioID INT
+AS
+BEGIN
+    SELECT 
+        p.PedidoID,
+        p.FechaPedido,
+        ep.NombreEstado,
+        dp.DetallePedidoID,
+        ptc.PTCID,
+        prod.Nombre AS Producto,
+        ptc.Stock,
+        c.NombreColor,
+        t.NombreTalla,
+        dp.Cantidad,
+        dp.PrecioUnitario,
+        ip.UrlImagen
+    FROM Pedido p
+    INNER JOIN EstadoPedido ep ON p.EstadoID = ep.EstadoID
+    INNER JOIN DetallePedido dp ON p.PedidoID = dp.PedidoID
+    INNER JOIN ProductoTallaColor ptc ON dp.PTCID = ptc.PTCID
+    INNER JOIN Producto prod ON ptc.ProductoID = prod.ProductoID
+    INNER JOIN Color c ON ptc.ColorID = c.ColorID
+    INNER JOIN Talla t ON ptc.TallaID = t.TallaID
+    LEFT JOIN ImagenProducto ip ON prod.ProductoID = ip.ProductoID
+        AND ip.ImagenID = (
+            SELECT MIN(ImagenID) FROM ImagenProducto WHERE ProductoID = prod.ProductoID
+        )
+    WHERE p.UsuarioID = @UsuarioID
+    ORDER BY p.FechaPedido DESC, p.PedidoID DESC
+END
 
