@@ -59,6 +59,6 @@ else
     </table>
     <div class="text-right">
         <h4>Total: @Model.Detalles.Sum(x => x.Subtotal).ToString("C")</h4>
-        <a asp-controller="Pedido" asp-action="Index" class="btn btn-success">Finalizar compra</a>
+        <a asp-controller="Pedido" asp-action="Checkout" class="btn btn-success">Finalizar compra</a>
     </div>
 } 

@@ -1,0 +1,78 @@
+@model ProyectoGrupo1.Models.Usuario
+@using ProyectoGrupo1.Models
+@{
+    ViewData["Title"] = "Proceso de Compra";
+    var carrito = ViewBag.Carrito as Carrito;
+}
+<h2>Proceso de Compra</h2>
+<form asp-action="Checkout" method="post" class="mb-4">
+    <div class="card p-4 mb-4">
+        <h4>Datos de Envío</h4>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Nombre</label>
+                <input type="text" name="Nombre" class="form-control" value="@Model.Nombre" required />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Apellido</label>
+                <input type="text" name="Apellido" class="form-control" value="@Model.Apellido" required />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Dirección</label>
+                <input type="text" name="Direccion" class="form-control" value="@Model.Direccion" required />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Ciudad</label>
+                <input type="text" name="Ciudad" class="form-control" value="@Model.Ciudad" required />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Provincia</label>
+                <input type="text" name="Provincia" class="form-control" value="@Model.Provincia" required />
+            </div>
+            <div class="col-md-6 mb-3">
+                <label>Código Postal</label>
+                <input type="text" name="CodigoPostal" class="form-control" value="@Model.CodigoPostal" required />
+            </div>
+        </div>
+    </div>
+    <div class="card p-4 mb-4">
+        <h4>Método de Pago</h4>
+        <select name="MetodoPago" class="form-select" required>
+            <option value="Tarjeta">Tarjeta de crédito/débito</option>
+            <option value="Transferencia">Transferencia bancaria</option>
+            <option value="Efectivo">Efectivo</option>
+        </select>
+    </div>
+    <div class="card p-4 mb-4">
+        <h4>Resumen del Carrito</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Talla</th>
+                    <th>Color</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in carrito.Detalles)
+                {
+                    <tr>
+                        <td>@item.NombreProducto</td>
+                        <td>@item.NombreTalla</td>
+                        <td>@item.NombreColor</td>
+                        <td>@item.Cantidad</td>
+                        <td>@item.PrecioUnitario.ToString("C")</td>
+                        <td>@item.Subtotal.ToString("C")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-end">
+            <strong>Total: @carrito.Detalles.Sum(x => x.Subtotal).ToString("C")</strong>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-success btn-lg w-100">Confirmar compra</button>
+</form> 
