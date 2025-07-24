@@ -1,0 +1,227 @@
+﻿@model ProyectoGrupo1.Models.HistorialPedidoViewModel
+
+@{
+    ViewData["Title"] = "Historial de Pedidos";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+
+@if (Model.Pedidos == null || !Model.Pedidos.Any())
+{
+    <p>No tienes pedidos registrados aún.</p>
+}
+else
+{
+    @* Historial de pedidos *@
+    foreach (var pedido in Model.Pedidos)
+    {
+        <div class="card mb-4">
+            <div class="card-header">
+                <strong>Pedido #@pedido.PedidoID</strong> - @pedido.FechaPedido.ToString("dd/MM/yyyy")
+                <span class="badge bg-info">@pedido.NombreEstado</span>
+            </div>
+            <div class="card-body">
+                <ul style="list-style:none; padding-left: 0;">
+                    @foreach (var detalle in pedido.Detalles)
+                    {
+                        <li class="d-flex align-items-center mb-2">
+                            <img src="@detalle.UrlImagen" alt="@detalle.Producto" style="width:60px; height:auto; margin-right:15px; object-fit:contain; border:1px solid #ccc; padding:2px;" />
+
+                            <span>
+                                <strong>@detalle.Producto</strong> - @detalle.NombreTalla / @detalle.NombreColor<br />
+                                Cantidad: @detalle.Cantidad, Precio Unitario: @detalle.PrecioUnitario.ToString("C")
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+}
+
+<hr />
+
+<h3>Agregar Pedido de Prueba</h3>
+
+<form asp-action="Index" method="post" novalidate>
+
+    <div class="mb-3">
+        <label asp-for="NuevoPedido.EstadoID" class="form-label">Estado del Pedido</label>
+        <select asp-for="NuevoPedido.EstadoID" class="form-select" asp-items="@(new SelectList(Model.Estados, "EstadoID", "NombreEstado"))"></select>
+        <span asp-validation-for="NuevoPedido.EstadoID" class="text-danger"></span>
+    </div>
+
+    <h4>Detalles del Pedido</h4>
+
+    <table class="table" id="tablaDetalles">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio Unitario</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.NuevoPedido?.Detalles != null && Model.NuevoPedido.Detalles.Count > 0)
+            {
+                @for (int i = 0; i < Model.NuevoPedido.Detalles.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <select asp-for="@Model.NuevoPedido.Detalles[i].PTCID" class="form-select"
+                                    name="NuevoPedido.Detalles[@i].PTCID">
+                                <option value="">--Selecciona producto--</option>
+                                @foreach (var producto in Model.ProductosPTC)
+                                {
+                                    <option value="@producto.PTCID"
+                                            selected="@(producto.PTCID == Model.NuevoPedido.Detalles[i].PTCID ? "selected" : null)">
+                                        @producto.NombreCompuesto
+                                    </option>
+                                }
+                            </select>
+                            <span asp-validation-for="@Model.NuevoPedido.Detalles[i].PTCID" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input asp-for="@Model.NuevoPedido.Detalles[i].Cantidad" class="form-control"
+                                   type="number" min="1" name="NuevoPedido.Detalles[@i].Cantidad" />
+                            <span asp-validation-for="@Model.NuevoPedido.Detalles[i].Cantidad" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input asp-for="@Model.NuevoPedido.Detalles[i].PrecioUnitario" class="form-control"
+                                   type="number" step="0.01" min="0" name="NuevoPedido.Detalles[@i].PrecioUnitario" />
+                            <span asp-validation-for="@Model.NuevoPedido.Detalles[i].PrecioUnitario" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="eliminarFila(this)">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>
+                        <select class="form-select" name="NuevoPedido.Detalles[0].PTCID">
+                            <option value="">--Selecciona producto--</option>
+                            @foreach (var producto in Model.ProductosPTC)
+                            {
+                                <option value="@producto.PTCID">@producto.NombreCompuesto</option>
+                            }
+                        </select>
+                    </td>
+                    <td>
+                        <input class="form-control" type="number" min="1" value="1" name="NuevoPedido.Detalles[0].Cantidad" />
+                    </td>
+                    <td>
+                        <input class="form-control" type="number" step="0.01" min="0" value="0" name="NuevoPedido.Detalles[0].PrecioUnitario" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="eliminarFila(this)">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-secondary mb-3" onclick="agregarFila()">Agregar Detalle</button>
+
+    <div>
+        <button type="submit" class="btn btn-primary">Guardar Pedido</button>
+    </div>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        // Productos para añadir
+        const productos = [
+        @foreach (var producto in Model.ProductosPTC)
+        {
+            @: { value: '@producto.PTCID', text: '@producto.NombreCompuesto' },
+        }
+        ];
+
+        function agregarFila() {
+            const tabla = document.getElementById('tablaDetalles').getElementsByTagName('tbody')[0];
+            const rowCount = tabla.rows.length;
+            const row = tabla.insertRow(rowCount);
+
+            // Producto
+            let cellProducto = row.insertCell(0);
+            let selectProducto = document.createElement('select');
+            selectProducto.name = `NuevoPedido.Detalles[${rowCount}].PTCID`;
+            selectProducto.className = 'form-select';
+
+            let optionDefault = document.createElement('option');
+            optionDefault.value = '';
+            optionDefault.text = '--Selecciona producto--';
+            selectProducto.appendChild(optionDefault);
+
+            productos.forEach(p => {
+                let option = document.createElement('option');
+                option.value = p.value;
+                option.text = p.text;
+                selectProducto.appendChild(option);
+            });
+            cellProducto.appendChild(selectProducto);
+
+            // Cantidad
+            let cellCantidad = row.insertCell(1);
+            let inputCantidad = document.createElement('input');
+            inputCantidad.type = 'number';
+            inputCantidad.name = `NuevoPedido.Detalles[${rowCount}].Cantidad`;
+            inputCantidad.min = '1';
+            inputCantidad.value = '1';
+            inputCantidad.className = 'form-control';
+            cellCantidad.appendChild(inputCantidad);
+
+            // Precio unitario
+            let cellPrecio = row.insertCell(2);
+            let inputPrecio = document.createElement('input');
+            inputPrecio.type = 'number';
+            inputPrecio.name = `NuevoPedido.Detalles[${rowCount}].PrecioUnitario`;
+            inputPrecio.step = '0.01';
+            inputPrecio.min = '0';
+            inputPrecio.value = '0';
+            inputPrecio.className = 'form-control';
+            cellPrecio.appendChild(inputPrecio);
+
+            // Boton eliminar
+            let cellAccion = row.insertCell(3);
+            let btnEliminar = document.createElement('button');
+            btnEliminar.type = 'button';
+            btnEliminar.className = 'btn btn-danger btn-sm';
+            btnEliminar.textContent = 'Eliminar';
+            btnEliminar.onclick = function () { eliminarFila(btnEliminar); };
+            cellAccion.appendChild(btnEliminar);
+        }
+
+        function eliminarFila(btn) {
+            let row = btn.closest('tr');
+            row.remove();
+            actualizarNombres();
+        }
+
+        function actualizarNombres() {
+            const tabla = document.getElementById('tablaDetalles').getElementsByTagName('tbody')[0];
+            for (let i = 0; i < tabla.rows.length; i++) {
+                let row = tabla.rows[i];
+                row.querySelector('select').name = `NuevoPedido.Detalles[${i}].PTCID`;
+                row.querySelectorAll('input[type=number]')[0].name = `NuevoPedido.Detalles[${i}].Cantidad`;
+                row.querySelectorAll('input[type=number]')[1].name = `NuevoPedido.Detalles[${i}].PrecioUnitario`;
+            }
+        }
+    </script>
+}
