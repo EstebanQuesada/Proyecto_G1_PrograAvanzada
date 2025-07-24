@@ -4,6 +4,7 @@ using ProyectoGrupo1.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ProductoService>();
+builder.Services.AddScoped<CarritoService>();
 builder.Services.AddSingleton<ProyectoGrupo1.Services.DbService>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();

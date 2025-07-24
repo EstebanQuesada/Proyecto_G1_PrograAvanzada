@@ -65,6 +65,8 @@ namespace ProyectoGrupo1.Controllers
             {
                 return NotFound();
             }
+            // Obtener combinaciones de talla y color (PTC)
+            ViewBag.PTCs = _productoService.ObtenerPTCDeProducto(id);
             return View(producto);
         }
     }

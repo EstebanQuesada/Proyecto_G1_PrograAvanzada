@@ -87,6 +87,19 @@
             }
         }
 
+        public List<ProductoTallaColor> ObtenerPTCDeProducto(int productoId)
+        {
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var sql = @"
+            SELECT ptc.PTCID, ptc.ProductoID, ptc.TallaID, ptc.ColorID, ptc.Stock, t.NombreTalla, c.NombreColor
+            FROM ProductoTallaColor ptc
+            INNER JOIN Talla t ON ptc.TallaID = t.TallaID
+            INNER JOIN Color c ON ptc.ColorID = c.ColorID
+            WHERE ptc.ProductoID = @ProductoID";
+                return connection.Query<ProductoTallaColor>(sql, new { ProductoID = productoId }).ToList();
+            }
+        }
 
     }
 

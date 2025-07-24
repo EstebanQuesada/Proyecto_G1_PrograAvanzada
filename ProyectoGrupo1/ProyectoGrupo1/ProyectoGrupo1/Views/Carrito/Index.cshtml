@@ -1,0 +1,64 @@
+@model ProyectoGrupo1.Models.Carrito
+@{
+    ViewData["Title"] = "Carrito de Compras";
+}
+<h2>Carrito de Compras</h2>
+@if (Model.Detalles.Count == 0)
+{
+    <div class="alert alert-info">Tu carrito está vacío.</div>
+}
+else
+{
+    <form asp-action="Vaciar" method="post">
+        <button type="submit" class="btn btn-danger mb-3">Vaciar carrito</button>
+    </form>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Producto</th>
+                <th>Talla</th>
+                <th>Color</th>
+                <th>Cantidad</th>
+                <th>Precio unitario</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.Detalles)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.UrlImagen))
+                    {
+                        <img src="@item.UrlImagen" alt="Imagen" width="60" />
+                    }
+                </td>
+                <td>@item.NombreProducto</td>
+                <td>@item.NombreTalla</td>
+                <td>@item.NombreColor</td>
+                <td>
+                    <form asp-action="ModificarCantidad" method="post" style="display:inline-flex;">
+                        <input type="hidden" name="detalleId" value="@item.DetalleID" />
+                        <input type="number" name="cantidad" value="@item.Cantidad" min="1" class="form-control" style="width:70px;" />
+                        <button type="submit" class="btn btn-sm btn-primary ml-2">Actualizar</button>
+                    </form>
+                </td>
+                <td>@item.PrecioUnitario.ToString("C")</td>
+                <td>@item.Subtotal.ToString("C")</td>
+                <td>
+                    <form asp-action="Eliminar" method="post" style="display:inline;">
+                        <input type="hidden" name="detalleId" value="@item.DetalleID" />
+                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div class="text-right">
+        <h4>Total: @Model.Detalles.Sum(x => x.Subtotal).ToString("C")</h4>
+        <a asp-controller="Pedido" asp-action="Index" class="btn btn-success">Finalizar compra</a>
+    </div>
+} 

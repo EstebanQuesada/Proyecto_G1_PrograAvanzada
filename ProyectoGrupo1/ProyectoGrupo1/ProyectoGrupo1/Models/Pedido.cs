@@ -72,5 +72,7 @@ namespace ProyectoGrupo1.Models
         public int ColorID { get; set; }
         public int Stock { get; set; }
         public string NombreCompuesto { get; set; } = string.Empty;
+        public string NombreTalla { get; set; } = string.Empty;
+        public string NombreColor { get; set; } = string.Empty;
     }
 }
