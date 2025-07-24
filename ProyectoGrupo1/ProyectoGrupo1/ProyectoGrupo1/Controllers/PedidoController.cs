@@ -156,5 +156,30 @@ namespace ProyectoGrupo1.Controllers
             ViewBag.Mensaje = TempData["Confirmacion"];
             return View();
         }
+
+        [HttpPost]
+        public IActionResult VolverAPedir(int pedidoId)
+        {
+            int? usuarioId = HttpContext.Session.GetInt32("UsuarioID");
+            if (usuarioId == null)
+                return RedirectToAction("Login", "Usuario");
+
+            // Obtener detalles del pedido
+            var pedidoService = new ProyectoGrupo1.Services.PedidoService(HttpContext.RequestServices.GetService<IConfiguration>());
+            var pedidos = pedidoService.ObtenerHistorialPedidos(usuarioId.Value);
+            var pedido = pedidos.FirstOrDefault(p => p.PedidoID == pedidoId);
+            if (pedido == null)
+                return RedirectToAction("Index");
+
+            // Agregar productos al carrito
+            var carritoService = new ProyectoGrupo1.Service.CarritoService(HttpContext.RequestServices.GetService<IConfiguration>());
+            foreach (var detalle in pedido.Detalles)
+            {
+                carritoService.AgregarOActualizarProducto(usuarioId.Value, detalle.PTCID, detalle.Cantidad);
+            }
+
+            TempData["Mensaje"] = "Los productos de este pedido se han agregado a tu carrito.";
+            return RedirectToAction("Index", "Carrito");
+        }
     }
 }

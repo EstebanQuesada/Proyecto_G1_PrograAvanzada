@@ -16,6 +16,7 @@ namespace ProyectoGrupo1.Models
     public class DetallePedido
     {
         public int DetallePedidoID { get; set; }
+        public int PTCID { get; set; } // Necesario para volver a pedir
         public string Producto { get; set; } = string.Empty;
         public string NombreColor { get; set; } = string.Empty;
         public string NombreTalla { get; set; } = string.Empty;

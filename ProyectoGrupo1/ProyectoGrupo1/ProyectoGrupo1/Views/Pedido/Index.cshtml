@@ -44,6 +44,10 @@ else
                         </li>
                     }
                 </ul>
+                <form asp-action="VolverAPedir" method="post" class="mt-3">
+                    <input type="hidden" name="pedidoId" value="@pedido.PedidoID" />
+                    <button type="submit" class="btn btn-outline-primary">Volver a pedir</button>
+                </form>
             </div>
         </div>
     }
