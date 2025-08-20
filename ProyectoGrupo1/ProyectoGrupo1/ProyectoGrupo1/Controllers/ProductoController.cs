@@ -4,6 +4,7 @@ using ProyectoGrupo1.Service;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 
+
 public class ProductoController : Controller
 {
     private readonly ApiProductoClient _api;
@@ -16,11 +17,8 @@ public class ProductoController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Catalogo(
-        string? busqueda = null,
-        string? categoria = null,
-        decimal? precioMin = null,
-        decimal? precioMax = null)
+    public async Task<IActionResult> Catalogo(string? busqueda = null, string? categoria = null,
+                                              decimal? precioMin = null, decimal? precioMax = null)
     {
         try
         {

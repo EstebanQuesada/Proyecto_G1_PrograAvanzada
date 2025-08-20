@@ -5,6 +5,7 @@ using ProyectoGrupo1.Models;
 using ProyectoGrupo1.Service;
 using System.Linq;
 using System.Threading.Tasks;
+using MCarrito = ProyectoGrupo1.Models.Carrito;
 
 namespace ProyectoGrupo1.Controllers
 {
@@ -32,8 +33,25 @@ namespace ProyectoGrupo1.Controllers
             var usuarioId = GetUsuarioId();
             if (usuarioId == null) return RedirectToAction("Login", "Usuario");
 
-            var carrito = _carritoService.ObtenerCarritoPorUsuario(usuarioId.Value);
-            return View(carrito);
+            var vm = _carritoService.ObtenerCarritoPorUsuario(usuarioId.Value);
+
+            var model = new Carrito
+            {
+                UsuarioID = usuarioId.Value,
+                Detalles = vm.Detalles.Select(d => new DetalleCarrito
+                {
+                    DetalleID = d.DetalleID,
+                    PTCID = d.PTCID,
+                    Cantidad = d.Cantidad,
+                    NombreProducto = d.NombreProducto ?? "",
+                    UrlImagen = d.UrlImagen ?? "",
+                    NombreTalla = d.NombreTalla ?? "",
+                    NombreColor = d.NombreColor ?? "",
+                    PrecioUnitario = d.PrecioUnitario
+                }).ToList()
+            };
+
+            return View(model); 
         }
 
         [HttpPost, ValidateAntiForgeryToken]
@@ -44,24 +62,43 @@ namespace ProyectoGrupo1.Controllers
             if (cantidad < 1) cantidad = 1;
 
             var ptc = await _api.PtcAsync(ptcId);
-            if (ptc == null) { TempData["Error"] = "La combinación no existe."; return RedirectToAction("Index"); }
+            if (ptc == null)
+            {
+                TempData["Error"] = "La combinación no existe.";
+                return RedirectToAction("Index", "Carrito");
+            }
 
             var carrito = _carritoService.ObtenerCarritoPorUsuario(usuarioId.Value);
             var existente = carrito.Detalles.FirstOrDefault(d => d.PTCID == ptcId);
             var yaEnCarrito = existente?.Cantidad ?? 0;
-
             var deseadoTotal = yaEnCarrito + cantidad;
-            var totalCapado = Math.Min(deseadoTotal, ptc.Stock);   
-
+            var totalCapado = Math.Min(deseadoTotal, ptc.Stock);
             if (totalCapado == yaEnCarrito)
             {
                 TempData["Error"] = "No hay stock disponible para agregar más unidades.";
-                return Redirect(Request.Headers["Referer"].ToString() ?? Url.Action("Index")!);
+                return RedirectToAction("Index", "Carrito");
             }
 
-            _carritoService.AgregarOActualizarProducto(usuarioId.Value, ptcId, totalCapado, maxStock: ptc.Stock);
-            return Redirect(Request.Headers["Referer"].ToString() ?? Url.Action("Index")!);
+            var prod = await _api.DetalleAsync(ptc.ProductoID);
+            var precio = prod?.Precio ?? 0m;
+            var imagen = prod?.Imagenes?.FirstOrDefault() ?? string.Empty;
+            var nombre = prod?.Nombre ?? string.Empty;
+
+            _carritoService.AgregarOActualizarProducto(
+                usuarioId.Value,
+                ptcId,
+                totalCapado,
+                maxStock: ptc.Stock,
+                nombreProducto: nombre,
+                nombreTalla: ptc.NombreTalla,
+                nombreColor: ptc.NombreColor,
+                precioUnitario: precio,
+                urlImagen: imagen
+            );
+
+            return RedirectToAction("Index", "Carrito");
         }
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ModificarCantidad(int detalleId, int cantidad)
@@ -77,12 +114,25 @@ namespace ProyectoGrupo1.Controllers
             var ptc = await _api.PtcAsync(det.PTCID);
             if (ptc == null) { TempData["Error"] = "No se pudo validar el stock."; return RedirectToAction("Index"); }
 
-            var cantidadFinal = Math.Min(cantidad, ptc.Stock);      // <- capado
-            _carritoService.AgregarOActualizarProducto(usuarioId.Value, det.PTCID, cantidadFinal, maxStock: ptc.Stock);
+            var nuevaCant = Math.Min(cantidad, ptc.Stock);
+
+            var prod = await _api.DetalleAsync(ptc.ProductoID);
+            _carritoService.AgregarOActualizarProducto(
+                usuarioId.Value,
+                det.PTCID,
+                nuevaCant,
+                maxStock: ptc.Stock,
+                nombreProducto: prod?.Nombre,
+                nombreTalla: ptc.NombreTalla,
+                nombreColor: ptc.NombreColor,
+                precioUnitario: prod?.Precio,
+                urlImagen: prod?.Imagenes?.FirstOrDefault()
+            );
 
             if (cantidad > ptc.Stock) TempData["Error"] = $"Cantidad ajustada al stock disponible ({ptc.Stock}).";
             return RedirectToAction("Index");
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]

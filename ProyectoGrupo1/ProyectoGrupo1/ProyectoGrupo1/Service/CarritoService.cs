@@ -1,141 +1,127 @@
+using System;
+using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using ProyectoGrupo1.Models;
 using Microsoft.AspNetCore.Http;
+using ProyectoGrupo1.Models;
 
 namespace ProyectoGrupo1.Service
 {
     public class CarritoService
     {
         private readonly IHttpContextAccessor _http;
-        private static readonly JsonSerializerOptions _json = new() { PropertyNameCaseInsensitive = true };
+        private const string SessionKeyPrefix = "CARRITO_";
 
-        public CarritoService(IHttpContextAccessor http) => _http = http;
-
-        private string Key(int usuarioId) => $"carrito:{usuarioId}";
-
-        private List<CarritoDetalle> Read(int usuarioId)
+        private static readonly JsonSerializerOptions _jsonOpts = new()
         {
-            var json = _http.HttpContext!.Session.GetString(Key(usuarioId));
-            return string.IsNullOrWhiteSpace(json)
-                ? new List<CarritoDetalle>()
-                : (JsonSerializer.Deserialize<List<CarritoDetalle>>(json, _json) ?? new List<CarritoDetalle>());
+            PropertyNameCaseInsensitive = true,
+            WriteIndented = false
+        };
+
+        public CarritoService(IHttpContextAccessor http)
+        {
+            _http = http ?? throw new ArgumentNullException(nameof(http));
         }
 
-        private void Write(int usuarioId, List<CarritoDetalle> detalles)
-        {
-            var json = JsonSerializer.Serialize(detalles, _json);
-            _http.HttpContext!.Session.SetString(Key(usuarioId), json);
-        }
+        private ISession Session =>
+            _http.HttpContext?.Session
+            ?? throw new InvalidOperationException("No hay HttpContext/Session disponible.");
 
-        private int NextDetalleId(List<CarritoDetalle> detalles) =>
-            detalles.Count == 0 ? 1 : detalles.Max(d => d.DetalleID) + 1;
+        private string Key(int usuarioId) => SessionKeyPrefix + usuarioId;
 
-        public CarritoViewModel ObtenerCarritoPorUsuario(int usuarioId)
+
+        public Carrito ObtenerCarritoPorUsuario(int usuarioId)
         {
-            var detalles = Read(usuarioId);
-            return new CarritoViewModel
+            var key = Key(usuarioId);
+            var json = Session.GetString(key);
+            if (string.IsNullOrWhiteSpace(json))
+                return new Carrito { UsuarioID = usuarioId };
+
+            try
             {
-                UsuarioID = usuarioId,
-                Detalles = detalles
-            };
-        }
-
-        public void AgregarOActualizarProducto(int usuarioId, int ptcId, int cantidad, int? maxStock = null, CarritoItemMeta? meta = null)
-        {
-            if (cantidad < 1) cantidad = 1;
-            if (maxStock.HasValue) cantidad = Math.Min(cantidad, Math.Max(1, maxStock.Value));
-
-            var detalles = Read(usuarioId);
-            var existente = detalles.FirstOrDefault(d => d.PTCID == ptcId);
-
-            if (existente == null)
-            {
-                var nuevo = new CarritoDetalle
-                {
-                    DetalleID = NextDetalleId(detalles),
-                    PTCID = ptcId,
-                    Cantidad = cantidad
-                };
-
-                if (meta != null) AplicarMeta(nuevo, meta);
-                detalles.Add(nuevo);
+                var carrito = JsonSerializer.Deserialize<Carrito>(json, _jsonOpts)
+                              ?? new Carrito { UsuarioID = usuarioId };
+                carrito.UsuarioID = usuarioId; 
+                return carrito;
             }
-            else
+            catch
             {
-                existente.Cantidad = cantidad;
-                if (meta != null) AplicarMeta(existente, meta);
+                return new Carrito { UsuarioID = usuarioId };
             }
+        }
 
-            Write(usuarioId, detalles);
+        public void GuardarCarrito(int usuarioId, Carrito carrito)
+        {
+            carrito.UsuarioID = usuarioId;
+            var json = JsonSerializer.Serialize(carrito, _jsonOpts);
+            Session.SetString(Key(usuarioId), json);
+        }
+
+        public void VaciarCarrito(int usuarioId)
+        {
+            Session.Remove(Key(usuarioId));
         }
 
         public void EliminarProducto(int usuarioId, int ptcId)
         {
-            var detalles = Read(usuarioId);
-            var idx = detalles.FindIndex(d => d.PTCID == ptcId);
-            if (idx >= 0) { detalles.RemoveAt(idx); Write(usuarioId, detalles); }
+            var carrito = ObtenerCarritoPorUsuario(usuarioId);
+            var det = carrito.Detalles.FirstOrDefault(d => d.PTCID == ptcId);
+            if (det != null)
+            {
+                carrito.Detalles.Remove(det);
+                GuardarCarrito(usuarioId, carrito);
+            }
         }
 
-        public void VaciarCarrito(int usuarioId) => Write(usuarioId, new List<CarritoDetalle>());
-
-        public int CantidadDe(int usuarioId, int ptcId)
+        public void AgregarOActualizarProducto(
+            int usuarioId,
+            int ptcId,
+            int cantidad,
+            int maxStock,
+            string? nombreProducto = null,
+            string? nombreTalla = null,
+            string? nombreColor = null,
+            decimal? precioUnitario = null,
+            string? urlImagen = null)
         {
-            var detalles = Read(usuarioId);
-            return detalles.FirstOrDefault(d => d.PTCID == ptcId)?.Cantidad ?? 0;
+            var carrito = ObtenerCarritoPorUsuario(usuarioId);
+
+            if (cantidad < 1) cantidad = 1;
+            var cantFinal = Math.Min(cantidad, maxStock);
+
+            var det = carrito.Detalles.FirstOrDefault(d => d.PTCID == ptcId);
+            if (det == null)
+            {
+                det = new DetalleCarrito
+                {
+                    DetalleID = GenerarDetalleId(carrito),
+                    PTCID = ptcId,
+                    Cantidad = cantFinal,
+                    NombreProducto = nombreProducto ?? "",
+                    NombreTalla = nombreTalla ?? "",
+                    NombreColor = nombreColor ?? "",
+                    PrecioUnitario = precioUnitario ?? 0,
+                    UrlImagen = urlImagen ?? ""
+                };
+                carrito.Detalles.Add(det);
+            }
+            else
+            {
+                det.Cantidad = cantFinal;
+                if (!string.IsNullOrWhiteSpace(nombreProducto)) det.NombreProducto = nombreProducto;
+                if (!string.IsNullOrWhiteSpace(nombreTalla)) det.NombreTalla = nombreTalla;
+                if (!string.IsNullOrWhiteSpace(nombreColor)) det.NombreColor = nombreColor;
+                if (precioUnitario.HasValue) det.PrecioUnitario = precioUnitario.Value;
+                if (!string.IsNullOrWhiteSpace(urlImagen)) det.UrlImagen = urlImagen;
+            }
+
+            GuardarCarrito(usuarioId, carrito);
         }
 
-        private static void AplicarMeta(CarritoDetalle item, CarritoItemMeta meta)
+
+        private static int GenerarDetalleId(Carrito carrito)
         {
-            if (meta.ProductoID.HasValue) item.ProductoID = meta.ProductoID.Value;
-            if (!string.IsNullOrWhiteSpace(meta.NombreProducto)) item.NombreProducto = meta.NombreProducto!;
-            if (!string.IsNullOrWhiteSpace(meta.Categoria)) item.Categoria = meta.Categoria!;
-            if (!string.IsNullOrWhiteSpace(meta.Talla)) item.Talla = meta.Talla!;
-            if (!string.IsNullOrWhiteSpace(meta.Color)) item.Color = meta.Color!;
-            if (!string.IsNullOrWhiteSpace(meta.UrlImagen)) item.UrlImagen = meta.UrlImagen!;
-            if (meta.PrecioUnitario.HasValue) item.PrecioUnitario = meta.PrecioUnitario.Value;
+            if (carrito.Detalles.Count == 0) return 1;
+            return carrito.Detalles.Max(d => d.DetalleID) + 1;
         }
-    }
-
-    public class CarritoViewModel
-    {
-        public int UsuarioID { get; set; }
-        public List<CarritoDetalle> Detalles { get; set; } = new();
-
-        [JsonIgnore]
-        public int TotalItems => Detalles.Sum(d => d.Cantidad);
-
-        [JsonIgnore]
-        public decimal Total => Math.Round(Detalles.Sum(d => d.Subtotal), 2);
-    }
-
-    public class CarritoDetalle
-    {
-        public int DetalleID { get; set; }
-        public int PTCID { get; set; }
-
-        public int ProductoID { get; set; }                
-        public string? NombreProducto { get; set; }        
-        public string? Categoria { get; set; }             
-        public string? Talla { get; set; }                 
-        public string? Color { get; set; }                  
-        public string? UrlImagen { get; set; }              
-        public decimal PrecioUnitario { get; set; }        
-
-        public int Cantidad { get; set; }
-
-        [JsonIgnore]
-        public decimal Subtotal => Math.Round(PrecioUnitario * Cantidad, 2);
-    }
-
-    public class CarritoItemMeta
-    {
-        public int? ProductoID { get; set; }
-        public string? NombreProducto { get; set; }
-        public string? Categoria { get; set; }
-        public string? Talla { get; set; }
-        public string? Color { get; set; }
-        public string? UrlImagen { get; set; }
-        public decimal? PrecioUnitario { get; set; }
     }
 }

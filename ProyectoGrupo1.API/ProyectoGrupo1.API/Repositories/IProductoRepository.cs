@@ -11,5 +11,7 @@ namespace ProyectoGrupo1.API.Repositories
         Task<IEnumerable<ProductoCatalogoDto>> CatalogoAsync(string? busqueda, string? categoria, decimal? precioMin, decimal? precioMax);
         Task<ProductoDetalleDto?> DetalleAsync(int productoId);
         Task<IEnumerable<string>> CategoriasAsync();
+        Task<ProductoTallaColorDto?> PtcPorIdAsync(int ptcId);
+
     }
 }

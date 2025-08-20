@@ -66,5 +66,21 @@ namespace ProyectoGrupo1.API.Controllers
                 return Problem("Ocurrió un error al obtener las categorías.", statusCode: 500);
             }
         }
+        [HttpGet("ptc/{ptcId:int}")]
+        public async Task<ActionResult<ProductoTallaColorDto>> GetPtc(int ptcId)
+        {
+            try
+            {
+                var ptc = await _repo.PtcPorIdAsync(ptcId);
+                if (ptc is null) return NotFound();
+                return Ok(ptc);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error obteniendo PTC {ptcId}", ptcId);
+                return Problem("Ocurrió un error al obtener la combinación.", statusCode: 500);
+            }
+        }
     }
 }
+

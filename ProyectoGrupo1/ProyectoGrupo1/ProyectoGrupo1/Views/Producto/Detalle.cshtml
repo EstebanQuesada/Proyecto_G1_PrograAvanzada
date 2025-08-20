@@ -1,26 +1,24 @@
 ﻿@model ProyectoGrupo1.Models.ProductoDetalleViewModel
-@using ProyectoGrupo1.Models
+@using System.Text.Json
+
 @{
     ViewData["Title"] = "Detalle del Producto";
-    var ptcs = ViewBag.PTCs as List<ProductoTallaColor>;
-    var ptcsJson = System.Text.Json.JsonSerializer.Serialize(ptcs);
-    var mensaje = TempData["Mensaje"] as string;
+    var ptcsJson = JsonSerializer.Serialize(Model.PTCs ?? new List<ProyectoGrupo1.Models.ProductoTallaColor>());
+    var tallas = Model.Tallas ?? new List<string>();
+    var colores = Model.Colores ?? new List<string>();
 }
-
 
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-6">
             @if (Model.Imagenes != null && Model.Imagenes.Count > 0)
             {
-                <div id="galeria" class="mb-3">
-                    <img src="@Model.Imagenes[0]" class="img-fluid border rounded" style="max-height: 400px;" alt="Imagen principal" />
-                    <div class="mt-3 d-flex gap-2">
-                        @foreach (var img in Model.Imagenes)
-                        {
-                            <img src="@img" width="70" height="70" style="object-fit: cover;" class="border rounded" />
-                        }
-                    </div>
+                <img src="@Model.Imagenes[0]" class="img-fluid border rounded mb-3" alt="Imagen principal" />
+                <div class="d-flex gap-2">
+                    @foreach (var img in Model.Imagenes)
+                    {
+                        <img src="@img" width="70" height="70" style="object-fit:cover" class="border rounded" />
+                    }
                 </div>
             }
         </div>
@@ -31,88 +29,104 @@
             <p>@Model.Descripcion</p>
             <h4 class="text-success">₡@Model.Precio</h4>
 
-            @if (!string.IsNullOrEmpty(mensaje))
+            @if (TempData["Mensaje"] is string ok && !string.IsNullOrWhiteSpace(ok))
             {
-                <div class="alert alert-success">@mensaje</div>
+                <div class="alert alert-success">@ok</div>
+            }
+            @if (TempData["Error"] is string err && !string.IsNullOrWhiteSpace(err))
+            {
+                <div class="alert alert-warning">@err</div>
             }
 
-            <form asp-controller="Carrito" asp-action="Agregar" method="post">
+            <form asp-controller="Carrito" asp-action="Agregar" method="post" class="mt-3">
+                @Html.AntiForgeryToken()
+
                 <div class="mb-2">
                     <label><strong>Talla:</strong></label>
                     <select id="tallaSelect" class="form-select">
                         <option value="">Seleccione una talla</option>
-                        @foreach (var talla in Model.Tallas)
+                        @foreach (var t in tallas)
                         {
-                            <option value="@talla">@talla</option>
+                            <option value="@t">@t</option>
                         }
                     </select>
                 </div>
 
-                <div class="mb-3">
+                <div class="mb-2">
                     <label><strong>Color:</strong></label>
                     <select id="colorSelect" class="form-select">
                         <option value="">Seleccione un color</option>
-                        @foreach (var color in Model.Colores)
+                        @foreach (var c in colores)
                         {
-                            <option value="@color">@color</option>
+                            <option value="@c">@c</option>
                         }
                     </select>
                 </div>
 
-                <input type="hidden" id="ptcIdInput" name="ptcId" />
-                <div class="mb-3">
-                    <label><strong>Cantidad:</strong></label>
-                    <div class="d-flex align-items-center gap-3">
-                        <input id="cantidadInput" type="number" name="cantidad" value="1" min="1" class="form-control" style="width:120px;" />
-                        <span id="stockDisponible" class="badge bg-secondary"></span>
+                <div class="mb-3 d-flex align-items-center gap-2">
+                    <div>
+                        <label><strong>Cantidad:</strong></label>
+                        <input id="cantidadInput" type="number" name="cantidad" value="1" min="1" class="form-control" style="width:100px;">
                     </div>
+                    <span id="stockBadge" class="badge bg-secondary">Stock: —</span>
                 </div>
-                <button type="submit" class="btn btn-primary w-100" id="agregarCarritoBtn" disabled>Agregar al carrito</button>
+
+                <input type="hidden" id="ptcIdInput" name="ptcId" value="0" />
+
+                <button id="agregarBtn" type="submit" class="btn btn-primary w-100" disabled>Agregar al carrito</button>
             </form>
-
-            <script>
-                const ptcs = @Html.Raw(ptcsJson);
-                const tallaSelect = document.getElementById('tallaSelect');
-                const colorSelect = document.getElementById('colorSelect');
-                const ptcIdInput  = document.getElementById('ptcIdInput');
-                const cantidadInput = document.getElementById('cantidadInput');
-                const agregarBtn  = document.getElementById('agregarCarritoBtn');
-                const stockBadge  = document.getElementById('stockDisponible');
-
-                function actualizarPTC() {
-                  const talla = tallaSelect.value;
-                  const color = colorSelect.value;
-
-                  const ptc = ptcs.find(x => x.NombreTalla === talla && x.NombreColor === color);
-
-                  if (ptc) {
-                    ptcIdInput.value = ptc.PTCID;
-
-                    const max = ptc.Stock || 0;
-                    cantidadInput.max = max > 0 ? max : 1;
-
-                    const actual = parseInt(cantidadInput.value || "1", 10);
-                    cantidadInput.value = Math.min(Math.max(1, actual), Math.max(1, max));
-
-                    agregarBtn.disabled = (max === 0);
-                    stockBadge.textContent = max === 0 ? "Sin stock" : `Stock: ${max}`;
-                    stockBadge.className = `badge ${max === 0 ? 'bg-danger' : 'bg-secondary'}`;
-                  } else {
-                    ptcIdInput.value = '';
-                    agregarBtn.disabled = true;
-                    stockBadge.textContent = '';
-                    cantidadInput.value = 1;
-                    cantidadInput.removeAttribute('max');
-                  }
-                }
-
-                tallaSelect.addEventListener('change', actualizarPTC);
-                colorSelect.addEventListener('change', actualizarPTC);
-                actualizarPTC();
-            </script>
-
         </div>
     </div>
-}
+</div>
 
+@section Scripts {
+    <script>
+        const ptcs = @Html.Raw(ptcsJson);
+
+        const tallaSel   = document.getElementById('tallaSelect');
+        const colorSel   = document.getElementById('colorSelect');
+        const cantidadEl = document.getElementById('cantidadInput');
+        const ptcHidden  = document.getElementById('ptcIdInput');
+        const stockBadge = document.getElementById('stockBadge');
+        const addBtn     = document.getElementById('agregarBtn');
+
+        function actualizarPTC() {
+            const talla = tallaSel.value;
+            const color = colorSel.value;
+
+            if (!talla || !color) {
+                ptcHidden.value = "0";
+                stockBadge.textContent = "Stock: —";
+                cantidadEl.max = "";
+                addBtn.disabled = true;
+                return;
+            }
+
+            const match = ptcs.find(x => x.NombreTalla === talla && x.NombreColor === color);
+
+            if (!match) {
+                ptcHidden.value = "0";
+                stockBadge.textContent = "Stock: —";
+                cantidadEl.max = "";
+                addBtn.disabled = true;
+                return;
+            }
+
+            ptcHidden.value = String(match.PTCID);
+            stockBadge.textContent = "Stock: " + match.Stock;
+
+            const max = Math.max(1, match.Stock);
+            cantidadEl.max = String(max);
+            if (+cantidadEl.value < 1) cantidadEl.value = "1";
+            if (+cantidadEl.value > max) cantidadEl.value = String(max);
+
+            addBtn.disabled = (match.Stock <= 0);
+        }
+
+        tallaSel.addEventListener('change', actualizarPTC);
+        colorSel.addEventListener('change', actualizarPTC);
+
+        document.addEventListener('DOMContentLoaded', actualizarPTC);
+    </script>
+}
 

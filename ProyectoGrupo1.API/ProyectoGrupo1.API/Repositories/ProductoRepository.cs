@@ -53,5 +53,20 @@ namespace ProyectoGrupo1.Api.Repositories
             if (cn.State != ConnectionState.Open) await ((dynamic)cn).OpenAsync();
             return await cn.QueryAsync<string>("dbo.usp_Producto_Categorias", commandType: CommandType.StoredProcedure);
         }
+        public async Task<ProductoTallaColorDto?> PtcPorIdAsync(int ptcId)
+        {
+            const string sql = @"
+            SELECT ptc.PTCID, ptc.ProductoID, ptc.TallaID, ptc.ColorID, ptc.Stock,
+                   t.NombreTalla, c.NombreColor
+            FROM ProductoTallaColor ptc
+            INNER JOIN Talla  t ON t.TallaID  = ptc.TallaID
+            INNER JOIN Color  c ON c.ColorID  = ptc.ColorID
+            WHERE ptc.PTCID = @ptcId;
+        ";
+
+            using var cn = _factory.Create();
+            return await cn.QueryFirstOrDefaultAsync<ProductoTallaColorDto>(sql, new { ptcId });
+        }
     }
 }
+

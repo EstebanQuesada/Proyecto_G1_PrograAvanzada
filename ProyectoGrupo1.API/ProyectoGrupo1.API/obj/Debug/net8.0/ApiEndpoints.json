@@ -139,6 +139,32 @@
     ]
   },
   {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.ProductosController",
+    "Method": "GetPtc",
+    "RelativePath": "api/productos/ptc/{ptcId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "ptcId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ProyectoGrupo1.API.DTOs.Product.ProductoTallaColorDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "ProyectoGrupo1.Api.Controllers.AdminUsuariosController",
     "Method": "List",
     "RelativePath": "api/v1/admin/usuarios",
