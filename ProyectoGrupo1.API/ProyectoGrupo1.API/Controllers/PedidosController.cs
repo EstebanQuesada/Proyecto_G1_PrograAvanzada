@@ -1,79 +1,55 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ProyectoGrupo1.API.Models;
-using ProyectoGrupo1.API.Services;
-using System;
+using ProyectoGrupo1.API.DTOs.Pedido;
+using ProyectoGrupo1.API.Repositories;
 
 namespace ProyectoGrupo1.API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/pedidos")]
     public class PedidosController : ControllerBase
     {
-        private readonly PedidoService _pedidoService;
+        private readonly IPedidoRepository _repo;
+        private readonly ILogger<PedidosController> _logger;
 
-        public PedidosController(PedidoService pedidoService)
+        public PedidosController(IPedidoRepository repo, ILogger<PedidosController> logger)
         {
-            _pedidoService = pedidoService;
+            _repo = repo; _logger = logger;
         }
 
-        // GET api/pedidos/{usuarioId}
-        [HttpGet("{usuarioId}")]
-        public IActionResult GetHistorialPedidos(int usuarioId)
-        {
-            try
-            {
-                var pedidos = _pedidoService.ObtenerHistorialPedidos(usuarioId);
-                return Ok(pedidos);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al obtener pedidos: {ex.Message}");
-            }
-        }
-
-        // GET api/pedidos/estados
-        [HttpGet("estados")]
-        public IActionResult GetEstadosPedido()
-        {
-            try
-            {
-                var estados = _pedidoService.ObtenerEstadosPedido();
-                return Ok(estados);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al obtener estados: {ex.Message}");
-            }
-        }
-
-        // GET api/pedidos/productos
-        [HttpGet("productos")]
-        public IActionResult GetProductosPTC()
-        {
-            try
-            {
-                var productos = _pedidoService.ObtenerProductosPTC();
-                return Ok(productos);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al obtener productos: {ex.Message}");
-            }
-        }
-
-        // POST api/pedidos
         [HttpPost]
-        public IActionResult CrearPedido([FromBody] NuevoPedidoInputModel nuevoPedido)
+        public async Task<IActionResult> Crear([FromBody] PedidoCrearDto dto)
         {
+            if (dto is null || dto.Detalles?.Count == 0)
+                return BadRequest(new { error = "No hay productos en el pedido." });
+
             try
             {
-                int usuarioId = nuevoPedido.UsuarioId;
-                _pedidoService.CrearPedidoConDetalles(usuarioId, nuevoPedido);
-                return Created("", new { mensaje = "Pedido creado correctamente" });
+                var id = await _repo.CrearAsync(dto.UsuarioID, dto.Detalles);
+                return Created(string.Empty, new { pedidoId = id });
+            }
+            catch (InvalidOperationException ex) when (ex.Message == "STOCK_INSUFICIENTE")
+            {
+                return Conflict(new { error = "Stock insuficiente para uno o más productos." });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Error al crear pedido: {ex.Message}");
+                _logger.LogError(ex, "Error creando pedido");
+                return Problem("No se pudo crear el pedido.", statusCode: 500);
+            }
+        }
+
+        [HttpGet("historial/{usuarioId:int}")]
+        public async Task<ActionResult<IEnumerable<HistorialPedidoDto>>> Historial(int usuarioId)
+        {
+            try
+            {
+                var items = await _repo.HistorialAsync(usuarioId);
+                return Ok(items);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error obteniendo historial de pedidos {UsuarioID}", usuarioId);
+                return Problem("No se pudo obtener el historial.", statusCode: 500);
             }
         }
     }

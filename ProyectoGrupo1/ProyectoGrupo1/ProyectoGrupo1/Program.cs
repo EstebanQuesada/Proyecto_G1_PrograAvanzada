@@ -6,11 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<CarritoService>();
-builder.Services.AddSingleton<ProyectoGrupo1.Services.DbService>(); 
+builder.Services.AddSingleton<ProyectoGrupo1.Services.DbService>();
 builder.Services.AddScoped<TextoService>();
 builder.Services.AddScoped<ContactoService>();
-builder.Services.AddScoped<PedidoApiService>();
-
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(o =>
@@ -19,27 +17,39 @@ builder.Services.AddSession(o =>
     o.Cookie.HttpOnly = true;
     o.Cookie.IsEssential = true;
 });
-
 var apiBase = builder.Configuration["Api:BaseUrl"]
-              ?? throw new Exception("Falta configurar 'Api:BaseUrl' en appsettings.json");
+    ?? throw new InvalidOperationException("Falta configurar 'Api:BaseUrl' en appsettings.json");
+if (!apiBase.EndsWith("/")) apiBase += "/";
+var apiUri = new Uri(apiBase, UriKind.Absolute);
 
 builder.Services.AddHttpClient<ApiProductoClient>(c =>
 {
-    c.BaseAddress = new Uri(apiBase);
+    c.BaseAddress = apiUri;
+    c.Timeout = TimeSpan.FromSeconds(10);
     c.DefaultRequestHeaders.Accept.Add(
         new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });
 
 builder.Services.AddHttpClient<ApiUsuarioClient>(c =>
 {
-    c.BaseAddress = new Uri(apiBase);
+    c.BaseAddress = apiUri;
+    c.Timeout = TimeSpan.FromSeconds(10);
     c.DefaultRequestHeaders.Accept.Add(
         new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });
 
 builder.Services.AddHttpClient<ApiAdminUsuarioClient>(c =>
 {
-    c.BaseAddress = new Uri(apiBase);
+    c.BaseAddress = apiUri;
+    c.Timeout = TimeSpan.FromSeconds(10);
+    c.DefaultRequestHeaders.Accept.Add(
+        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
+
+builder.Services.AddHttpClient<PedidoApiService>(c =>
+{
+    c.BaseAddress = apiUri;
+    c.Timeout = TimeSpan.FromSeconds(15);
     c.DefaultRequestHeaders.Accept.Add(
         new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });

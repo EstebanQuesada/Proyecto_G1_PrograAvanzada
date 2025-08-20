@@ -16,7 +16,7 @@ namespace ProyectoGrupo1.Models
     public class DetallePedido
     {
         public int DetallePedidoID { get; set; }
-        public int PTCID { get; set; } // Necesario para volver a pedir
+        public int PTCID { get; set; } 
         public string Producto { get; set; } = string.Empty;
         public string NombreColor { get; set; } = string.Empty;
         public string NombreTalla { get; set; } = string.Empty;
@@ -25,16 +25,7 @@ namespace ProyectoGrupo1.Models
         public string UrlImagen { get; set; } = string.Empty;
     }
 
-    public class HistorialPedidoViewModel
-    {
-        public List<Pedido> Pedidos { get; set; } = new();
-
-        public List<EstadoPedido> Estados { get; set; } = new();
-
-        public List<ProductoTallaColor> ProductosPTC { get; set; } = new();
-
-        public NuevoPedidoInputModel NuevoPedido { get; set; } = new();
-    }
+    
 
     public class NuevoPedidoInputModel
     {

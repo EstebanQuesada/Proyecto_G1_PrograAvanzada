@@ -5,9 +5,13 @@ public class ApiAdminUsuarioClient
 {
     private readonly HttpClient _http;
     private static readonly JsonSerializerOptions _json = new() { PropertyNameCaseInsensitive = true };
-    public ApiAdminUsuarioClient(IHttpClientFactory f) => _http = f.CreateClient("Api");
 
-    public record PagedResult<T>(int Total, IEnumerable<T> Items);
+    public ApiAdminUsuarioClient(HttpClient httpClient)
+    {
+        _http = httpClient;
+    }
+
+public record PagedResult<T>(int Total, IEnumerable<T> Items);
     public record AdminUserListItemDto(int UsuarioID, string Nombre, string Apellido, string Correo, int RolID, DateTime? FechaRegistro, bool Bloqueado, bool Activo);
     public record AdminUserDetailDto(int UsuarioID, string Nombre, string Apellido, string Correo, int RolID, string Direccion, string Ciudad, string Provincia, string CodigoPostal, bool Bloqueado, bool Activo);
 

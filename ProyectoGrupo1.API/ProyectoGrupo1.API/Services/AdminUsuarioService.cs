@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
-using ProyectoGrupo1.Api.Infra;
-using ProyectoGrupo1.Api.Models;
+using ProyectoGrupo1.API.Infra;    
+using ProyectoGrupo1.Api.Models;   
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,26 +15,23 @@ namespace ProyectoGrupo1.Api.Services
 
         public async Task<(int Total, IEnumerable<UsuarioListItem> Items)> ListarAsync(int page, int pageSize, string? search)
         {
-            try
-            {
-                using var con = _factory.Create();
-                var p = new DynamicParameters();
-                p.Add("@Page", page);
-                p.Add("@PageSize", pageSize);
-                p.Add("@Search", search);
+            page = page < 1 ? 1 : page;
+            pageSize = pageSize <= 0 ? 20 : pageSize;
 
-                using var multi = await con.QueryMultipleAsync(
-                    "sp_Admin_Usuario_Listar", p, commandType: CommandType.StoredProcedure);
+            using var con = _factory.Create();
+            var p = new DynamicParameters();
+            p.Add("@Page", page);
+            p.Add("@PageSize", pageSize);
+            p.Add("@Search", search);
 
-                var total = await multi.ReadFirstAsync<int>();
-                var items = await multi.ReadAsync<UsuarioListItem>();
-                return (total, items);
-            }
-            catch (SqlException ex)
-            {
-                throw new AppException("Error al listar usuarios.", 500, ex);
-            }
+            using var multi = await con.QueryMultipleAsync(
+                "sp_Admin_Usuario_Listar", p, commandType: CommandType.StoredProcedure);
+
+            var total = await multi.ReadFirstAsync<int>();
+            var items = await multi.ReadAsync<UsuarioListItem>();
+            return (total, items);
         }
+
 
         public async Task<Usuario?> ObtenerAsync(int id)
         {
@@ -77,6 +74,7 @@ namespace ProyectoGrupo1.Api.Services
                 throw new AppException("Error al crear el usuario.", 500, ex);
             }
         }
+
         public async Task<bool> ActualizarAsync(Usuario u)
         {
             try
@@ -203,14 +201,4 @@ namespace ProyectoGrupo1.Api.Services
             return Convert.ToBase64String(sha.ComputeHash(bytes));
         }
     }
-
-    public record UsuarioListItem(
-        int UsuarioID,
-        string Nombre,
-        string Apellido,
-        string Correo,
-        int RolID,
-        DateTime? FechaRegistro,
-        bool Bloqueado,
-        bool Activo);
 }

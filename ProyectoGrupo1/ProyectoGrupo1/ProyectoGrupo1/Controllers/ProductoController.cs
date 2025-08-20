@@ -18,22 +18,24 @@ public class ProductoController : Controller
 
     [HttpGet]
     public async Task<IActionResult> Catalogo(string? busqueda = null, string? categoria = null,
-                                              decimal? precioMin = null, decimal? precioMax = null)
+                                          decimal? precioMin = null, decimal? precioMax = null,
+                                          CancellationToken ct = default)
     {
         try
         {
-            var productos = await _api.CatalogoAsync(busqueda, categoria, precioMin, precioMax);
-            ViewBag.Categorias = await _api.CategoriasAsync();
+            var productos = await _api.CatalogoAsync(busqueda, categoria, precioMin, precioMax, ct);
+            ViewBag.Categorias = await _api.CategoriasAsync(ct);
             ViewBag.CategoriaSeleccionada = categoria;
             ViewBag.Busqueda = busqueda;
             ViewBag.PrecioMin = precioMin;
             ViewBag.PrecioMax = precioMax;
             return View(productos);
         }
-        catch (ApplicationException ex)
+        catch (ApiClientException ex)
         {
-            _logger.LogWarning(ex, "Error funcional en Catálogo");
-            TempData["Error"] = ex.Message;
+            _logger.LogWarning(ex, "Error funcional en Catálogo. Status: {Status}. Body: {Body}",
+                (int)ex.StatusCode, ex.RawBody);
+            TempData["Error"] = "No se pudo cargar el catálogo. Intenta más tarde.";
             return View("Error");
         }
         catch (Exception ex)
@@ -45,14 +47,17 @@ public class ProductoController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Detalle(int id)
+    public async Task<IActionResult> Detalle(int id, CancellationToken ct = default)
     {
         try
         {
-            var producto = await _api.DetalleAsync(id);
-            if (producto == null) return NotFound();
+            var producto = await _api.DetalleAsync(id, ct);
+            if (producto == null)
+            {
+                Response.StatusCode = 404;
+                return View("NotFound");
+            }
             ViewBag.PTCs = producto.PTCs ?? new List<ProductoTallaColor>();
-
             return View(producto);
         }
         catch (Exception ex)

@@ -1,57 +1,5 @@
 [
   {
-    "ContainingType": "ProyectoGrupo1.API.Controllers.PedidosController",
-    "Method": "CrearPedido",
-    "RelativePath": "api/Pedidos",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "nuevoPedido",
-        "Type": "ProyectoGrupo1.API.Models.NuevoPedidoInputModel",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ProyectoGrupo1.API.Controllers.PedidosController",
-    "Method": "GetHistorialPedidos",
-    "RelativePath": "api/Pedidos/{usuarioId}",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "usuarioId",
-        "Type": "System.Int32",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ProyectoGrupo1.API.Controllers.PedidosController",
-    "Method": "GetEstadosPedido",
-    "RelativePath": "api/Pedidos/estados",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "ProyectoGrupo1.API.Controllers.PedidosController",
-    "Method": "GetProductosPTC",
-    "RelativePath": "api/Pedidos/productos",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
     "ContainingType": "ProyectoGrupo1.API.Controllers.ProductosController",
     "Method": "Detalle",
     "RelativePath": "api/productos/{id}",
@@ -391,6 +339,48 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.PedidosController",
+    "Method": "Crear",
+    "RelativePath": "api/v1/pedidos",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.Pedido.PedidoCrearDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.PedidosController",
+    "Method": "Historial",
+    "RelativePath": "api/v1/pedidos/historial/{usuarioId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "usuarioId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[ProyectoGrupo1.API.DTOs.Pedido.HistorialPedidoDto, ProyectoGrupo1.API, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "ProyectoGrupo1.Api.Controllers.UsuariosController",
     "Method": "Get",
     "RelativePath": "api/v1/usuarios/{id}",
@@ -457,6 +447,22 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Program\u002B\u003C\u003Ec",
+    "Method": "\u003C\u003CMain\u003E$\u003Eb__0_3",
+    "RelativePath": "health",
+    "HttpMethod": "GET",
+    "IsController": false,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Void",
+        "MediaTypes": [],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "ProyectoGrupo1.API.Controllers.WeatherForecastController",

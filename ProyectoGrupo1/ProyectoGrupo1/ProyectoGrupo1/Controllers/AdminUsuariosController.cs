@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoGrupo1.Filters;
-using ProyectoGrupo1.Services;   // ApiAdminUsuarioClient
-using ProyectoGrupo1.Models;     // AdminCrearVm / AdminEditarVm
+using ProyectoGrupo1.Services;   
+using ProyectoGrupo1.Models;     
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;

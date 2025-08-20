@@ -532,29 +532,40 @@ IF COL_LENGTH('dbo.Usuario','Activo') IS NULL
     ALTER TABLE dbo.Usuario ADD Activo BIT NOT NULL CONSTRAINT DF_Usuario_Activo DEFAULT (1);
 
 --Listar
-
 CREATE OR ALTER PROCEDURE sp_Admin_Usuario_Listar
-    @Page INT = 1,
+    @Page     INT = 1,
     @PageSize INT = 10,
-    @Search NVARCHAR(200) = NULL
+    @Search   NVARCHAR(200) = NULL
 AS
 BEGIN
     SET NOCOUNT ON;
 
-    DECLARE @s NVARCHAR(202) = CASE WHEN @Search IS NULL OR LTRIM(RTRIM(@Search)) = '' THEN NULL ELSE '%' + LTRIM(RTRIM(@Search)) + '%' END;
+    SET @Page     = CASE WHEN @Page IS NULL OR @Page < 1 THEN 1  ELSE @Page     END;
+    SET @PageSize = CASE WHEN @PageSize IS NULL OR @PageSize < 1 THEN 10 ELSE @PageSize END;
+
+    DECLARE @s NVARCHAR(202) =
+        CASE WHEN @Search IS NULL OR LTRIM(RTRIM(@Search)) = '' THEN NULL
+             ELSE '%' + LTRIM(RTRIM(@Search)) + '%' END;
 
     ;WITH q AS (
         SELECT u.UsuarioID, u.Nombre, u.Apellido, u.Correo, u.RolID, u.FechaRegistro,
-               ISNULL(u.Bloqueado,0) Bloqueado, ISNULL(u.Activo,1) Activo
+               ISNULL(u.Bloqueado,0) AS Bloqueado, ISNULL(u.Activo,1) AS Activo
         FROM Usuario u
         WHERE (@s IS NULL OR u.Nombre LIKE @s OR u.Apellido LIKE @s OR u.Correo LIKE @s)
     )
     SELECT COUNT(*) AS Total FROM q;
 
+    ;WITH q AS (
+        SELECT u.UsuarioID, u.Nombre, u.Apellido, u.Correo, u.RolID, u.FechaRegistro,
+               ISNULL(u.Bloqueado,0) AS Bloqueado, ISNULL(u.Activo,1) AS Activo
+        FROM Usuario u
+        WHERE (@s IS NULL OR u.Nombre LIKE @s OR u.Apellido LIKE @s OR u.Correo LIKE @s)
+    )
     SELECT UsuarioID, Nombre, Apellido, Correo, RolID, FechaRegistro, Bloqueado, Activo
     FROM q
     ORDER BY UsuarioID DESC
-    OFFSET (@Page-1)*@PageSize ROWS FETCH NEXT @PageSize ROWS ONLY;
+    OFFSET (@Page - 1) * @PageSize ROWS
+    FETCH NEXT @PageSize ROWS ONLY;
 END
 GO
 
@@ -664,6 +675,11 @@ BEGIN
       AND Contrasena = @ContrasenaHash;
 END
 GO
+
+
+
+
+--Catalogo
 
 
 -- Catálogo con filtros
@@ -777,3 +793,64 @@ BEGIN
   END CATCH
 END
 
+-- Obtener PTC por Id
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_PTC_PorId
+    @PTCID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT ptc.PTCID, ptc.ProductoID, ptc.TallaID, ptc.ColorID, ptc.Stock,
+           t.NombreTalla, c.NombreColor
+    FROM ProductoTallaColor ptc
+    INNER JOIN Talla  t ON t.TallaID  = ptc.TallaID
+    INNER JOIN Color  c ON c.ColorID  = ptc.ColorID
+    WHERE ptc.PTCID = @PTCID;
+END
+GO
+
+
+
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_Catalogo_Paginado
+ @Busqueda NVARCHAR(100)=NULL, @Categoria NVARCHAR(100)=NULL,
+ @PrecioMin DECIMAL(18,2)=NULL, @PrecioMax DECIMAL(18,2)=NULL,
+ @Page INT = 1, @PageSize INT = 20
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  ;WITH Q AS (
+    SELECT 
+      p.ProductoID, p.Nombre,
+      LEFT(p.Descripcion, 100) AS DescripcionCorta,
+      p.Precio, c.NombreCategoria AS Categoria,
+      (SELECT TOP (1) UrlImagen FROM ImagenProducto WHERE ProductoID = p.ProductoID ORDER BY ImagenID) AS UrlImagenPrincipal
+    FROM Producto p
+    INNER JOIN CategoriaProducto c ON p.CategoriaID = c.CategoriaID
+    WHERE (@Busqueda IS NULL OR p.Nombre LIKE '%' + @Busqueda + '%')
+      AND (@Categoria IS NULL OR c.NombreCategoria = @Categoria)
+      AND (@PrecioMin IS NULL OR p.Precio >= @PrecioMin)
+      AND (@PrecioMax IS NULL OR p.Precio <= @PrecioMax)
+  )
+  SELECT * FROM Q
+  ORDER BY Nombre
+  OFFSET (@Page-1)*@PageSize ROWS FETCH NEXT @PageSize ROWS ONLY;
+
+  SELECT COUNT(*) AS Total FROM Q;
+END
+
+
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_PTC_PorId
+    @PTCID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT ptc.PTCID, ptc.ProductoID, ptc.TallaID, ptc.ColorID, ptc.Stock,
+           t.NombreTalla, c.NombreColor
+    FROM ProductoTallaColor ptc
+    INNER JOIN Talla  t ON t.TallaID  = ptc.TallaID
+    INNER JOIN Color  c ON c.ColorID  = ptc.ColorID
+    WHERE ptc.PTCID = @PTCID;
+END
+GO

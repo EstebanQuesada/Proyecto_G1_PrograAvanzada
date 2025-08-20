@@ -1,78 +1,50 @@
-@model ProyectoGrupo1.Models.Usuario
-@using ProyectoGrupo1.Models
+@model ProyectoGrupo1.Models.Carrito
 @{
-    ViewData["Title"] = "Proceso de Compra";
-    var carrito = ViewBag.Carrito as Carrito;
+    ViewData["Title"] = "Confirmar pedido";
 }
-<h2>Proceso de Compra</h2>
-<form asp-action="Checkout" method="post" class="mb-4">
-    <div class="card p-4 mb-4">
-        <h4>Datos de Envío</h4>
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label>Nombre</label>
-                <input type="text" name="Nombre" class="form-control" value="@Model.Nombre" required />
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Apellido</label>
-                <input type="text" name="Apellido" class="form-control" value="@Model.Apellido" required />
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Dirección</label>
-                <input type="text" name="Direccion" class="form-control" value="@Model.Direccion" required />
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Ciudad</label>
-                <input type="text" name="Ciudad" class="form-control" value="@Model.Ciudad" required />
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Provincia</label>
-                <input type="text" name="Provincia" class="form-control" value="@Model.Provincia" required />
-            </div>
-            <div class="col-md-6 mb-3">
-                <label>Código Postal</label>
-                <input type="text" name="CodigoPostal" class="form-control" value="@Model.CodigoPostal" required />
-            </div>
-        </div>
-    </div>
-    <div class="card p-4 mb-4">
-        <h4>Método de Pago</h4>
-        <select name="MetodoPago" class="form-select" required>
-            <option value="Tarjeta">Tarjeta de crédito/débito</option>
-            <option value="Transferencia">Transferencia bancaria</option>
-            <option value="Efectivo">Efectivo</option>
-        </select>
-    </div>
-    <div class="card p-4 mb-4">
-        <h4>Resumen del Carrito</h4>
-        <table class="table">
-            <thead>
+<h2>Confirmar pedido</h2>
+
+@if (Model.Detalles.Count == 0)
+{
+    <div class="alert alert-info">Tu carrito está vacío.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Talla</th>
+                <th>Color</th>
+                <th class="text-end">Cant.</th>
+                <th class="text-end">P. Unit</th>
+                <th class="text-end">Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var d in Model.Detalles)
+            {
                 <tr>
-                    <th>Producto</th>
-                    <th>Talla</th>
-                    <th>Color</th>
-                    <th>Cantidad</th>
-                    <th>Precio unitario</th>
-                    <th>Subtotal</th>
+                    <td>@d.NombreProducto</td>
+                    <td>@d.NombreTalla</td>
+                    <td>@d.NombreColor</td>
+                    <td class="text-end">@d.Cantidad</td>
+                    <td class="text-end">@d.PrecioUnitario.ToString("C")</td>
+                    <td class="text-end">@d.Subtotal.ToString("C")</td>
                 </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in carrito.Detalles)
-                {
-                    <tr>
-                        <td>@item.NombreProducto</td>
-                        <td>@item.NombreTalla</td>
-                        <td>@item.NombreColor</td>
-                        <td>@item.Cantidad</td>
-                        <td>@item.PrecioUnitario.ToString("C")</td>
-                        <td>@item.Subtotal.ToString("C")</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <div class="text-end">
-            <strong>Total: @carrito.Detalles.Sum(x => x.Subtotal).ToString("C")</strong>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-success btn-lg w-100">Confirmar compra</button>
-</form> 
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="5" class="text-end">Total</th>
+                <th class="text-end">@Model.Detalles.Sum(x => x.Subtotal).ToString("C")</th>
+            </tr>
+        </tfoot>
+    </table>
+
+    <form asp-action="Confirmar" method="post">
+        @Html.AntiForgeryToken()
+        <a asp-controller="Carrito" asp-action="Index" class="btn btn-outline-secondary">Volver al carrito</a>
+        <button type="submit" class="btn btn-success">Confirmar pedido</button>
+    </form>
+}

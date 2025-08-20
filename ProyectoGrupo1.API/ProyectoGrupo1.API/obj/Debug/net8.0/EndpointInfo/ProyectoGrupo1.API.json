@@ -26,7 +26,7 @@
             "schema": {
               "type": "integer",
               "format": "int32",
-              "default": 10
+              "default": 20
             }
           },
           {
@@ -402,7 +402,38 @@
         }
       }
     },
-    "/api/Pedidos/{usuarioId}": {
+    "/api/v1/pedidos": {
+      "post": {
+        "tags": [
+          "Pedidos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PedidoCrearDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PedidoCrearDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/PedidoCrearDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/v1/pedidos/historial/{usuarioId}": {
       "get": {
         "tags": [
           "Pedidos"
@@ -420,62 +451,33 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Pedidos/estados": {
-      "get": {
-        "tags": [
-          "Pedidos"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Pedidos/productos": {
-      "get": {
-        "tags": [
-          "Pedidos"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
-    "/api/Pedidos": {
-      "post": {
-        "tags": [
-          "Pedidos"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NuevoPedidoInputModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NuevoPedidoInputModel"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/NuevoPedidoInputModel"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HistorialPedidoDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HistorialPedidoDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/HistorialPedidoDto"
+                  }
+                }
               }
             }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK"
           }
         }
       }
@@ -664,6 +666,18 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "ProyectoGrupo1.API"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
@@ -925,6 +939,60 @@
         },
         "additionalProperties": false
       },
+      "HistorialPedidoDto": {
+        "type": "object",
+        "properties": {
+          "pedidoID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fechaPedido": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "nombreEstado": {
+            "type": "string",
+            "nullable": true
+          },
+          "detallePedidoID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "ptcid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "producto": {
+            "type": "string",
+            "nullable": true
+          },
+          "stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombreColor": {
+            "type": "string",
+            "nullable": true
+          },
+          "nombreTalla": {
+            "type": "string",
+            "nullable": true
+          },
+          "cantidad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "precioUnitario": {
+            "type": "number",
+            "format": "double"
+          },
+          "urlImagen": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "LoginDto": {
         "type": "object",
         "properties": {
@@ -939,57 +1007,6 @@
         },
         "additionalProperties": false
       },
-      "NuevoDetallePedidoInputModel": {
-        "required": [
-          "cantidad",
-          "precioUnitario",
-          "ptcid"
-        ],
-        "type": "object",
-        "properties": {
-          "ptcid": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "cantidad": {
-            "maximum": 2147483647,
-            "minimum": 1,
-            "type": "integer",
-            "format": "int32"
-          },
-          "precioUnitario": {
-            "minimum": 0,01,
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "NuevoPedidoInputModel": {
-        "required": [
-          "detalles",
-          "estadoID",
-          "usuarioId"
-        ],
-        "type": "object",
-        "properties": {
-          "usuarioId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "estadoID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "detalles": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/NuevoDetallePedidoInputModel"
-            }
-          }
-        },
-        "additionalProperties": false
-      },
       "PasswordChangeDto": {
         "type": "object",
         "properties": {
@@ -1000,6 +1017,41 @@
           "nuevaContrasena": {
             "type": "string",
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PedidoCrearDto": {
+        "type": "object",
+        "properties": {
+          "usuarioID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "detalles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PedidoDetalleCrearDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PedidoDetalleCrearDto": {
+        "type": "object",
+        "properties": {
+          "ptcid": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cantidad": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "precioUnitario": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false

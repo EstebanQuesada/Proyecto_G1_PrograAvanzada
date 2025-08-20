@@ -18,7 +18,7 @@ public class ApiUsuarioClient
     {
         var res = await _http.PostAsJsonAsync("api/v1/auth/login", new { Correo = correo, Contrasena = contrasena });
 
-        if (res.StatusCode == HttpStatusCode.Unauthorized) return null; // credenciales inválidas
+        if (res.StatusCode == HttpStatusCode.Unauthorized) return null; 
 
         if (res.StatusCode == HttpStatusCode.Forbidden || (int)res.StatusCode == 423)
         {

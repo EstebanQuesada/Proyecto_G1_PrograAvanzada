@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoGrupo1.Api.DTOs;
-using ProyectoGrupo1.Api.Infra;
 using ProyectoGrupo1.Api.Models;
 using ProyectoGrupo1.Api.Services;
 
@@ -32,14 +31,13 @@ namespace ProyectoGrupo1.Api.Controllers
             }
             catch (AppException ex) when (ex.StatusCode == 403)
             {
-                return StatusCode(403, new { error = ex.Message }); 
+                return StatusCode(403, new { error = ex.Message });
             }
             catch (AppException ex) when (ex.StatusCode == 423)
             {
                 return StatusCode(423, new { error = ex.Message });
             }
         }
-
 
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDto dto)
@@ -55,7 +53,10 @@ namespace ProyectoGrupo1.Api.Controllers
                 Provincia = dto.Provincia,
                 CodigoPostal = dto.CodigoPostal
             });
-            return nuevoId > 0 ? StatusCode(201, new { id = nuevoId }) : BadRequest(new { error = "No se pudo registrar" });
+
+            return nuevoId > 0
+                ? StatusCode(201, new { id = nuevoId })
+                : BadRequest(new { error = "No se pudo registrar" });
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿@model ProyectoGrupo1.Models.HistorialPedidoViewModel
-
 @{
     ViewData["Title"] = "Historial de Pedidos";
 }
@@ -10,21 +9,25 @@
 {
     <div class="alert alert-success">@TempData["Mensaje"]</div>
 }
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
 
-@if (Model.Pedidos == null || !Model.Pedidos.Any())
+@if (Model?.Pedidos == null || !Model.Pedidos.Any())
 {
     <p>No tienes pedidos registrados aún.</p>
+    <a asp-controller="Producto" asp-action="Catalogo" class="btn btn-primary">Ir al catálogo</a>
 }
 else
 {
-    @* Historial de pedidos *@
     foreach (var pedido in Model.Pedidos)
     {
         var totalPedido = pedido.Detalles.Sum(d => d.PrecioUnitario * d.Cantidad);
         <div class="card mb-4">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <div>
-                    <strong>Pedido #@pedido.PedidoID</strong> - @pedido.FechaPedido.ToString("dd/MM/yyyy")
+                    <strong>Pedido #@pedido.PedidoID</strong> · @pedido.FechaPedido.ToString("dd/MM/yyyy")
                     <span class="badge bg-info">@pedido.NombreEstado</span>
                 </div>
                 <div>
@@ -32,19 +35,27 @@ else
                 </div>
             </div>
             <div class="card-body">
-                <ul style="list-style:none; padding-left: 0;">
+                <ul class="list-unstyled mb-0">
                     @foreach (var detalle in pedido.Detalles)
                     {
                         <li class="d-flex align-items-center mb-2">
-                            <img src="@detalle.UrlImagen" alt="@detalle.Producto" style="width:60px; height:auto; margin-right:15px; object-fit:contain; border:1px solid #ccc; padding:2px;" />
-                            <span>
-                                <strong>@detalle.Producto</strong> - @detalle.NombreTalla / @detalle.NombreColor<br />
-                                Cantidad: @detalle.Cantidad, Precio Unitario: @detalle.PrecioUnitario.ToString("C")
-                            </span>
+                            @if (!string.IsNullOrWhiteSpace(detalle.UrlImagen))
+                            {
+                                <img src="@detalle.UrlImagen"
+                                     alt="@detalle.Producto"
+                                     style="width:60px; height:60px; margin-right:12px; object-fit:contain; border:1px solid #ccc; padding:2px;" />
+                            }
+                            <div>
+                                <strong>@detalle.Producto</strong>
+                                <div>@detalle.NombreTalla / @detalle.NombreColor</div>
+                                <div>Cantidad: @detalle.Cantidad · Precio Unitario: @detalle.PrecioUnitario.ToString("C")</div>
+                            </div>
                         </li>
                     }
                 </ul>
+
                 <form asp-action="VolverAPedir" method="post" class="mt-3">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" name="pedidoId" value="@pedido.PedidoID" />
                     <button type="submit" class="btn btn-outline-primary">Volver a pedir</button>
                 </form>

@@ -21,66 +21,38 @@ namespace ProyectoGrupo1.API.Controllers
 
         [HttpGet("catalogo")]
         public async Task<ActionResult<IEnumerable<ProductoCatalogoDto>>> Catalogo(
-            [FromQuery] string? busqueda, [FromQuery] string? categoria,
-            [FromQuery] decimal? precioMin, [FromQuery] decimal? precioMax)
+    [FromQuery] string? busqueda, [FromQuery] string? categoria,
+    [FromQuery] decimal? precioMin, [FromQuery] decimal? precioMax)
         {
-            try
-            {
-                var data = await _repo.CatalogoAsync(busqueda, categoria, precioMin, precioMax);
-                return Ok(data);
-            }
-            catch (System.Exception ex)
-            {
-                _logger.LogError(ex, "Error obteniendo catálogo");
-                return Problem("Ocurrió un error al obtener el catálogo.", statusCode: 500);
-            }
+            if (precioMin is > 0 && precioMax is > 0 && precioMin > precioMax)
+                return Problem("El precio mínimo no puede ser mayor que el máximo.", statusCode: 400);
+
+            var data = await _repo.CatalogoAsync(busqueda?.Trim(), categoria?.Trim(), precioMin, precioMax);
+            return Ok(data);
         }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<ProductoDetalleDto>> Detalle(int id)
         {
-            try
-            {
-                var dto = await _repo.DetalleAsync(id);
-                if (dto is null) return NotFound();
-                return Ok(dto);
-            }
-            catch (System.Exception ex)
-            {
-                _logger.LogError(ex, "Error obteniendo detalle {Id}", id);
-                return Problem("Ocurrió un error al obtener el detalle.", statusCode: 500);
-            }
+            var dto = await _repo.DetalleAsync(id);
+            return dto is null ? NotFound() : Ok(dto);
         }
 
         [HttpGet("categorias")]
+        [ResponseCache(Duration = 120)] 
         public async Task<ActionResult<IEnumerable<string>>> Categorias()
         {
-            try
-            {
-                var cats = await _repo.CategoriasAsync();
-                return Ok(cats);
-            }
-            catch (System.Exception ex)
-            {
-                _logger.LogError(ex, "Error obteniendo categorías");
-                return Problem("Ocurrió un error al obtener las categorías.", statusCode: 500);
-            }
+            var cats = await _repo.CategoriasAsync();
+            return Ok(cats);
         }
+
         [HttpGet("ptc/{ptcId:int}")]
         public async Task<ActionResult<ProductoTallaColorDto>> GetPtc(int ptcId)
         {
-            try
-            {
-                var ptc = await _repo.PtcPorIdAsync(ptcId);
-                if (ptc is null) return NotFound();
-                return Ok(ptc);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error obteniendo PTC {ptcId}", ptcId);
-                return Problem("Ocurrió un error al obtener la combinación.", statusCode: 500);
-            }
+            var ptc = await _repo.PtcPorIdAsync(ptcId);
+            return ptc is null ? NotFound() : Ok(ptc);
         }
     }
+    
 }
 

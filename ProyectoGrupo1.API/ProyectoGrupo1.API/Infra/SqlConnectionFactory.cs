@@ -1,15 +1,21 @@
-﻿using System.Data;
+﻿namespace ProyectoGrupo1.API.Infra;
+
+using System;
+using System.Data;
 using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 
-namespace ProyectoGrupo1.Api.Infra
+public sealed class SqlConnectionFactory : IDbConnectionFactory
 {
-    public interface IDbConnectionFactory { IDbConnection Create(); 
+    private readonly string _cs;
+
+    public SqlConnectionFactory(IConfiguration cfg)
+    {
+        _cs = cfg.GetConnectionString("TiendaRopaDB")
+              ?? cfg.GetConnectionString("Default")
+              ?? throw new InvalidOperationException(
+                   "Falta ConnectionStrings:TiendaRopaDB o ConnectionStrings:Default");
     }
 
-    public class SqlConnectionFactory : IDbConnectionFactory
-    {
-        private readonly string _cs;
-        public SqlConnectionFactory(string cs) => _cs = cs;
-        public IDbConnection Create() => new SqlConnection(_cs);
-    }
+    public IDbConnection Create() => new SqlConnection(_cs);
 }

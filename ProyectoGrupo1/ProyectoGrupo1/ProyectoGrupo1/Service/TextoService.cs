@@ -19,7 +19,6 @@ namespace ProyectoGrupo1.Services
         {
             using var connection = _dbService.CreateConnection();
 
-            // Aquí NO hay SQL directo: se llama solo el Stored Procedure
             return connection.ExecuteScalar<string>(
                 "ObtenerDescripcionContacto",
                 commandType: CommandType.StoredProcedure);

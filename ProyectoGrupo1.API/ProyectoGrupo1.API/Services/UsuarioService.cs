@@ -3,7 +3,7 @@ using System.Data;
 using System.Security.Cryptography;
 using System.Text;
 using Dapper;
-using ProyectoGrupo1.Api.Infra;
+using ProyectoGrupo1.API.Infra;      
 using ProyectoGrupo1.Api.Models;
 
 namespace ProyectoGrupo1.Api.Services
@@ -32,13 +32,12 @@ namespace ProyectoGrupo1.Api.Services
                 var u = await con.QueryFirstOrDefaultAsync<Usuario>(
                     "sp_Usuario_Validar", p, commandType: CommandType.StoredProcedure);
 
-                if (u is null) return null;                
+                if (u is null) return null;
 
                 if (!u.Activo)
                     throw new AppException("Tu cuenta está inactiva.", 403);
 
                 if (u.Bloqueado)
-                    
                     throw new AppException("Tu cuenta está bloqueada.", 423);
 
                 return u;
@@ -48,7 +47,6 @@ namespace ProyectoGrupo1.Api.Services
                 throw new AppException("Error al validar usuario.", 500, ex);
             }
         }
-
 
         public async Task<int> RegistrarUsuarioAsync(Usuario u)
         {
@@ -69,7 +67,7 @@ namespace ProyectoGrupo1.Api.Services
                 await con.ExecuteAsync("sp_Usuario_Registrar", p, commandType: CommandType.StoredProcedure);
                 return p.Get<int>("@NuevoUsuarioID");
             }
-            catch (SqlException ex) when (ex.Number == 2627 )
+            catch (SqlException ex) when (ex.Number == 2627) 
             {
                 throw new AppException("El correo ya está registrado.", 409, ex);
             }
@@ -110,7 +108,8 @@ namespace ProyectoGrupo1.Api.Services
                 p.Add("@Provincia", u.Provincia);
                 p.Add("@CodigoPostal", u.CodigoPostal);
 
-                var rows = await con.ExecuteAsync("sp_Usuario_ActualizarPerfilYDireccion",
+                var rows = await con.ExecuteAsync(
+                    "sp_Usuario_ActualizarPerfilYDireccion",
                     p, commandType: CommandType.StoredProcedure);
 
                 return rows > 0;

@@ -12,8 +12,11 @@ public class AdminUsuariosController : ControllerBase
     public AdminUsuariosController(AdminUsuarioService svc) => _svc = svc;
 
     [HttpGet]
-    public async Task<ActionResult<object>> List([FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? q = null)
+    public async Task<ActionResult<object>> List([FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? q = null)
     {
+        page = page < 1 ? 1 : page;
+        pageSize = pageSize <= 0 ? 20 : Math.Min(pageSize, 100);
+
         var (total, items) = await _svc.ListarAsync(page, pageSize, q);
         return Ok(new { total, items });
     }

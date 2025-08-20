@@ -4,8 +4,6 @@
 @{
     ViewData["Title"] = "Detalle del Producto";
     var ptcsJson = JsonSerializer.Serialize(Model.PTCs ?? new List<ProyectoGrupo1.Models.ProductoTallaColor>());
-    var tallas = Model.Tallas ?? new List<string>();
-    var colores = Model.Colores ?? new List<string>();
 }
 
 <div class="container mt-5">
@@ -14,7 +12,7 @@
             @if (Model.Imagenes != null && Model.Imagenes.Count > 0)
             {
                 <img src="@Model.Imagenes[0]" class="img-fluid border rounded mb-3" alt="Imagen principal" />
-                <div class="d-flex gap-2">
+                <div class="d-flex gap-2 flex-wrap">
                     @foreach (var img in Model.Imagenes)
                     {
                         <img src="@img" width="70" height="70" style="object-fit:cover" class="border rounded" />
@@ -45,10 +43,6 @@
                     <label><strong>Talla:</strong></label>
                     <select id="tallaSelect" class="form-select">
                         <option value="">Seleccione una talla</option>
-                        @foreach (var t in tallas)
-                        {
-                            <option value="@t">@t</option>
-                        }
                     </select>
                 </div>
 
@@ -56,10 +50,6 @@
                     <label><strong>Color:</strong></label>
                     <select id="colorSelect" class="form-select">
                         <option value="">Seleccione un color</option>
-                        @foreach (var c in colores)
-                        {
-                            <option value="@c">@c</option>
-                        }
                     </select>
                 </div>
 
@@ -82,6 +72,7 @@
 @section Scripts {
     <script>
         const ptcs = @Html.Raw(ptcsJson);
+        const ptcsEnStock = (ptcs ?? []).filter(p => (p?.Stock ?? 0) > 0);
 
         const tallaSel   = document.getElementById('tallaSelect');
         const colorSel   = document.getElementById('colorSelect');
@@ -90,6 +81,42 @@
         const stockBadge = document.getElementById('stockBadge');
         const addBtn     = document.getElementById('agregarBtn');
 
+        function setOptions(select, values, placeholder) {
+            select.innerHTML = '';
+            const opt0 = document.createElement('option');
+            opt0.value = '';
+            opt0.textContent = placeholder;
+            select.appendChild(opt0);
+
+            values.forEach(v => {
+                const o = document.createElement('option');
+                o.value = v;
+                o.textContent = v;
+                select.appendChild(o);
+            });
+        }
+
+        function llenarTallas() {
+            const tallas = [...new Set(ptcsEnStock.map(x => x.NombreTalla))].sort();
+            setOptions(tallaSel, tallas, 'Seleccione una talla');
+            tallaSel.disabled = tallas.length === 0;
+        }
+
+        function llenarColores() {
+            const talla = tallaSel.value;
+            if (!talla) {
+                setOptions(colorSel, [], 'Seleccione un color');
+                colorSel.disabled = true;
+                return;
+            }
+            const colores = [...new Set(ptcsEnStock
+                .filter(x => x.NombreTalla === talla)
+                .map(x => x.NombreColor))].sort();
+
+            setOptions(colorSel, colores, 'Seleccione un color');
+            colorSel.disabled = colores.length === 0;
+        }
+
         function actualizarPTC() {
             const talla = tallaSel.value;
             const color = colorSel.value;
@@ -97,17 +124,19 @@
             if (!talla || !color) {
                 ptcHidden.value = "0";
                 stockBadge.textContent = "Stock: —";
+                cantidadEl.value = "1";
                 cantidadEl.max = "";
                 addBtn.disabled = true;
                 return;
             }
 
-            const match = ptcs.find(x => x.NombreTalla === talla && x.NombreColor === color);
+            const match = ptcsEnStock.find(x => x.NombreTalla === talla && x.NombreColor === color);
 
             if (!match) {
                 ptcHidden.value = "0";
-                stockBadge.textContent = "Stock: —";
-                cantidadEl.max = "";
+                stockBadge.textContent = "Stock: 0";
+                cantidadEl.value = "1";
+                cantidadEl.max = "1";
                 addBtn.disabled = true;
                 return;
             }
@@ -123,10 +152,26 @@
             addBtn.disabled = (match.Stock <= 0);
         }
 
-        tallaSel.addEventListener('change', actualizarPTC);
-        colorSel.addEventListener('change', actualizarPTC);
+        document.addEventListener('DOMContentLoaded', () => {
+            if (ptcsEnStock.length === 0) {
+                setOptions(tallaSel, [], 'Sin stock');
+                setOptions(colorSel, [], 'Sin stock');
+                tallaSel.disabled = true;
+                colorSel.disabled = true;
+                cantidadEl.value = "1";
+                cantidadEl.disabled = true;
+                stockBadge.className = "badge bg-danger";
+                stockBadge.textContent = "Agotado";
+                addBtn.disabled = true;
+                return;
+            }
 
-        document.addEventListener('DOMContentLoaded', actualizarPTC);
+            llenarTallas();
+            llenarColores();
+            actualizarPTC();
+        });
+
+        tallaSel.addEventListener('change', () => { llenarColores(); actualizarPTC(); });
+        colorSel.addEventListener('change', actualizarPTC);
     </script>
 }
-

@@ -160,5 +160,6 @@ namespace ProyectoGrupo1.Controllers
             _carritoService.VaciarCarrito(usuarioId.Value);
             return RedirectToAction("Index");
         }
+
     }
 }

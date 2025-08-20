@@ -1,135 +1,145 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-
-using ProyectoGrupo1.Models;
-using ProyectoGrupo1.Services;   
-using ProyectoGrupo1.Service;   
+using ProyectoGrupo1.Service;
 
 namespace ProyectoGrupo1.Controllers
 {
     public class PedidoController : Controller
     {
-        private readonly PedidoApiService _pedidoApiService;
-        private readonly ApiUsuarioClient _api;       
-        private readonly CarritoService _carrito;    
+        private readonly CarritoService _carrito;
+        private readonly PedidoApiService _pedidos;
+        private readonly ApiProductoClient _api; 
+        private readonly ILogger<PedidoController> _logger;
 
         public PedidoController(
-            PedidoApiService pedidoApiService,
-            ApiUsuarioClient api,
-            CarritoService carrito)
+            CarritoService carrito,
+            PedidoApiService pedidos,
+            ApiProductoClient api,
+            ILogger<PedidoController> logger)
         {
-            _pedidoApiService = pedidoApiService;
-            _api = api;
-            _carrito = carrito;
+            _carrito = carrito; _pedidos = pedidos; _api = api; _logger = logger;
+        }
+
+        private int? GetUsuarioId() => HttpContext.Session.GetInt32("UsuarioID");
+
+        [HttpGet]
+        public IActionResult Checkout()
+        {
+            var uid = GetUsuarioId();
+            if (uid is null) return RedirectToAction("Login", "Usuario");
+
+            var cart = _carrito.ObtenerCarritoPorUsuario(uid.Value);
+            if (cart.Detalles.Count == 0)
+            {
+                TempData["Error"] = "Tu carrito está vacío.";
+                return RedirectToAction("Index", "Carrito");
+            }
+            return View(cart);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Confirmar()
+        {
+            var uid = GetUsuarioId();
+            if (uid is null) return RedirectToAction("Login", "Usuario");
+
+            var cart = _carrito.ObtenerCarritoPorUsuario(uid.Value);
+            if (cart.Detalles.Count == 0)
+            {
+                TempData["Error"] = "Tu carrito está vacío.";
+                return RedirectToAction("Index", "Carrito");
+            }
+
+            try
+            {
+                var (ok, pedidoId, error) = await _pedidos.CrearAsync(uid.Value, cart.Detalles);
+                if (!ok)
+                {
+                    TempData["Error"] = error ?? "No se pudo crear el pedido.";
+                    return RedirectToAction("Index", "Carrito");
+                }
+
+                _carrito.VaciarCarrito(uid.Value);
+
+                TempData["Mensaje"] = $"¡Pedido #{pedidoId} creado con éxito!";
+                return RedirectToAction("Index", "Carrito");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error confirmando pedido para usuario {Uid}", uid);
+                TempData["Error"] = "Ocurrió un error al confirmar el pedido.";
+                return RedirectToAction("Index", "Carrito");
+            }
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Historial()
         {
-            int? usuarioId = HttpContext.Session.GetInt32("UsuarioID");
-            if (usuarioId == null)
-                return RedirectToAction("Login", "Usuario");
+            var uid = GetUsuarioId();
+            if (uid is null) return RedirectToAction("Login", "Usuario");
 
-            var pedidos = await _pedidoApiService.ObtenerHistorialPedidosAsync(usuarioId.Value);
-            var estados = await _pedidoApiService.ObtenerEstadosPedidoAsync();
-            var productosPTC = await _pedidoApiService.ObtenerProductosPTCAsync();
-
-            var model = new HistorialPedidoViewModel
+            try
             {
-                Pedidos = pedidos,
-                Estados = estados,
-                ProductosPTC = productosPTC,
-                NuevoPedido = new NuevoPedidoInputModel()
-            };
-
-            return View(model);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(HistorialPedidoViewModel model)
-        {
-            int? usuarioId = HttpContext.Session.GetInt32("UsuarioID");
-            if (usuarioId == null)
-                return RedirectToAction("Login", "Usuario");
-
-            if (!ModelState.IsValid)
-            {
-                model.Pedidos = await _pedidoApiService.ObtenerHistorialPedidosAsync(usuarioId.Value);
-                model.Estados = await _pedidoApiService.ObtenerEstadosPedidoAsync();
-                model.ProductosPTC = await _pedidoApiService.ObtenerProductosPTCAsync();
-                return View(model);
+                var vm = await _pedidos.HistorialAsync(uid.Value);
+                return View(vm); 
             }
-
-            var success = await _pedidoApiService.CrearPedidoConDetallesAsync(usuarioId.Value, model.NuevoPedido);
-
-            if (success)
+            catch (Exception ex)
             {
-                TempData["Mensaje"] = "Pedido agregado correctamente.";
-                return RedirectToAction(nameof(Index));
+                _logger.LogError(ex, "Error obteniendo historial para usuario {Uid}", uid);
+                TempData["Error"] = "No se pudo cargar tu historial.";
+                return View(new ProyectoGrupo1.Models.HistorialPedidoViewModel());
             }
-
-            ModelState.AddModelError(string.Empty, "Error al agregar pedido vía API.");
-            model.Pedidos = await _pedidoApiService.ObtenerHistorialPedidosAsync(usuarioId.Value);
-            model.Estados = await _pedidoApiService.ObtenerEstadosPedidoAsync();
-            model.ProductosPTC = await _pedidoApiService.ObtenerProductosPTCAsync();
-            return View(model);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Checkout()
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> VolverAPedir(int pedidoId)
         {
-            int? usuarioId = HttpContext.Session.GetInt32("UsuarioID");
-            if (usuarioId == null)
-                return RedirectToAction("Login", "Usuario");
+            var uid = GetUsuarioId();
+            if (uid is null) return RedirectToAction("Login", "Usuario");
 
-            var carrito = _carrito.ObtenerCarritoPorUsuario(usuarioId.Value);
-            carrito.Detalles ??= new List<DetalleCarrito>();
-            ViewBag.Carrito = carrito;
-
-            var perfil = await _api.ObtenerPerfilAsync(usuarioId.Value);
-            if (perfil == null) return RedirectToAction("Login", "Usuario");
-
-            var usuario = new Usuario
+            try
             {
-                UsuarioID = perfil.UsuarioID,
-                Nombre = perfil.Nombre,
-                Apellido = perfil.Apellido,
-                Correo = perfil.Correo,
-                Direccion = perfil.Direccion,
-                Ciudad = perfil.Ciudad,
-                Provincia = perfil.Provincia,
-                CodigoPostal = perfil.CodigoPostal,
-                RolID = perfil.RolID
-            };
+                var vm = await _pedidos.HistorialAsync(uid.Value);
+                var pedido = vm.Pedidos.FirstOrDefault(p => p.PedidoID == pedidoId);
+                if (pedido is null || pedido.Detalles.Count == 0)
+                {
+                    TempData["Error"] = "No se encontró el pedido o no tiene productos.";
+                    return RedirectToAction("Historial");
+                }
 
-            return View(usuario);
-        }
+                int agregados = 0, sinStock = 0;
 
-        [HttpPost]
-        public IActionResult Checkout(string Nombre, string Apellido, string Direccion,
-                                      string Ciudad, string Provincia, string CodigoPostal,
-                                      string MetodoPago)
-        {
-            int? usuarioId = HttpContext.Session.GetInt32("UsuarioID");
-            if (usuarioId == null)
-                return RedirectToAction("Login", "Usuario");
+                foreach (var d in pedido.Detalles)
+                {
+                    var ptc = await _api.PtcAsync(d.PTCID);
+                    if (ptc is null || ptc.Stock <= 0) { sinStock++; continue; }
 
-            return RedirectToAction("Confirmacion");
-        }
+                    var prod = await _api.DetalleAsync(ptc.ProductoID);
+                    var cantidad = Math.Min(d.Cantidad, ptc.Stock);
 
-        public IActionResult Confirmacion()
-        {
-            ViewBag.Mensaje = TempData["Confirmacion"];
-            return View();
-        }
+                    _carrito.AgregarOActualizarProducto(
+                        uid.Value,
+                        d.PTCID,
+                        cantidad,
+                        maxStock: ptc.Stock,
+                        nombreProducto: prod?.Nombre ?? d.Producto,
+                        nombreTalla: ptc.NombreTalla,
+                        nombreColor: ptc.NombreColor,
+                        precioUnitario: prod?.Precio ?? d.PrecioUnitario,
+                        urlImagen: prod?.Imagenes?.FirstOrDefault() ?? d.UrlImagen
+                    );
 
-        [HttpPost]
-        public IActionResult VolverAPedir(int pedidoId)
-        {
-            return RedirectToAction("Index");
+                    agregados += cantidad;
+                }
+
+                TempData["Mensaje"] = $"Se agregaron {agregados} artículo(s) al carrito."
+                                        + (sinStock > 0 ? $" {sinStock} item(s) sin stock fueron omitidos." : "");
+                return RedirectToAction("Index", "Carrito");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error al volver a pedir {PedidoId} para usuario {Uid}", pedidoId, uid);
+                TempData["Error"] = "No se pudo reprocesar el pedido.";
+                return RedirectToAction("Historial");
+            }
         }
     }
 }
