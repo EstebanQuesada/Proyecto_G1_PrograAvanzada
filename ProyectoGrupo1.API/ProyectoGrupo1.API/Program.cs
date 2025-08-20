@@ -1,7 +1,9 @@
 
 using ProyectoGrupo1.Api.Infra;    
-using ProyectoGrupo1.Api.Services; 
+using ProyectoGrupo1.Api.Services;
+using ProyectoGrupo1.Api.Repositories;
 using Microsoft.OpenApi.Models;
+using ProyectoGrupo1.API.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +16,7 @@ builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<AdminUsuarioService>();
 
 
-
+builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>

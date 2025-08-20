@@ -12,6 +12,8 @@
         public List<string> Imagenes { get; set; }
         public List<string> Tallas { get; set; }
         public List<string> Colores { get; set; }
+        public List<ProductoTallaColor> PTCs { get; set; } = new();
+
     }
 
 }

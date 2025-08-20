@@ -85,9 +85,8 @@ namespace ProyectoGrupo1.Controllers
             if (usuarioId == null)
                 return RedirectToAction("Login", "Usuario");
 
-            var carrito = _carrito.ObtenerCarritoPorUsuario(usuarioId.Value)
-                          ?? new Carrito { Detalles = new List<DetalleCarrito>() };
-            carrito.Detalles ??= new List<DetalleCarrito>();
+            var carrito = _carrito.ObtenerCarritoPorUsuario(usuarioId.Value);
+            carrito.Detalles ??= new List<CarritoDetalle>();
             ViewBag.Carrito = carrito;
 
             var perfil = await _api.ObtenerPerfilAsync(usuarioId.Value);

@@ -1,65 +1,96 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using ProyectoGrupo1.Models;
 using ProyectoGrupo1.Service;
-using Microsoft.AspNetCore.Http;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProyectoGrupo1.Controllers
 {
     public class CarritoController : Controller
     {
         private readonly CarritoService _carritoService;
-        private readonly ProductoService _productoService;
+        private readonly ApiProductoClient _api;
+        private readonly ILogger<CarritoController> _logger;
 
-        public CarritoController(CarritoService carritoService, ProductoService productoService)
+        public CarritoController(
+     CarritoService carritoService,
+     ApiProductoClient api,
+     ILogger<CarritoController> logger)
         {
-            _carritoService = carritoService;
-            _productoService = productoService;
+            _carritoService = carritoService ?? throw new ArgumentNullException(nameof(carritoService));
+            _api = api ?? throw new ArgumentNullException(nameof(api));   
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        private int? GetUsuarioId()
-        {
-            return HttpContext.Session.GetInt32("UsuarioID");
-        }
+
+        private int? GetUsuarioId() => HttpContext.Session.GetInt32("UsuarioID");
 
         public IActionResult Index()
         {
             var usuarioId = GetUsuarioId();
             if (usuarioId == null) return RedirectToAction("Login", "Usuario");
+
             var carrito = _carritoService.ObtenerCarritoPorUsuario(usuarioId.Value);
             return View(carrito);
         }
 
-        [HttpPost]
-        public IActionResult Agregar(int ptcId, int cantidad)
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Agregar(int ptcId, int cantidad)
         {
-            var usuarioId = GetUsuarioId();
+            var usuarioId = HttpContext.Session.GetInt32("UsuarioID");
             if (usuarioId == null) return RedirectToAction("Login", "Usuario");
-            _carritoService.AgregarOActualizarProducto(usuarioId.Value, ptcId, cantidad);
-            TempData["Mensaje"] = "¡Producto agregado al carrito!";
-            // Obtener el productoId a partir del ptcId para redirigir al detalle
-            // (esto requiere una consulta, pero para simplificar, puedes pasar el productoId como campo oculto en el form)
-            return Redirect(Request.Headers["Referer"].ToString());
+            if (cantidad < 1) cantidad = 1;
+
+            var ptc = await _api.PtcAsync(ptcId);
+            if (ptc == null) { TempData["Error"] = "La combinación no existe."; return RedirectToAction("Index"); }
+
+            var carrito = _carritoService.ObtenerCarritoPorUsuario(usuarioId.Value);
+            var existente = carrito.Detalles.FirstOrDefault(d => d.PTCID == ptcId);
+            var yaEnCarrito = existente?.Cantidad ?? 0;
+
+            var deseadoTotal = yaEnCarrito + cantidad;
+            var totalCapado = Math.Min(deseadoTotal, ptc.Stock);   
+
+            if (totalCapado == yaEnCarrito)
+            {
+                TempData["Error"] = "No hay stock disponible para agregar más unidades.";
+                return Redirect(Request.Headers["Referer"].ToString() ?? Url.Action("Index")!);
+            }
+
+            _carritoService.AgregarOActualizarProducto(usuarioId.Value, ptcId, totalCapado, maxStock: ptc.Stock);
+            return Redirect(Request.Headers["Referer"].ToString() ?? Url.Action("Index")!);
         }
 
-        [HttpPost]
-        public IActionResult ModificarCantidad(int detalleId, int cantidad)
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> ModificarCantidad(int detalleId, int cantidad)
         {
-            var usuarioId = GetUsuarioId();
+            var usuarioId = HttpContext.Session.GetInt32("UsuarioID");
             if (usuarioId == null) return RedirectToAction("Login", "Usuario");
+            if (cantidad < 1) cantidad = 1;
+
             var carrito = _carritoService.ObtenerCarritoPorUsuario(usuarioId.Value);
-            var detalle = carrito.Detalles.FirstOrDefault(d => d.DetalleID == detalleId);
-            if (detalle != null)
-            {
-                _carritoService.AgregarOActualizarProducto(usuarioId.Value, detalle.PTCID, cantidad);
-            }
+            var det = carrito.Detalles.FirstOrDefault(d => d.DetalleID == detalleId);
+            if (det == null) return RedirectToAction("Index");
+
+            var ptc = await _api.PtcAsync(det.PTCID);
+            if (ptc == null) { TempData["Error"] = "No se pudo validar el stock."; return RedirectToAction("Index"); }
+
+            var cantidadFinal = Math.Min(cantidad, ptc.Stock);      // <- capado
+            _carritoService.AgregarOActualizarProducto(usuarioId.Value, det.PTCID, cantidadFinal, maxStock: ptc.Stock);
+
+            if (cantidad > ptc.Stock) TempData["Error"] = $"Cantidad ajustada al stock disponible ({ptc.Stock}).";
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Eliminar(int detalleId)
         {
             var usuarioId = GetUsuarioId();
             if (usuarioId == null) return RedirectToAction("Login", "Usuario");
+
             var carrito = _carritoService.ObtenerCarritoPorUsuario(usuarioId.Value);
             var detalle = carrito.Detalles.FirstOrDefault(d => d.DetalleID == detalleId);
             if (detalle != null)
@@ -70,10 +101,12 @@ namespace ProyectoGrupo1.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Vaciar()
         {
             var usuarioId = GetUsuarioId();
             if (usuarioId == null) return RedirectToAction("Login", "Usuario");
+
             _carritoService.VaciarCarrito(usuarioId.Value);
             return RedirectToAction("Index");
         }

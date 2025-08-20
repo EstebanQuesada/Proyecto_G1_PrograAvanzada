@@ -62,34 +62,55 @@
                 <input type="hidden" id="ptcIdInput" name="ptcId" />
                 <div class="mb-3">
                     <label><strong>Cantidad:</strong></label>
-                    <input type="number" name="cantidad" value="1" min="1" class="form-control" style="width:100px;" />
+                    <div class="d-flex align-items-center gap-3">
+                        <input id="cantidadInput" type="number" name="cantidad" value="1" min="1" class="form-control" style="width:120px;" />
+                        <span id="stockDisponible" class="badge bg-secondary"></span>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary w-100" id="agregarCarritoBtn" disabled>Agregar al carrito</button>
             </form>
 
             <script>
-                // Relacionar talla y color con PTCID
                 const ptcs = @Html.Raw(ptcsJson);
                 const tallaSelect = document.getElementById('tallaSelect');
                 const colorSelect = document.getElementById('colorSelect');
-                const ptcIdInput = document.getElementById('ptcIdInput');
-                const agregarBtn = document.getElementById('agregarCarritoBtn');
+                const ptcIdInput  = document.getElementById('ptcIdInput');
+                const cantidadInput = document.getElementById('cantidadInput');
+                const agregarBtn  = document.getElementById('agregarCarritoBtn');
+                const stockBadge  = document.getElementById('stockDisponible');
 
                 function actualizarPTC() {
-                    const talla = tallaSelect.value;
-                    const color = colorSelect.value;
-                    const ptc = ptcs.find(x => x.NombreTalla === talla && x.NombreColor === color);
-                    if (ptc) {
-                        ptcIdInput.value = ptc.PTCID;
-                        agregarBtn.disabled = false;
-                    } else {
-                        ptcIdInput.value = '';
-                        agregarBtn.disabled = true;
-                    }
+                  const talla = tallaSelect.value;
+                  const color = colorSelect.value;
+
+                  const ptc = ptcs.find(x => x.NombreTalla === talla && x.NombreColor === color);
+
+                  if (ptc) {
+                    ptcIdInput.value = ptc.PTCID;
+
+                    const max = ptc.Stock || 0;
+                    cantidadInput.max = max > 0 ? max : 1;
+
+                    const actual = parseInt(cantidadInput.value || "1", 10);
+                    cantidadInput.value = Math.min(Math.max(1, actual), Math.max(1, max));
+
+                    agregarBtn.disabled = (max === 0);
+                    stockBadge.textContent = max === 0 ? "Sin stock" : `Stock: ${max}`;
+                    stockBadge.className = `badge ${max === 0 ? 'bg-danger' : 'bg-secondary'}`;
+                  } else {
+                    ptcIdInput.value = '';
+                    agregarBtn.disabled = true;
+                    stockBadge.textContent = '';
+                    cantidadInput.value = 1;
+                    cantidadInput.removeAttribute('max');
+                  }
                 }
+
                 tallaSelect.addEventListener('change', actualizarPTC);
                 colorSelect.addEventListener('change', actualizarPTC);
+                actualizarPTC();
             </script>
+
         </div>
     </div>
 }

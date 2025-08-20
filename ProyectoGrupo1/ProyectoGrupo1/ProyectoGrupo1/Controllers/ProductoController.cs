@@ -2,73 +2,66 @@
 using ProyectoGrupo1.Models;
 using ProyectoGrupo1.Service;
 using System.Linq;
+using Microsoft.Extensions.Logging;
 
-namespace ProyectoGrupo1.Controllers
+public class ProductoController : Controller
 {
-    public class ProductoController : Controller
+    private readonly ApiProductoClient _api;
+    private readonly ILogger<ProductoController> _logger;
+
+    public ProductoController(ApiProductoClient api, ILogger<ProductoController> logger)
     {
-        private readonly ProductoService _productoService;
+        _api = api;
+        _logger = logger;
+    }
 
-        public ProductoController(ProductoService productoService)
+    [HttpGet]
+    public async Task<IActionResult> Catalogo(
+        string? busqueda = null,
+        string? categoria = null,
+        decimal? precioMin = null,
+        decimal? precioMax = null)
+    {
+        try
         {
-            _productoService = productoService;
-        }
-
-        public IActionResult Catalogo(
-            string busqueda = null,
-            string categoria = null,
-            decimal? precioMin = null,
-            decimal? precioMax = null)
-        {
-            var productos = _productoService.ObtenerProductosCatalogo();
-
-            if (!string.IsNullOrEmpty(busqueda))
-            {
-                productos = productos
-                    .Where(p => p.Nombre != null && p.Nombre.Contains(busqueda, System.StringComparison.OrdinalIgnoreCase))
-                    .ToList();
-            }
-
-            if (!string.IsNullOrEmpty(categoria))
-            {
-                productos = productos
-                    .Where(p => p.Categoria == categoria)
-                    .ToList();
-            }
-
-            if (precioMin.HasValue)
-            {
-                productos = productos
-                    .Where(p => p.Precio >= precioMin.Value)
-                    .ToList();
-            }
-            if (precioMax.HasValue)
-            {
-                productos = productos
-                    .Where(p => p.Precio <= precioMax.Value)
-                    .ToList();
-            }
-
-            ViewBag.Categorias = _productoService.ObtenerCategorias();
+            var productos = await _api.CatalogoAsync(busqueda, categoria, precioMin, precioMax);
+            ViewBag.Categorias = await _api.CategoriasAsync();
             ViewBag.CategoriaSeleccionada = categoria;
             ViewBag.Busqueda = busqueda;
             ViewBag.PrecioMin = precioMin;
             ViewBag.PrecioMax = precioMax;
-
             return View(productos);
         }
-
-        public IActionResult Detalle(int id)
+        catch (ApplicationException ex)
         {
-            var producto = _productoService.ObtenerDetalleProducto(id);
-            if (producto == null)
-            {
-                return NotFound();
-            }
-            // Obtener combinaciones de talla y color (PTC)
-            ViewBag.PTCs = _productoService.ObtenerPTCDeProducto(id);
+            _logger.LogWarning(ex, "Error funcional en Catálogo");
+            TempData["Error"] = ex.Message;
+            return View("Error");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error inesperado en Catálogo");
+            TempData["Error"] = "Ocurrió un error al cargar el catálogo.";
+            return View("Error");
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Detalle(int id)
+    {
+        try
+        {
+            var producto = await _api.DetalleAsync(id);
+            if (producto == null) return NotFound();
+            ViewBag.PTCs = producto.PTCs ?? new List<ProductoTallaColor>();
+
             return View(producto);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error en Detalle {Id}", id);
+            TempData["Error"] = "Ocurrió un error al cargar el detalle.";
+            return View("Error");
         }
     }
 }
-

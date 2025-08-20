@@ -665,3 +665,114 @@ BEGIN
 END
 GO
 
+
+-- Catálogo con filtros
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_Catalogo
+    @Busqueda   NVARCHAR(100) = NULL,
+    @Categoria  NVARCHAR(100) = NULL,
+    @PrecioMin  DECIMAL(18,2) = NULL,
+    @PrecioMax  DECIMAL(18,2) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        p.ProductoID,
+        p.Nombre,
+        LEFT(p.Descripcion, 100) AS DescripcionCorta,
+        p.Precio,
+        c.NombreCategoria AS Categoria,
+        (SELECT TOP (1) UrlImagen 
+         FROM ImagenProducto 
+         WHERE ProductoID = p.ProductoID 
+         ORDER BY ImagenID) AS UrlImagenPrincipal
+    FROM Producto p
+    INNER JOIN CategoriaProducto c ON p.CategoriaID = c.CategoriaID
+    WHERE (@Busqueda IS NULL OR p.Nombre LIKE '%' + @Busqueda + '%')
+      AND (@Categoria IS NULL OR c.NombreCategoria = @Categoria)
+      AND (@PrecioMin IS NULL OR p.Precio >= @PrecioMin)
+      AND (@PrecioMax IS NULL OR p.Precio <= @PrecioMax)
+    ORDER BY p.Nombre;
+END
+GO
+
+-- Paquete de detalle (múltiples result sets)
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_Detalle_Paquete
+    @ProductoID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- 1) detalle
+    SELECT p.ProductoID, p.Nombre, p.Descripcion, p.Precio, c.NombreCategoria AS Categoria
+    FROM Producto p
+    INNER JOIN CategoriaProducto c ON p.CategoriaID = c.CategoriaID
+    WHERE p.ProductoID = @ProductoID;
+
+    -- 2) imágenes
+    SELECT UrlImagen 
+    FROM ImagenProducto 
+    WHERE ProductoID = @ProductoID
+    ORDER BY ImagenID;
+
+    -- 3) tallas
+    SELECT DISTINCT t.NombreTalla
+    FROM ProductoTallaColor ptc
+    INNER JOIN Talla t ON ptc.TallaID = t.TallaID
+    WHERE ptc.ProductoID = @ProductoID;
+
+    -- 4) colores
+    SELECT DISTINCT c.NombreColor
+    FROM ProductoTallaColor ptc
+    INNER JOIN Color c ON ptc.ColorID = c.ColorID
+    WHERE ptc.ProductoID = @ProductoID;
+
+    -- 5) PTC
+    SELECT ptc.PTCID, ptc.ProductoID, ptc.TallaID, ptc.ColorID, ptc.Stock, t.NombreTalla, c.NombreColor
+    FROM ProductoTallaColor ptc
+    INNER JOIN Talla t ON ptc.TallaID = t.TallaID
+    INNER JOIN Color c ON ptc.ColorID = c.ColorID
+    WHERE ptc.ProductoID = @ProductoID;
+END
+GO
+
+-- Categorías
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_Categorias
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT NombreCategoria FROM CategoriaProducto ORDER BY NombreCategoria;
+END
+GO
+
+CREATE TYPE dbo.DetallePedidoType AS TABLE(PTCID INT, Cantidad INT, PrecioUnitario DECIMAL(10,2) NULL);
+
+CREATE OR ALTER PROCEDURE dbo.usp_Pedido_Crear
+  @UsuarioID INT, @Detalles dbo.DetallePedidoType READONLY, @NuevoPedidoID INT OUTPUT
+AS
+BEGIN
+  SET NOCOUNT ON; SET XACT_ABORT ON;
+  BEGIN TRY
+    BEGIN TRAN;
+    IF EXISTS(
+      SELECT 1 FROM @Detalles d
+      JOIN ProductoTallaColor ptc WITH(UPDLOCK, ROWLOCK) ON ptc.PTCID=d.PTCID
+      WHERE d.Cantidad > ptc.Stock
+    ) RAISERROR('STOCK_INSUFICIENTE',16,1);
+
+    INSERT INTO Pedido(UsuarioID, FechaPedido, EstadoID) VALUES(@UsuarioID, GETDATE(), 1);
+    SET @NuevoPedidoID = SCOPE_IDENTITY();
+
+    INSERT INTO DetallePedido(PedidoID, PTCID, Cantidad, PrecioUnitario)
+    SELECT @NuevoPedidoID, d.PTCID, d.Cantidad, ISNULL(d.PrecioUnitario, p.Precio)
+    FROM @Detalles d JOIN ProductoTallaColor ptc ON ptc.PTCID=d.PTCID
+                     JOIN Producto p ON p.ProductoID=ptc.ProductoID;
+
+    UPDATE ptc SET ptc.Stock = ptc.Stock - d.Cantidad
+    FROM ProductoTallaColor ptc JOIN @Detalles d ON d.PTCID=ptc.PTCID;
+    COMMIT;
+  END TRY
+  BEGIN CATCH
+    IF @@TRANCOUNT>0 ROLLBACK; THROW;
+  END CATCH
+END

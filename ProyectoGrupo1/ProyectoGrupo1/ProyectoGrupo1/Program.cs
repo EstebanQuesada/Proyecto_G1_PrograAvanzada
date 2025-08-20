@@ -3,13 +3,14 @@ using ProyectoGrupo1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddScoped<ProductoService>();
 builder.Services.AddScoped<CarritoService>();
 builder.Services.AddSingleton<ProyectoGrupo1.Services.DbService>(); 
 builder.Services.AddScoped<TextoService>();
 builder.Services.AddScoped<ContactoService>();
 builder.Services.AddScoped<PedidoApiService>();
+
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(o =>
@@ -22,16 +23,26 @@ builder.Services.AddSession(o =>
 var apiBase = builder.Configuration["Api:BaseUrl"]
               ?? throw new Exception("Falta configurar 'Api:BaseUrl' en appsettings.json");
 
-builder.Services.AddHttpClient("Api", c =>
+builder.Services.AddHttpClient<ApiProductoClient>(c =>
 {
     c.BaseAddress = new Uri(apiBase);
     c.DefaultRequestHeaders.Accept.Add(
         new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });
 
-builder.Services.AddScoped<ApiUsuarioClient>();
-builder.Services.AddScoped<ApiAdminUsuarioClient>();
+builder.Services.AddHttpClient<ApiUsuarioClient>(c =>
+{
+    c.BaseAddress = new Uri(apiBase);
+    c.DefaultRequestHeaders.Accept.Add(
+        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
 
+builder.Services.AddHttpClient<ApiAdminUsuarioClient>(c =>
+{
+    c.BaseAddress = new Uri(apiBase);
+    c.DefaultRequestHeaders.Accept.Add(
+        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
 
 builder.Services.AddControllersWithViews();
 

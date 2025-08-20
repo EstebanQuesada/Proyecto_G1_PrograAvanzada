@@ -1,90 +1,141 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using ProyectoGrupo1.Models;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using Dapper;
-using Microsoft.Extensions.Configuration;
-using System.Linq;
-using System;
+using Microsoft.AspNetCore.Http;
 
 namespace ProyectoGrupo1.Service
 {
     public class CarritoService
     {
-        private readonly string _connectionString;
+        private readonly IHttpContextAccessor _http;
+        private static readonly JsonSerializerOptions _json = new() { PropertyNameCaseInsensitive = true };
 
-        public CarritoService(IConfiguration configuration)
+        public CarritoService(IHttpContextAccessor http) => _http = http;
+
+        private string Key(int usuarioId) => $"carrito:{usuarioId}";
+
+        private List<CarritoDetalle> Read(int usuarioId)
         {
-            _connectionString = configuration.GetConnectionString("TiendaRopaDB");
+            var json = _http.HttpContext!.Session.GetString(Key(usuarioId));
+            return string.IsNullOrWhiteSpace(json)
+                ? new List<CarritoDetalle>()
+                : (JsonSerializer.Deserialize<List<CarritoDetalle>>(json, _json) ?? new List<CarritoDetalle>());
         }
 
-        public Carrito ObtenerCarritoPorUsuario(int usuarioId)
+        private void Write(int usuarioId, List<CarritoDetalle> detalles)
         {
-            using var connection = new SqlConnection(_connectionString);
-            var carrito = connection.QueryFirstOrDefault<Carrito>(
-                "SELECT TOP 1 * FROM Carrito WHERE UsuarioID = @UsuarioID ORDER BY FechaCreacion DESC",
-                new { UsuarioID = usuarioId });
-            if (carrito == null)
+            var json = JsonSerializer.Serialize(detalles, _json);
+            _http.HttpContext!.Session.SetString(Key(usuarioId), json);
+        }
+
+        private int NextDetalleId(List<CarritoDetalle> detalles) =>
+            detalles.Count == 0 ? 1 : detalles.Max(d => d.DetalleID) + 1;
+
+        public CarritoViewModel ObtenerCarritoPorUsuario(int usuarioId)
+        {
+            var detalles = Read(usuarioId);
+            return new CarritoViewModel
             {
-                int carritoId = connection.QuerySingle<int>(
-                    "INSERT INTO Carrito (UsuarioID, FechaCreacion) VALUES (@UsuarioID, GETDATE()); SELECT CAST(SCOPE_IDENTITY() as int);",
-                    new { UsuarioID = usuarioId });
-                carrito = new Carrito { CarritoID = carritoId, UsuarioID = usuarioId, FechaCreacion = DateTime.Now, Detalles = new List<DetalleCarrito>() };
+                UsuarioID = usuarioId,
+                Detalles = detalles
+            };
+        }
+
+        public void AgregarOActualizarProducto(int usuarioId, int ptcId, int cantidad, int? maxStock = null, CarritoItemMeta? meta = null)
+        {
+            if (cantidad < 1) cantidad = 1;
+            if (maxStock.HasValue) cantidad = Math.Min(cantidad, Math.Max(1, maxStock.Value));
+
+            var detalles = Read(usuarioId);
+            var existente = detalles.FirstOrDefault(d => d.PTCID == ptcId);
+
+            if (existente == null)
+            {
+                var nuevo = new CarritoDetalle
+                {
+                    DetalleID = NextDetalleId(detalles),
+                    PTCID = ptcId,
+                    Cantidad = cantidad
+                };
+
+                if (meta != null) AplicarMeta(nuevo, meta);
+                detalles.Add(nuevo);
             }
             else
             {
-                var detalles = connection.Query<DetalleCarrito>(
-                    @"SELECT dc.DetalleID, dc.CarritoID, dc.PTCID, dc.Cantidad,
-                             p.Nombre AS NombreProducto, ip.UrlImagen, t.NombreTalla, c.NombreColor, p.Precio AS PrecioUnitario
-                      FROM DetalleCarrito dc
-                      INNER JOIN ProductoTallaColor ptc ON dc.PTCID = ptc.PTCID
-                      INNER JOIN Producto p ON ptc.ProductoID = p.ProductoID
-                      LEFT JOIN ImagenProducto ip ON p.ProductoID = ip.ProductoID AND ip.ImagenID = (SELECT MIN(ImagenID) FROM ImagenProducto WHERE ProductoID = p.ProductoID)
-                      INNER JOIN Talla t ON ptc.TallaID = t.TallaID
-                      INNER JOIN Color c ON ptc.ColorID = c.ColorID
-                      WHERE dc.CarritoID = @CarritoID",
-                    new { CarritoID = carrito.CarritoID }).ToList();
-                carrito.Detalles = detalles;
+                existente.Cantidad = cantidad;
+                if (meta != null) AplicarMeta(existente, meta);
             }
-            return carrito;
-        }
 
-        public void AgregarOActualizarProducto(int usuarioId, int ptcId, int cantidad)
-        {
-            using var connection = new SqlConnection(_connectionString);
-            var carrito = ObtenerCarritoPorUsuario(usuarioId);
-            var detalle = connection.QueryFirstOrDefault<DetalleCarrito>(
-                "SELECT * FROM DetalleCarrito WHERE CarritoID = @CarritoID AND PTCID = @PTCID",
-                new { CarritoID = carrito.CarritoID, PTCID = ptcId });
-            if (detalle == null)
-            {
-                connection.Execute(
-                    "INSERT INTO DetalleCarrito (CarritoID, PTCID, Cantidad) VALUES (@CarritoID, @PTCID, @Cantidad)",
-                    new { CarritoID = carrito.CarritoID, PTCID = ptcId, Cantidad = cantidad });
-            }
-            else
-            {
-                connection.Execute(
-                    "UPDATE DetalleCarrito SET Cantidad = @Cantidad WHERE DetalleID = @DetalleID",
-                    new { Cantidad = cantidad, DetalleID = detalle.DetalleID });
-            }
+            Write(usuarioId, detalles);
         }
 
         public void EliminarProducto(int usuarioId, int ptcId)
         {
-            using var connection = new SqlConnection(_connectionString);
-            var carrito = ObtenerCarritoPorUsuario(usuarioId);
-            connection.Execute(
-                "DELETE FROM DetalleCarrito WHERE CarritoID = @CarritoID AND PTCID = @PTCID",
-                new { CarritoID = carrito.CarritoID, PTCID = ptcId });
+            var detalles = Read(usuarioId);
+            var idx = detalles.FindIndex(d => d.PTCID == ptcId);
+            if (idx >= 0) { detalles.RemoveAt(idx); Write(usuarioId, detalles); }
         }
 
-        public void VaciarCarrito(int usuarioId)
+        public void VaciarCarrito(int usuarioId) => Write(usuarioId, new List<CarritoDetalle>());
+
+        public int CantidadDe(int usuarioId, int ptcId)
         {
-            using var connection = new SqlConnection(_connectionString);
-            var carrito = ObtenerCarritoPorUsuario(usuarioId);
-            connection.Execute(
-                "DELETE FROM DetalleCarrito WHERE CarritoID = @CarritoID",
-                new { CarritoID = carrito.CarritoID });
+            var detalles = Read(usuarioId);
+            return detalles.FirstOrDefault(d => d.PTCID == ptcId)?.Cantidad ?? 0;
         }
+
+        private static void AplicarMeta(CarritoDetalle item, CarritoItemMeta meta)
+        {
+            if (meta.ProductoID.HasValue) item.ProductoID = meta.ProductoID.Value;
+            if (!string.IsNullOrWhiteSpace(meta.NombreProducto)) item.NombreProducto = meta.NombreProducto!;
+            if (!string.IsNullOrWhiteSpace(meta.Categoria)) item.Categoria = meta.Categoria!;
+            if (!string.IsNullOrWhiteSpace(meta.Talla)) item.Talla = meta.Talla!;
+            if (!string.IsNullOrWhiteSpace(meta.Color)) item.Color = meta.Color!;
+            if (!string.IsNullOrWhiteSpace(meta.UrlImagen)) item.UrlImagen = meta.UrlImagen!;
+            if (meta.PrecioUnitario.HasValue) item.PrecioUnitario = meta.PrecioUnitario.Value;
+        }
+    }
+
+    public class CarritoViewModel
+    {
+        public int UsuarioID { get; set; }
+        public List<CarritoDetalle> Detalles { get; set; } = new();
+
+        [JsonIgnore]
+        public int TotalItems => Detalles.Sum(d => d.Cantidad);
+
+        [JsonIgnore]
+        public decimal Total => Math.Round(Detalles.Sum(d => d.Subtotal), 2);
+    }
+
+    public class CarritoDetalle
+    {
+        public int DetalleID { get; set; }
+        public int PTCID { get; set; }
+
+        public int ProductoID { get; set; }                
+        public string? NombreProducto { get; set; }        
+        public string? Categoria { get; set; }             
+        public string? Talla { get; set; }                 
+        public string? Color { get; set; }                  
+        public string? UrlImagen { get; set; }              
+        public decimal PrecioUnitario { get; set; }        
+
+        public int Cantidad { get; set; }
+
+        [JsonIgnore]
+        public decimal Subtotal => Math.Round(PrecioUnitario * Cantidad, 2);
+    }
+
+    public class CarritoItemMeta
+    {
+        public int? ProductoID { get; set; }
+        public string? NombreProducto { get; set; }
+        public string? Categoria { get; set; }
+        public string? Talla { get; set; }
+        public string? Color { get; set; }
+        public string? UrlImagen { get; set; }
+        public decimal? PrecioUnitario { get; set; }
     }
 }

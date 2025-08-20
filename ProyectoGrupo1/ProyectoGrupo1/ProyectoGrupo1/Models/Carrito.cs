@@ -17,7 +17,6 @@ namespace ProyectoGrupo1.Models
         public int CarritoID { get; set; }
         public int PTCID { get; set; }
         public int Cantidad { get; set; }
-        // Propiedades auxiliares para mostrar en la vista
         public string NombreProducto { get; set; }
         public string UrlImagen { get; set; }
         public string NombreTalla { get; set; }

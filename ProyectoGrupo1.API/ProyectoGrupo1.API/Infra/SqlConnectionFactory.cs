@@ -3,7 +3,8 @@ using Microsoft.Data.SqlClient;
 
 namespace ProyectoGrupo1.Api.Infra
 {
-    public interface IDbConnectionFactory { IDbConnection Create(); }
+    public interface IDbConnectionFactory { IDbConnection Create(); 
+    }
 
     public class SqlConnectionFactory : IDbConnectionFactory
     {
