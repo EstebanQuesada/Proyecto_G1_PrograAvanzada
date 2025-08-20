@@ -11,6 +11,8 @@ builder.Services.AddSingleton<IDbConnectionFactory>(sp =>
         ?? throw new Exception("ConnectionStrings:TiendaRopaDB no configurado")));
 
 builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<AdminUsuarioService>();
+
 
 
 builder.Services.AddControllers();

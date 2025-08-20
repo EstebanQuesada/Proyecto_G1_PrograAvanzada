@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoGrupo1.Api.DTOs;
+using ProyectoGrupo1.Api.Infra;
 using ProyectoGrupo1.Api.Models;
 using ProyectoGrupo1.Api.Services;
 
@@ -15,16 +16,30 @@ namespace ProyectoGrupo1.Api.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<PerfilDto>> Login([FromBody] LoginDto dto)
         {
-            var user = await _svc.ValidarUsuarioAsync(dto.Correo, dto.Contrasena);
-            if (user is null) return Unauthorized(new { error = "Credenciales incorrectas" });
+            try
+            {
+                var user = await _svc.ValidarUsuarioAsync(dto.Correo, dto.Contrasena);
+                if (user is null)
+                    return Unauthorized(new { error = "Credenciales incorrectas" });
 
-            var perfil = await _svc.ObtenerPerfilCompletoAsync(user.UsuarioID);
-            if (perfil is null) return Unauthorized(new { error = "Usuario no encontrado" });
+                var perfil = await _svc.ObtenerPerfilCompletoAsync(user.UsuarioID);
+                if (perfil is null)
+                    return Unauthorized(new { error = "Usuario no encontrado" });
 
-            return Ok(new PerfilDto(
-                perfil.UsuarioID, perfil.Nombre, perfil.Apellido, perfil.Correo,
-                perfil.Direccion, perfil.Ciudad, perfil.Provincia, perfil.CodigoPostal, perfil.RolID));
+                return Ok(new PerfilDto(
+                    perfil.UsuarioID, perfil.Nombre, perfil.Apellido, perfil.Correo,
+                    perfil.Direccion, perfil.Ciudad, perfil.Provincia, perfil.CodigoPostal, perfil.RolID));
+            }
+            catch (AppException ex) when (ex.StatusCode == 403)
+            {
+                return StatusCode(403, new { error = ex.Message }); 
+            }
+            catch (AppException ex) when (ex.StatusCode == 423)
+            {
+                return StatusCode(423, new { error = ex.Message });
+            }
         }
+
 
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDto dto)

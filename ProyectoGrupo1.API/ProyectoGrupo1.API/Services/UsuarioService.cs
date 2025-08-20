@@ -29,14 +29,26 @@ namespace ProyectoGrupo1.Api.Services
                 p.Add("@Correo", correo);
                 p.Add("@ContrasenaHash", HashPassword(contrasena));
 
-                return await con.QueryFirstOrDefaultAsync<Usuario>(
+                var u = await con.QueryFirstOrDefaultAsync<Usuario>(
                     "sp_Usuario_Validar", p, commandType: CommandType.StoredProcedure);
+
+                if (u is null) return null;                
+
+                if (!u.Activo)
+                    throw new AppException("Tu cuenta está inactiva.", 403);
+
+                if (u.Bloqueado)
+                    
+                    throw new AppException("Tu cuenta está bloqueada.", 423);
+
+                return u;
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 throw new AppException("Error al validar usuario.", 500, ex);
             }
         }
+
 
         public async Task<int> RegistrarUsuarioAsync(Usuario u)
         {

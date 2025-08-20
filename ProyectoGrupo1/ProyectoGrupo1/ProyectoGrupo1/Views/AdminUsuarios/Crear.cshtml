@@ -1,0 +1,68 @@
+﻿@model AdminCrearVm
+@{
+    ViewData["Title"] = "Nuevo usuario";
+}
+
+<h2 class="mb-3">Nuevo usuario</h2>
+
+<form method="post" asp-antiforgery="true">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label asp-for="Nombre" class="form-label"></label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Apellido" class="form-label"></label>
+            <input asp-for="Apellido" class="form-control" />
+            <span asp-validation-for="Apellido" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Correo" class="form-label"></label>
+            <input asp-for="Correo" type="email" class="form-control" />
+            <span asp-validation-for="Correo" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Contrasena" class="form-label"></label>
+            <input asp-for="Contrasena" type="password" class="form-control" />
+            <span asp-validation-for="Contrasena" class="text-danger"></span>
+        </div>
+        <div class="col-md-4">
+            <label asp-for="RolID" class="form-label"></label>
+            <input asp-for="RolID" class="form-control" />
+            <span class="form-text">1 = Cliente, 2 = Admin</span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Direccion" class="form-label"></label>
+            <input asp-for="Direccion" class="form-control" />
+            <span asp-validation-for="Direccion" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Ciudad" class="form-label"></label>
+            <input asp-for="Ciudad" class="form-control" />
+            <span asp-validation-for="Ciudad" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="Provincia" class="form-label"></label>
+            <input asp-for="Provincia" class="form-control" />
+            <span asp-validation-for="Provincia" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label asp-for="CodigoPostal" class="form-label"></label>
+            <input asp-for="CodigoPostal" class="form-control" />
+            <span asp-validation-for="CodigoPostal" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <button class="btn btn-primary">Guardar</button>
+        <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    </div>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

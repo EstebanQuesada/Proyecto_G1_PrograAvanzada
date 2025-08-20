@@ -2,48 +2,62 @@
 
 @{
     ViewData["Title"] = "Iniciar Sesión";
-    Layout = null;
+    Layout = null; 
 }
 
-<link rel="stylesheet" href="~/css/login.css" />
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - Tienda Ropa</title>
 
-<div class="login-wrapper">
-    <div class="login-box">
-        <h2 class="login-title">Iniciar Sesión</h2>
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-box">
+            <h2 class="login-title">Iniciar Sesión</h2>
 
-        <form asp-action="Login" method="post">
-            <div class="form-group">
-                <label for="Correo">Correo</label>
-                <input asp-for="Correo" class="form-control" placeholder="Correo electrónico" />
-                <span asp-validation-for="Correo" class="text-danger"></span>
-            </div>
+            <form asp-action="Login" method="post" asp-antiforgery="true">
+                @Html.AntiForgeryToken()
 
-            <div class="form-group">
-                <label for="Contrasena">Contraseña</label>
-                <input asp-for="Contrasena" class="form-control" type="password" placeholder="Contraseña" />
-                <span asp-validation-for="Contrasena" class="text-danger"></span>
-            </div>
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
 
-            <div class="text-end">
-                <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-            </div>
+                <div class="form-group">
+                    <label asp-for="Correo"></label>
+                    <input asp-for="Correo" type="email" class="form-control"
+                           placeholder="Correo electrónico" autocomplete="username" />
+                    <span asp-validation-for="Correo" class="text-danger"></span>
+                </div>
 
-            <button type="submit" class="btn-login">Ingresar</button>
+                <div class="form-group">
+                    <label asp-for="Contrasena"></label>
+                    <input asp-for="Contrasena" type="password" class="form-control"
+                           placeholder="Contraseña" autocomplete="current-password" />
+                    <span asp-validation-for="Contrasena" class="text-danger"></span>
+                </div>
 
-            @if (ViewBag.Mensaje != null)
-            {
-                <div class="alert alert-danger mt-3 text-center">@ViewBag.Mensaje</div>
-            }
+                <div class="text-end">
+                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+                </div>
 
-            <p class="text-center mt-4">
-                ¿No tienes cuenta? <a asp-controller="Usuario" asp-action="Register">Regístrate aquí</a>
-            </p>
-        </form>
+                <button type="submit" class="btn-login">Ingresar</button>
+
+                @if (ViewBag.Mensaje != null)
+                {
+                    <div class="alert alert-danger mt-3 text-center">@ViewBag.Mensaje</div>
+                }
+
+                <p class="text-center mt-4">
+                    ¿No tienes cuenta?
+                    <a asp-controller="Usuario" asp-action="Register">Regístrate aquí</a>
+                </p>
+            </form>
+        </div>
     </div>
-</div>
 
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
+</body>
+</html>

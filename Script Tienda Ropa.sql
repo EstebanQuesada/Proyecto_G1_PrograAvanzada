@@ -522,3 +522,146 @@ BEGIN
     UPDATE Usuario SET Contrasena = @NuevaContrasenaHash WHERE UsuarioID = @UsuarioID;
 END
 GO
+
+
+--Procedimientos almacenados Admin
+
+IF COL_LENGTH('dbo.Usuario','Bloqueado') IS NULL
+    ALTER TABLE dbo.Usuario ADD Bloqueado BIT NOT NULL CONSTRAINT DF_Usuario_Bloqueado DEFAULT (0);
+IF COL_LENGTH('dbo.Usuario','Activo') IS NULL
+    ALTER TABLE dbo.Usuario ADD Activo BIT NOT NULL CONSTRAINT DF_Usuario_Activo DEFAULT (1);
+
+--Listar
+
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_Listar
+    @Page INT = 1,
+    @PageSize INT = 10,
+    @Search NVARCHAR(200) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @s NVARCHAR(202) = CASE WHEN @Search IS NULL OR LTRIM(RTRIM(@Search)) = '' THEN NULL ELSE '%' + LTRIM(RTRIM(@Search)) + '%' END;
+
+    ;WITH q AS (
+        SELECT u.UsuarioID, u.Nombre, u.Apellido, u.Correo, u.RolID, u.FechaRegistro,
+               ISNULL(u.Bloqueado,0) Bloqueado, ISNULL(u.Activo,1) Activo
+        FROM Usuario u
+        WHERE (@s IS NULL OR u.Nombre LIKE @s OR u.Apellido LIKE @s OR u.Correo LIKE @s)
+    )
+    SELECT COUNT(*) AS Total FROM q;
+
+    SELECT UsuarioID, Nombre, Apellido, Correo, RolID, FechaRegistro, Bloqueado, Activo
+    FROM q
+    ORDER BY UsuarioID DESC
+    OFFSET (@Page-1)*@PageSize ROWS FETCH NEXT @PageSize ROWS ONLY;
+END
+GO
+
+
+--Obtener detalle
+
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_Obtener
+    @UsuarioID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT u.UsuarioID, u.Nombre, u.Apellido, u.Correo, u.RolID, u.FechaRegistro,
+           ISNULL(u.Bloqueado,0) Bloqueado, ISNULL(u.Activo,1) Activo,
+           ISNULL(d.Direccion,'') Direccion, ISNULL(d.Ciudad,'') Ciudad,
+           ISNULL(d.Provincia,'') Provincia, ISNULL(d.CodigoPostal,'') CodigoPostal
+    FROM Usuario u
+    LEFT JOIN DireccionUsuario d ON d.UsuarioID = u.UsuarioID
+    WHERE u.UsuarioID = @UsuarioID;
+END
+GO
+-- Crear
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_Crear
+ @Nombre nvarchar(100), @Apellido nvarchar(100), @Correo nvarchar(200), @ContrasenaHash nvarchar(200),
+ @RolID int, @Direccion nvarchar(200), @Ciudad nvarchar(100), @Provincia nvarchar(100), @CodigoPostal nvarchar(20),
+ @NuevoUsuarioID int OUTPUT
+AS
+BEGIN
+    INSERT INTO Usuario(Nombre, Apellido, Correo, Contrasena, RolID, FechaRegistro, Activo, Bloqueado)
+    VALUES(@Nombre,@Apellido,@Correo,@ContrasenaHash,@RolID,GETDATE(),1,0);
+
+    SET @NuevoUsuarioID = SCOPE_IDENTITY();
+
+    MERGE DireccionUsuario AS t
+    USING (SELECT @NuevoUsuarioID AS UsuarioID, @Direccion AS Direccion, @Ciudad AS Ciudad, @Provincia AS Provincia, @CodigoPostal AS CodigoPostal) AS s
+    ON t.UsuarioID = s.UsuarioID
+    WHEN MATCHED THEN UPDATE SET Direccion=s.Direccion, Ciudad=s.Ciudad, Provincia=s.Provincia, CodigoPostal=s.CodigoPostal
+    WHEN NOT MATCHED THEN INSERT(UsuarioID,Direccion,Ciudad,Provincia,CodigoPostal)
+    VALUES(s.UsuarioID,s.Direccion,s.Ciudad,s.Provincia,s.CodigoPostal);
+END
+GO
+
+-- Actualizar
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_Actualizar
+ @UsuarioID int, @Nombre nvarchar(100), @Apellido nvarchar(100), @Correo nvarchar(200), @RolID int,
+ @Direccion nvarchar(200), @Ciudad nvarchar(100), @Provincia nvarchar(100), @CodigoPostal nvarchar(20)
+AS
+BEGIN
+  UPDATE Usuario SET Nombre=@Nombre, Apellido=@Apellido, Correo=@Correo, RolID=@RolID WHERE UsuarioID=@UsuarioID;
+
+  MERGE DireccionUsuario AS t
+  USING (SELECT @UsuarioID AS UsuarioID, @Direccion AS Direccion, @Ciudad AS Ciudad, @Provincia AS Provincia, @CodigoPostal AS CodigoPostal) AS s
+  ON t.UsuarioID = s.UsuarioID
+  WHEN MATCHED THEN UPDATE SET Direccion=s.Direccion, Ciudad=s.Ciudad, Provincia=s.Provincia, CodigoPostal=s.CodigoPostal
+  WHEN NOT MATCHED THEN INSERT(UsuarioID,Direccion,Ciudad,Provincia,CodigoPostal)
+  VALUES(s.UsuarioID,s.Direccion,s.Ciudad,s.Provincia,s.CodigoPostal);
+END
+GO
+
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_CambiarRol @UsuarioID int,@RolID int AS
+UPDATE Usuario SET RolID=@RolID WHERE UsuarioID=@UsuarioID;
+GO
+
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_Bloquear @UsuarioID int,@Bloqueado bit AS
+UPDATE Usuario SET Bloqueado=@Bloqueado WHERE UsuarioID=@UsuarioID;
+GO
+
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_ResetPassword @UsuarioID int,@NuevaContrasenaHash nvarchar(200) AS
+UPDATE Usuario SET Contrasena=@NuevaContrasenaHash WHERE UsuarioID=@UsuarioID;
+GO
+
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_Eliminar @UsuarioID int AS
+UPDATE Usuario SET Activo=0 WHERE UsuarioID=@UsuarioID;
+GO
+
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_Restaurar @UsuarioID int AS
+UPDATE Usuario SET Activo=1 WHERE UsuarioID=@UsuarioID;
+GO
+
+CREATE OR ALTER PROCEDURE sp_Admin_Usuario_Obtener @UsuarioID int AS
+BEGIN
+ SELECT TOP 1 u.UsuarioID,u.Nombre,u.Apellido,u.Correo,u.RolID,u.Contrasena,
+        ISNULL(d.Direccion,'') Direccion,ISNULL(d.Ciudad,'') Ciudad,ISNULL(d.Provincia,'') Provincia,ISNULL(d.CodigoPostal,'') CodigoPostal,
+        ISNULL(u.Bloqueado,0) Bloqueado,ISNULL(u.Activo,1) Activo
+ FROM Usuario u LEFT JOIN DireccionUsuario d ON d.UsuarioID=u.UsuarioID
+ WHERE u.UsuarioID=@UsuarioID;
+END
+GO
+
+-- Login valida credenciales y devuelve estado
+CREATE OR ALTER PROCEDURE dbo.sp_Usuario_Validar
+    @Correo           nvarchar(200),
+    @ContrasenaHash   nvarchar(200)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP 1
+        UsuarioID,
+        Nombre,
+        Apellido,
+        Correo,
+        RolID,
+        ISNULL(Activo, 1)     AS Activo,
+        ISNULL(Bloqueado, 0)  AS Bloqueado
+    FROM dbo.Usuario
+    WHERE Correo = @Correo
+      AND Contrasena = @ContrasenaHash;
+END
+GO
+

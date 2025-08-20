@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Net;
+using System.Text;
 using System.Text.Json;
 
 public class ApiUsuarioClient
@@ -19,7 +20,21 @@ public class ApiUsuarioClient
         var payload = JsonSerializer.Serialize(new { Correo = correo, Contrasena = contrasena });
         var res = await _http.PostAsync("/api/v1/auth/login",
             new StringContent(payload, Encoding.UTF8, "application/json"));
-        if (res.StatusCode == System.Net.HttpStatusCode.Unauthorized) return null;
+
+        if (res.StatusCode == HttpStatusCode.Unauthorized)
+        {
+            // 401 -> credenciales incorrectas (comportamiento actual)
+            return null;
+        }
+
+        // Bloqueado / Inactivo -> mostramos mensaje específico
+        if (res.StatusCode == HttpStatusCode.Forbidden || (int)res.StatusCode == 423)
+        {
+            var body = await res.Content.ReadAsStringAsync();
+            var msg = TryGetErrorMessage(body) ?? "No autorizado.";
+            throw new ApplicationException(msg);
+        }
+
         res.EnsureSuccessStatusCode();
         var json = await res.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<PerfilVm>(json, _json);
@@ -36,7 +51,7 @@ public class ApiUsuarioClient
     public async Task<PerfilVm?> ObtenerPerfilAsync(int id)
     {
         var res = await _http.GetAsync($"/api/v1/usuarios/{id}");
-        if (res.StatusCode == System.Net.HttpStatusCode.NotFound) return null;
+        if (res.StatusCode == HttpStatusCode.NotFound) return null;
         res.EnsureSuccessStatusCode();
         var json = await res.Content.ReadAsStringAsync();
         return JsonSerializer.Deserialize<PerfilVm>(json, _json);
@@ -60,5 +75,18 @@ public class ApiUsuarioClient
         if (res.IsSuccessStatusCode) return (true, null);
         var text = await res.Content.ReadAsStringAsync();
         return (false, text);
+    }
+
+    private static string? TryGetErrorMessage(string? json)
+    {
+        if (string.IsNullOrWhiteSpace(json)) return null;
+        try
+        {
+            using var doc = JsonDocument.Parse(json);
+            if (doc.RootElement.TryGetProperty("error", out var err) && err.ValueKind == JsonValueKind.String)
+                return err.GetString();
+        }
+        catch {  }
+        return null;
     }
 }

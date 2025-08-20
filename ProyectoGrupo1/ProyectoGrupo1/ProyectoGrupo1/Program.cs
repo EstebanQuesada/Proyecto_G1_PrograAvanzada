@@ -29,7 +29,9 @@ builder.Services.AddHttpClient("Api", c =>
         new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });
 
-builder.Services.AddScoped<ApiUsuarioClient>(); 
+builder.Services.AddScoped<ApiUsuarioClient>();
+builder.Services.AddScoped<ApiAdminUsuarioClient>();
+
 
 builder.Services.AddControllersWithViews();
 
