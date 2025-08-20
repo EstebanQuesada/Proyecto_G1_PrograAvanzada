@@ -1,123 +1,160 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProyectoGrupo1.Models;
-using ProyectoGrupo1.Services;
-using Microsoft.AspNetCore.Http;
 
-namespace ProyectoGrupo1.Controllers
+public class UsuarioController : Controller
 {
-    public class UsuarioController : Controller
+    private readonly ApiUsuarioClient _api;
+
+    public UsuarioController(ApiUsuarioClient api) => _api = api;
+
+    [HttpGet]
+    public IActionResult Login() => View();
+
+    [HttpPost]
+    public async Task<IActionResult> Login(Usuario usuarioLogin)
     {
-        private readonly UsuarioService _usuarioService;
-
-        public UsuarioController(IConfiguration config)
+        var perfil = await _api.LoginAsync(usuarioLogin.Correo, usuarioLogin.Contrasena);
+        if (perfil != null)
         {
-            _usuarioService = new UsuarioService(config);
+            HttpContext.Session.SetInt32("UsuarioID", perfil.UsuarioID);
+            HttpContext.Session.SetString("Correo", perfil.Correo);
+            HttpContext.Session.SetString("Nombre", perfil.Nombre);
+            return RedirectToAction("Index", "Home");
         }
+        ViewBag.Mensaje = "Credenciales incorrectas.";
+        return View(usuarioLogin);
+    }
 
-        [HttpGet]
-        public IActionResult Login() => View();
+    [HttpGet]
+    public IActionResult Register() => View();
 
-        [HttpPost]
-        public IActionResult Login(Usuario usuarioLogin)
+    [HttpPost]
+    public async Task<IActionResult> Register(Usuario u)
+    {
+        if (!ModelState.IsValid) return View(u);
+
+        var ok = await _api.RegisterAsync(new
         {
-            var usuario = _usuarioService.ValidarUsuario(usuarioLogin);
-            if (usuario != null)
+            u.Nombre,
+            u.Apellido,
+            u.Correo,
+            Contrasena = u.Contrasena,
+            u.Direccion,
+            u.Ciudad,
+            u.Provincia,
+            u.CodigoPostal
+        });
+
+        if (ok) return RedirectToAction("Login");
+        ViewBag.Mensaje = "No se pudo registrar el usuario.";
+        return View(u);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Perfil()
+    {
+        var id = HttpContext.Session.GetInt32("UsuarioID");
+        if (id is null) return RedirectToAction("Login");
+
+        var p = await _api.ObtenerPerfilAsync(id.Value);
+        if (p == null) return RedirectToAction("Login");
+
+        var model = new Usuario
+        {
+            UsuarioID = p.UsuarioID,
+            Nombre = p.Nombre,
+            Apellido = p.Apellido,
+            Correo = p.Correo,
+            Direccion = p.Direccion,
+            Ciudad = p.Ciudad,
+            Provincia = p.Provincia,
+            CodigoPostal = p.CodigoPostal,
+            RolID = p.RolID
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> ActualizarPerfil(Usuario u)
+    {
+        var id = HttpContext.Session.GetInt32("UsuarioID");
+        if (id is null) return RedirectToAction("Login");
+
+        if (!ModelState.IsValid)
+        {
+            var p = await _api.ObtenerPerfilAsync(u.UsuarioID);
+            if (p == null) return RedirectToAction("Login");
+            var model = new Usuario
             {
-                HttpContext.Session.SetInt32("UsuarioID", usuario.UsuarioID);
-                HttpContext.Session.SetString("Correo", usuario.Correo);
-                HttpContext.Session.SetString("Nombre", usuario.Nombre);
-                return RedirectToAction("Index", "Home");
-            }
-
-            ViewBag.Mensaje = "Credenciales incorrectas.";
-            return View(usuarioLogin);
+                UsuarioID = p.UsuarioID,
+                Nombre = p.Nombre,
+                Apellido = p.Apellido,
+                Correo = p.Correo,
+                Direccion = p.Direccion,
+                Ciudad = p.Ciudad,
+                Provincia = p.Provincia,
+                CodigoPostal = p.CodigoPostal,
+                RolID = p.RolID
+            };
+            return View("Perfil", model);
         }
 
-        [HttpGet]
-        public IActionResult Register() => View();
-
-        [HttpPost]
-        public IActionResult Register(Usuario usuario)
+        var ok = await _api.ActualizarPerfilAsync(new
         {
-            try
-            {
-                bool registrado = _usuarioService.RegistrarUsuario(usuario);
-                if (registrado)
-                    return RedirectToAction("Login");
+            u.UsuarioID,
+            u.Nombre,
+            u.Apellido,
+            u.Correo,
+            u.Direccion,
+            u.Ciudad,
+            u.Provincia,
+            u.CodigoPostal
+        });
 
-                ViewBag.Mensaje = "No se pudo registrar el usuario.";
-                return View(usuario);
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Mensaje = ex.Message;
-                return View(usuario);
-            }
-        }
+        TempData["Mensaje"] = ok ? "Perfil actualizado correctamente" : "No se pudo actualizar el perfil";
 
-        [HttpGet]
-        public IActionResult Perfil()
+        var p2 = await _api.ObtenerPerfilAsync(u.UsuarioID);
+        if (ok) HttpContext.Session.SetString("Nombre", u.Nombre);
+        var model2 = p2 == null ? u : new Usuario
         {
-            var usuarioId = HttpContext.Session.GetInt32("UsuarioID");
-            if (usuarioId == null) return RedirectToAction("Login");
+            UsuarioID = p2.UsuarioID,
+            Nombre = p2.Nombre,
+            Apellido = p2.Apellido,
+            Correo = p2.Correo,
+            Direccion = p2.Direccion,
+            Ciudad = p2.Ciudad,
+            Provincia = p2.Provincia,
+            CodigoPostal = p2.CodigoPostal,
+            RolID = p2.RolID
+        };
+        return View("Perfil", model2);
+    }
 
-            var usuario = _usuarioService.ObtenerPerfilCompleto(usuarioId.Value);
-            return View(usuario);
-        }
+    [HttpGet]
+    public IActionResult CambiarContrasena()
+        => HttpContext.Session.GetInt32("UsuarioID") == null ? RedirectToAction("Login") : View();
 
-        [HttpPost]
-        public IActionResult ActualizarPerfil(Usuario usuario)
+    [HttpPost]
+    public async Task<IActionResult> CambiarContrasena(string ContrasenaActual, string NuevaContrasena, string ConfirmarContrasena)
+    {
+        var id = HttpContext.Session.GetInt32("UsuarioID");
+        if (id is null) return RedirectToAction("Login");
+
+        if (NuevaContrasena != ConfirmarContrasena)
         {
-            if (!ModelState.IsValid)
-            {
-                var datosCompletos = _usuarioService.ObtenerPerfilCompleto(usuario.UsuarioID);
-                return View("Perfil", datosCompletos);
-            }
-
-            var exito = _usuarioService.ActualizarPerfilYDireccion(usuario);
-            TempData["Mensaje"] = exito ? "Perfil actualizado correctamente" : "No se pudo actualizar el perfil";
-
-            if (exito)
-                HttpContext.Session.SetString("Nombre", usuario.Nombre);
-
-            var usuarioActualizado = _usuarioService.ObtenerPerfilCompleto(usuario.UsuarioID);
-            return View("Perfil", usuarioActualizado);
-        }
-
-        [HttpGet]
-        public IActionResult CambiarContrasena()
-        {
-            if (HttpContext.Session.GetInt32("UsuarioID") == null)
-                return RedirectToAction("Login");
-
+            TempData["MensajeClave"] = "La nueva contraseña y la confirmación no coinciden.";
             return View();
         }
 
-        [HttpPost]
-        public IActionResult CambiarContrasena(string ContrasenaActual, string NuevaContrasena, string ConfirmarContrasena)
-        {
-            int? usuarioId = HttpContext.Session.GetInt32("UsuarioID");
-            if (usuarioId == null) return RedirectToAction("Login");
+        var (ok, _) = await _api.CambiarPasswordAsync(id.Value, ContrasenaActual, NuevaContrasena);
+        TempData["MensajeClave"] = ok ? "Contraseña cambiada exitosamente." : "La contraseña actual no es válida.";
+        return View();
+    }
 
-            if (NuevaContrasena != ConfirmarContrasena)
-            {
-                TempData["MensajeClave"] = "La nueva contraseña y la confirmación no coinciden.";
-                return View();
-            }
-
-            bool cambiado = _usuarioService.CambiarContrasena(usuarioId.Value, ContrasenaActual, NuevaContrasena);
-
-            TempData["MensajeClave"] = cambiado
-                ? "Contraseña cambiada exitosamente."
-                : "La contraseña actual no es válida.";
-
-            return View();
-        }
-
-        public IActionResult Logout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login");
-        }
+    public IActionResult Logout()
+    {
+        HttpContext.Session.Clear();
+        return RedirectToAction("Login");
     }
 }

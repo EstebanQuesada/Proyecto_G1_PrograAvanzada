@@ -25,7 +25,6 @@ namespace ProyectoGrupo1.Service
                 new { UsuarioID = usuarioId });
             if (carrito == null)
             {
-                // Crear carrito si no existe
                 int carritoId = connection.QuerySingle<int>(
                     "INSERT INTO Carrito (UsuarioID, FechaCreacion) VALUES (@UsuarioID, GETDATE()); SELECT CAST(SCOPE_IDENTITY() as int);",
                     new { UsuarioID = usuarioId });
@@ -88,4 +87,4 @@ namespace ProyectoGrupo1.Service
                 new { CarritoID = carrito.CarritoID });
         }
     }
-} 
+}

@@ -398,3 +398,127 @@ BEGIN
     ORDER BY p.FechaPedido DESC, p.PedidoID DESC
 END
 
+
+
+
+
+--Procedimientos Almacenados Usuarios
+
+--Validar login
+CREATE OR ALTER PROCEDURE sp_Usuario_Validar
+    @Correo NVARCHAR(256),
+    @ContrasenaHash NVARCHAR(256)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT TOP 1 UsuarioID, Nombre, Correo
+    FROM Usuario
+    WHERE Correo = @Correo AND Contrasena = @ContrasenaHash;
+END
+GO
+
+--Registro usuario + dirección (transacción)
+CREATE OR ALTER PROCEDURE sp_Usuario_Registrar
+    @Nombre NVARCHAR(100),
+    @Apellido NVARCHAR(100),
+    @Correo NVARCHAR(256),
+    @ContrasenaHash NVARCHAR(256),
+    @Direccion NVARCHAR(200),
+    @Ciudad NVARCHAR(100),
+    @Provincia NVARCHAR(100),
+    @CodigoPostal NVARCHAR(20),
+    @NuevoUsuarioID INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRY
+        BEGIN TRAN;
+        INSERT INTO Usuario (Nombre, Apellido, Correo, Contrasena, FechaRegistro, RolID)
+        VALUES (@Nombre, @Apellido, @Correo, @ContrasenaHash, GETDATE(), 1);
+
+        SET @NuevoUsuarioID = SCOPE_IDENTITY();
+
+        INSERT INTO DireccionUsuario (UsuarioID, Direccion, Ciudad, Provincia, CodigoPostal)
+        VALUES (@NuevoUsuarioID, @Direccion, @Ciudad, @Provincia, @CodigoPostal);
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK;
+        THROW;
+    END CATCH
+END
+GO
+
+--Perfil completo
+CREATE OR ALTER PROCEDURE sp_Usuario_ObtenerPerfil
+    @UsuarioID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT u.UsuarioID, u.Nombre, u.Apellido, u.Correo, u.Contrasena, u.RolID,
+           ISNULL(d.Direccion,'') AS Direccion, ISNULL(d.Ciudad,'') AS Ciudad,
+           ISNULL(d.Provincia,'') AS Provincia, ISNULL(d.CodigoPostal,'') AS CodigoPostal
+    FROM Usuario u
+    LEFT JOIN DireccionUsuario d ON d.UsuarioID = u.UsuarioID
+    WHERE u.UsuarioID = @UsuarioID;
+END
+GO
+
+--Actualizar perfil y dirección (UPSERT dirección)
+CREATE OR ALTER PROCEDURE sp_Usuario_ActualizarPerfilYDireccion
+    @UsuarioID INT,
+    @Nombre NVARCHAR(100),
+    @Apellido NVARCHAR(100),
+    @Correo NVARCHAR(256),
+    @Direccion NVARCHAR(200),
+    @Ciudad NVARCHAR(100),
+    @Provincia NVARCHAR(100),
+    @CodigoPostal NVARCHAR(20)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    BEGIN TRY
+        BEGIN TRAN;
+
+        UPDATE Usuario
+        SET Nombre = @Nombre, Apellido = @Apellido, Correo = @Correo
+        WHERE UsuarioID = @UsuarioID;
+
+        IF EXISTS (SELECT 1 FROM DireccionUsuario WHERE UsuarioID = @UsuarioID)
+            UPDATE DireccionUsuario
+            SET Direccion=@Direccion, Ciudad=@Ciudad, Provincia=@Provincia, CodigoPostal=@CodigoPostal
+            WHERE UsuarioID=@UsuarioID;
+        ELSE
+            INSERT INTO DireccionUsuario (UsuarioID, Direccion, Ciudad, Provincia, CodigoPostal)
+            VALUES (@UsuarioID, @Direccion, @Ciudad, @Provincia, @CodigoPostal);
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK;
+        THROW;
+    END CATCH
+END
+GO
+
+--Obtener hash actual de contraseña
+CREATE OR ALTER PROCEDURE sp_Usuario_ObtenerHashContrasena
+    @UsuarioID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    SELECT Contrasena FROM Usuario WHERE UsuarioID = @UsuarioID;
+END
+GO
+
+--Cambiar contraseña
+CREATE OR ALTER PROCEDURE sp_Usuario_CambiarContrasena
+    @UsuarioID INT,
+    @NuevaContrasenaHash NVARCHAR(256)
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE Usuario SET Contrasena = @NuevaContrasenaHash WHERE UsuarioID = @UsuarioID;
+END
+GO

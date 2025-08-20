@@ -78,4 +78,4 @@ namespace ProyectoGrupo1.Controllers
             return RedirectToAction("Index");
         }
     }
-} 
+}

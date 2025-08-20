@@ -3,14 +3,35 @@ using ProyectoGrupo1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 builder.Services.AddScoped<ProductoService>();
 builder.Services.AddScoped<CarritoService>();
-builder.Services.AddSingleton<ProyectoGrupo1.Services.DbService>();
-builder.Services.AddDistributedMemoryCache();
-builder.Services.AddSession();
-builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<ProyectoGrupo1.Services.DbService>(); 
 builder.Services.AddScoped<TextoService>();
 builder.Services.AddScoped<ContactoService>();
+builder.Services.AddScoped<PedidoApiService>();
+
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(o =>
+{
+    o.IdleTimeout = TimeSpan.FromMinutes(60);
+    o.Cookie.HttpOnly = true;
+    o.Cookie.IsEssential = true;
+});
+
+var apiBase = builder.Configuration["Api:BaseUrl"]
+              ?? throw new Exception("Falta configurar 'Api:BaseUrl' en appsettings.json");
+
+builder.Services.AddHttpClient("Api", c =>
+{
+    c.BaseAddress = new Uri(apiBase);
+    c.DefaultRequestHeaders.Accept.Add(
+        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
+
+builder.Services.AddScoped<ApiUsuarioClient>(); 
+
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -20,11 +41,10 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
+
 app.UseSession();
 app.UseAuthorization();
 

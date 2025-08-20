@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\ProyectoGrupo1.API.props" />
+</Project>
