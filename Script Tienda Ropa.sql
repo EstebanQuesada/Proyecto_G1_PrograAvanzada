@@ -1206,3 +1206,297 @@ BEGIN
     RETURN @@ROWCOUNT;
 END
 GO
+
+--cambios de eliminar producto a inactivo
+--Columna Activo en Producto (si no existe)
+IF COL_LENGTH('dbo.Producto','Activo') IS NULL
+BEGIN
+    ALTER TABLE dbo.Producto ADD Activo BIT NOT NULL
+        CONSTRAINT DF_Producto_Activo DEFAULT(1);
+END
+GO
+
+---LISTAR (admin)  incluye Activo 
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Listar
+    @Page     INT = 1,
+    @PageSize INT = 10,
+    @Search   NVARCHAR(200) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @s NVARCHAR(202) =
+        CASE WHEN @Search IS NULL OR LTRIM(RTRIM(@Search)) = ''
+             THEN NULL
+             ELSE '%' + LTRIM(RTRIM(@Search)) + '%'
+        END;
+
+    DECLARE @q TABLE (
+        ProductoID         INT,
+        Nombre             NVARCHAR(200),
+        Precio             DECIMAL(18,2),
+        CategoriaID        INT,
+        Categoria          NVARCHAR(200),
+        UrlImagenPrincipal NVARCHAR(500) NULL,
+        Activo             BIT
+    );
+
+    INSERT INTO @q (ProductoID, Nombre, Precio, CategoriaID, Categoria, UrlImagenPrincipal, Activo)
+    SELECT  p.ProductoID,
+            p.Nombre,
+            p.Precio,
+            c.CategoriaID,
+            c.NombreCategoria AS Categoria,
+            (SELECT TOP(1) UrlImagen
+               FROM ImagenProducto i
+              WHERE i.ProductoID = p.ProductoID
+              ORDER BY i.ImagenID),
+            p.Activo
+    FROM Producto p
+    INNER JOIN CategoriaProducto c ON c.CategoriaID = p.CategoriaID
+    WHERE (@s IS NULL
+           OR p.Nombre       LIKE @s
+           OR p.Descripcion  LIKE @s
+           OR c.NombreCategoria LIKE @s);
+
+    SELECT COUNT(*) AS Total FROM @q;
+
+    SELECT  ProductoID, Nombre, Precio, CategoriaID, Categoria, UrlImagenPrincipal, Activo
+    FROM @q
+    ORDER BY ProductoID DESC
+    OFFSET (@Page - 1) * @PageSize ROWS
+    FETCH NEXT @PageSize ROWS ONLY;
+END
+GO
+
+---DETALLE (admin) — incluye Activo 
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Obtener
+    @ProductoID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP(1)
+        p.ProductoID, p.Nombre, p.Descripcion, p.Precio,
+        p.CategoriaID, p.MarcaID, p.ProveedorID, p.Activo
+    FROM Producto p
+    WHERE p.ProductoID = @ProductoID;
+
+    SELECT UrlImagen
+    FROM ImagenProducto
+    WHERE ProductoID = @ProductoID
+    ORDER BY ImagenID;
+
+    SELECT ptc.PTCID, ptc.TallaID, t.NombreTalla, ptc.ColorID, c.NombreColor, ptc.Stock
+    FROM ProductoTallaColor ptc
+    INNER JOIN Talla t ON t.TallaID = ptc.TallaID
+    INNER JOIN Color c ON c.ColorID = ptc.ColorID
+    WHERE ptc.ProductoID = @ProductoID;
+
+    SELECT CategoriaID  AS Id, NombreCategoria AS Nombre FROM CategoriaProducto ORDER BY NombreCategoria;
+    SELECT MarcaID      AS Id, NombreMarca     AS Nombre FROM Marca            ORDER BY NombreMarca;
+    SELECT ProveedorID  AS Id, NombreProveedor AS Nombre FROM Proveedor        ORDER BY NombreProveedor;
+    SELECT TallaID      AS Id, NombreTalla     AS Nombre FROM Talla            ORDER BY NombreTalla;
+    SELECT ColorID      AS Id, NombreColor     AS Nombre FROM Color            ORDER BY NombreColor;
+END
+GO
+
+---CREAR — asegura Activo=1 al insertar 
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Crear
+    @Nombre NVARCHAR(200),
+    @Descripcion NVARCHAR(MAX),
+    @Precio DECIMAL(18,2),
+    @CategoriaID INT,
+    @MarcaID INT,
+    @ProveedorID INT,
+    @Imagenes dbo.ImagenProductoType READONLY,
+    @PTCs dbo.PTCType READONLY,
+    @NuevoProductoID INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON; SET XACT_ABORT ON;
+    BEGIN TRY
+        BEGIN TRAN;
+        INSERT INTO Producto (Nombre, Descripcion, Precio, CategoriaID, MarcaID, ProveedorID, Activo)
+        VALUES (@Nombre, @Descripcion, @Precio, @CategoriaID, @MarcaID, @ProveedorID, 1);
+
+        SET @NuevoProductoID = SCOPE_IDENTITY();
+
+        INSERT INTO ImagenProducto(ProductoID, UrlImagen)
+        SELECT @NuevoProductoID, UrlImagen FROM @Imagenes;
+
+        INSERT INTO ProductoTallaColor(ProductoID, TallaID, ColorID, Stock)
+        SELECT @NuevoProductoID, TallaID, ColorID, Stock FROM @PTCs;
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK;
+        THROW;
+    END CATCH
+END
+GO
+
+--ACTUALIZAR — sin tocar Activo 
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Actualizar
+    @ProductoID INT,
+    @Nombre NVARCHAR(200),
+    @Descripcion NVARCHAR(MAX),
+    @Precio DECIMAL(18,2),
+    @CategoriaID INT,
+    @MarcaID INT,
+    @ProveedorID INT,
+    @Imagenes dbo.ImagenProductoType READONLY,
+    @PTCs dbo.PTCType READONLY
+AS
+BEGIN
+    SET NOCOUNT ON; SET XACT_ABORT ON;
+    BEGIN TRY
+        BEGIN TRAN;
+
+        UPDATE Producto
+        SET Nombre=@Nombre, Descripcion=@Descripcion, Precio=@Precio,
+            CategoriaID=@CategoriaID, MarcaID=@MarcaID, ProveedorID=@ProveedorID
+        WHERE ProductoID=@ProductoID;
+
+        DELETE FROM ImagenProducto WHERE ProductoID=@ProductoID;
+        INSERT INTO ImagenProducto(ProductoID, UrlImagen)
+        SELECT @ProductoID, UrlImagen FROM @Imagenes;
+
+        DELETE FROM ProductoTallaColor WHERE ProductoID=@ProductoID;
+        INSERT INTO ProductoTallaColor(ProductoID, TallaID, ColorID, Stock)
+        SELECT @ProductoID, TallaID, ColorID, Stock FROM @PTCs;
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK;
+        THROW;
+    END CATCH
+END
+GO
+
+----INACTIVAR en vez de borrar (soft delete) 
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Eliminar
+    @ProductoID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE dbo.Producto SET Activo = 0 WHERE ProductoID = @ProductoID;
+END
+GO
+
+--ACTIVAR 
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Activar
+    @ProductoID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE dbo.Producto SET Activo = 1 WHERE ProductoID = @ProductoID;
+END
+GO
+
+----CATÁLOGO público — solo Activos
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_Catalogo
+    @Busqueda   NVARCHAR(100) = NULL,
+    @Categoria  NVARCHAR(100) = NULL,
+    @PrecioMin  DECIMAL(18,2) = NULL,
+    @PrecioMax  DECIMAL(18,2) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        p.ProductoID,
+        p.Nombre,
+        LEFT(p.Descripcion, 100) AS DescripcionCorta,
+        p.Precio,
+        c.NombreCategoria AS Categoria,
+        (SELECT TOP (1) UrlImagen 
+         FROM ImagenProducto 
+         WHERE ProductoID = p.ProductoID 
+         ORDER BY ImagenID) AS UrlImagenPrincipal
+    FROM Producto p
+    INNER JOIN CategoriaProducto c ON p.CategoriaID = c.CategoriaID
+    WHERE p.Activo = 1
+      AND (@Busqueda IS NULL OR p.Nombre LIKE '%' + @Busqueda + '%')
+      AND (@Categoria IS NULL OR c.NombreCategoria = @Categoria)
+      AND (@PrecioMin IS NULL OR p.Precio >= @PrecioMin)
+      AND (@PrecioMax IS NULL OR p.Precio <= @PrecioMax)
+    ORDER BY p.Nombre;
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_Catalogo_Paginado
+ @Busqueda NVARCHAR(100)=NULL, @Categoria NVARCHAR(100)=NULL,
+ @PrecioMin DECIMAL(18,2)=NULL, @PrecioMax DECIMAL(18,2)=NULL,
+ @Page INT = 1, @PageSize INT = 20
+AS
+BEGIN
+  SET NOCOUNT ON;
+
+  ;WITH Q AS (
+    SELECT 
+      p.ProductoID, p.Nombre,
+      LEFT(p.Descripcion, 100) AS DescripcionCorta,
+      p.Precio, c.NombreCategoria AS Categoria,
+      (SELECT TOP (1) UrlImagen FROM ImagenProducto WHERE ProductoID = p.ProductoID ORDER BY ImagenID) AS UrlImagenPrincipal
+    FROM Producto p
+    INNER JOIN CategoriaProducto c ON p.CategoriaID = c.CategoriaID
+    WHERE p.Activo = 1
+      AND (@Busqueda IS NULL OR p.Nombre LIKE '%' + @Busqueda + '%')
+      AND (@Categoria IS NULL OR c.NombreCategoria = @Categoria)
+      AND (@PrecioMin IS NULL OR p.Precio >= @PrecioMin)
+      AND (@PrecioMax IS NULL OR p.Precio <= @PrecioMax)
+  )
+  SELECT * FROM Q
+  ORDER BY Nombre
+  OFFSET (@Page-1)*@PageSize ROWS FETCH NEXT @PageSize ROWS ONLY;
+
+  SELECT COUNT(*) AS Total FROM Q;
+END
+GO
+
+CREATE OR ALTER PROCEDURE dbo.usp_Producto_Detalle_Paquete
+    @ProductoID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    -- Detalle (solo si está activo)
+    SELECT p.ProductoID, p.Nombre, p.Descripcion, p.Precio, c.NombreCategoria AS Categoria
+    FROM Producto p
+    INNER JOIN CategoriaProducto c ON p.CategoriaID = c.CategoriaID
+    WHERE p.ProductoID = @ProductoID
+      AND p.Activo = 1;
+
+    -- Imágenes
+    SELECT UrlImagen 
+    FROM ImagenProducto 
+    WHERE ProductoID = @ProductoID
+      AND EXISTS (SELECT 1 FROM Producto WHERE ProductoID=@ProductoID AND Activo=1)
+    ORDER BY ImagenID;
+
+    -- Tallas
+    SELECT DISTINCT t.NombreTalla
+    FROM ProductoTallaColor ptc
+    INNER JOIN Talla t ON ptc.TallaID = t.TallaID
+    WHERE ptc.ProductoID = @ProductoID
+      AND EXISTS (SELECT 1 FROM Producto WHERE ProductoID=@ProductoID AND Activo=1);
+
+    -- Colores
+    SELECT DISTINCT c.NombreColor
+    FROM ProductoTallaColor ptc
+    INNER JOIN Color c ON ptc.ColorID = c.ColorID
+    WHERE ptc.ProductoID = @ProductoID
+      AND EXISTS (SELECT 1 FROM Producto WHERE ProductoID=@ProductoID AND Activo=1);
+
+    -- PTC
+    SELECT ptc.PTCID, ptc.ProductoID, ptc.TallaID, ptc.ColorID, ptc.Stock, t.NombreTalla, c.NombreColor
+    FROM ProductoTallaColor ptc
+    INNER JOIN Talla t ON ptc.TallaID = t.TallaID
+    INNER JOIN Color c ON ptc.ColorID = c.ColorID
+    WHERE ptc.ProductoID = @ProductoID
+      AND EXISTS (SELECT 1 FROM Producto WHERE ProductoID=@ProductoID AND Activo=1);
+END
+GO

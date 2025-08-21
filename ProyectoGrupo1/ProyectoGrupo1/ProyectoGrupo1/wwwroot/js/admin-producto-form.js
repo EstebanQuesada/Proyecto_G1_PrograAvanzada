@@ -1,170 +1,90 @@
 ﻿(function () {
-    function byId(id) { return document.getElementById(id); }
+    const L = window.__LOOKUPS__ || { Categorias: [], Marcas: [], Proveedores: [], Tallas: [], Colores: [] };
+    const SEED = window.__SEED__ || { imagenes: [], ptcs: [] };
 
-    const lookups = window.__LOOKUPS__ || {
-        Categorias: [], Marcas: [], Proveedores: [], Tallas: [], Colores: []
-    };
-    const seed = window.__SEED__ || { imagenes: [], ptcs: [] };
+    const $ = (s, c = document) => c.querySelector(s);
+    const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
-    const categoriaSel = byId('CategoriaID');
-    const marcaSel = byId('MarcaID');
-    const proveedorSel = byId('ProveedorID');
+    const form = $('#frmProducto');
+    const imgsBox = $('#imgs');
+    const ptcsBox = $('#ptcs');
+    const hiddenBag = $('#hiddenBag');
 
-    const btnAddImg = byId('btnAddImg');
-    const btnAddPtc = byId('btnAddPtc');
-    const imgList = byId('imgs');   
-    const ptcList = byId('ptcs'); 
-    let imagenes = Array.isArray(seed.imagenes) ? seed.imagenes.slice() : [];
-    let ptcs = Array.isArray(seed.ptcs) ? seed.ptcs.slice() : [];
+    function escapeHtml(s) { return String(s ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+    function fillSelect(select, items, selected) {
+        if (!select) return;
+        select.innerHTML = ['<option value="">-- Seleccione --</option>']
+            .concat(items.map(x => `<option value="${x.Id}">${escapeHtml(x.Nombre)}</option>`))
+            .join('');
+        const sel = select.dataset.selected ?? selected ?? '';
+        if (sel !== '') select.value = String(sel);
+    }
 
-    function setOptions(selectEl, items, selected) {
-        if (!selectEl) return;
-        selectEl.innerHTML = '<option value="">-- Seleccione --</option>';
-        items.forEach(it => {
-            const id = it.id ?? it.Id;
-            const nom = it.nombre ?? it.Nombre;
-            const opt = document.createElement('option');
-            opt.value = id;
-            opt.textContent = nom;
-            if (String(selected ?? '') === String(id)) opt.selected = true;
-            selectEl.appendChild(opt);
+    fillSelect($('#CategoriaID'), L.Categorias);
+    fillSelect($('#MarcaID'), L.Marcas);
+    fillSelect($('#ProveedorID'), L.Proveedores);
+
+    function addImgRow(val = '') {
+        const row = document.createElement('div');
+        row.className = 'input-group mb-2';
+        row.setAttribute('data-img-row', '');
+        row.innerHTML = `
+      <input type="text" class="form-control" placeholder="https://..." value="${val || ''}">
+      <button type="button" class="btn btn-outline-danger" data-remove>Quitar</button>`;
+        imgsBox.appendChild(row);
+    }
+
+    imgsBox.replaceChildren();
+    const imgsSeed = Array.isArray(SEED.imagenes) ? SEED.imagenes : [];
+    (imgsSeed.length ? imgsSeed : ['']).forEach(addImgRow);
+
+    function addPtcRow(ptc) {
+        const row = document.createElement('div');
+        row.className = 'row g-2 align-items-center mb-2';
+        row.setAttribute('data-ptc-row', '');
+        row.innerHTML = `
+      <div class="col-md-4"><select class="form-select" name="talla"></select></div>
+      <div class="col-md-4"><select class="form-select" name="color"></select></div>
+      <div class="col-md-3"><input type="number" class="form-control" name="stock" value="${ptc?.Stock ?? 0}" min="0"></div>
+      <div class="col-md-1 text-end"><button type="button" class="btn btn-outline-danger" data-remove>X</button></div>`;
+        fillSelect(row.querySelector('select[name="talla"]'), L.Tallas, ptc?.TallaID);
+        fillSelect(row.querySelector('select[name="color"]'), L.Colores, ptc?.ColorID);
+        ptcsBox.appendChild(row);
+    }
+
+    ptcsBox.replaceChildren();
+    const ptcSeed = Array.isArray(SEED.ptcs) ? SEED.ptcs : [];
+    (ptcSeed.length ? ptcSeed : [null]).forEach(addPtcRow);
+
+    $('#btnAddImg')?.addEventListener('click', () => addImgRow(''));
+    $('#btnAddPtc')?.addEventListener('click', () => addPtcRow(null));
+    document.addEventListener('click', e => {
+        if (e.target.matches('[data-remove]')) e.target.closest('[data-img-row],[data-ptc-row]')?.remove();
+    });
+
+    form?.addEventListener('submit', () => {
+        hiddenBag.replaceChildren();
+
+        const urls = $$('#imgs [data-img-row] input').map(i => i.value.trim()).filter(v => v.length);
+        urls.forEach((u, i) => {
+            const h = document.createElement('input');
+            h.type = 'hidden'; h.name = `Imagenes[${i}]`; h.value = u;
+            hiddenBag.appendChild(h);
         });
-    }
 
-    function renderCombosIniciales() {
-        const selectedCategoria = categoriaSel ? categoriaSel.getAttribute('data-selected') ?? categoriaSel.value : '';
-        const selectedMarca = marcaSel ? marcaSel.getAttribute('data-selected') ?? marcaSel.value : '';
-        const selectedProv = proveedorSel ? proveedorSel.getAttribute('data-selected') ?? proveedorSel.value : '';
-
-        setOptions(categoriaSel, lookups.Categorias, selectedCategoria);
-        setOptions(marcaSel, lookups.Marcas, selectedMarca);
-        setOptions(proveedorSel, lookups.Proveedores, selectedProv);
-    }
-
-    function renderImagenes() {
-        if (!imgList) return;
-        imgList.innerHTML = '';
-        imagenes.forEach((url, i) => {
-            const row = document.createElement('div');
-            row.className = 'input-group mb-2';
-            row.setAttribute('data-img-row', '');
-            row.innerHTML = `
-        <input type="text" class="form-control" value="${url ?? ''}">
-        <button type="button" class="btn btn-outline-danger">Quitar</button>
-      `;
-            row.querySelector('button').addEventListener('click', () => {
-                imagenes.splice(i, 1);
-                renderImagenes();
-            });
-            imgList.appendChild(row);
-        });
-    }
-
-    function renderPTCs() {
-        if (!ptcList) return;
-        ptcList.innerHTML = '';
-        ptcs.forEach((p, i) => {
-            const row = document.createElement('div');
-            row.className = 'row g-2 align-items-end mb-2';
-            row.setAttribute('data-ptc-row', '');
-            row.innerHTML = `
-        <div class="col-md-4">
-          <label class="form-label">Talla</label>
-          <select class="form-select" data-field="talla"></select>
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Color</label>
-          <select class="form-select" data-field="color"></select>
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Stock</label>
-          <input type="number" min="0" class="form-control" data-field="stock" value="${p.Stock ?? 0}">
-        </div>
-        <div class="col-md-1 d-grid">
-          <button type="button" class="btn btn-outline-danger">X</button>
-        </div>
-      `;
-
-            const tallaSel = row.querySelector('select[data-field="talla"]');
-            const colorSel = row.querySelector('select[data-field="color"]');
-
-            setOptions(tallaSel, lookups.Tallas, p.TallaID ?? '');
-            setOptions(colorSel, lookups.Colores, p.ColorID ?? '');
-
-            row.querySelector('button').addEventListener('click', () => {
-                ptcs.splice(i, 1);
-                renderPTCs();
-            });
-
-            ptcList.appendChild(row);
-        });
-    }
-
-    function wireButtons() {
-        if (btnAddImg) {
-            btnAddImg.addEventListener('click', () => {
-                imagenes.push('');
-                renderImagenes();
-            });
-        }
-        if (btnAddPtc) {
-            btnAddPtc.addEventListener('click', () => {
-                ptcs.push({ TallaID: '', ColorID: '', Stock: 0 });
-                renderPTCs();
-            });
-        }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        renderCombosIniciales();
-        renderImagenes();
-        renderPTCs();
-        wireButtons();
-
-        const frm = document.getElementById('frmProducto');
-        const bag = document.getElementById('hiddenBag');
-
-        if (frm && bag) {
-            frm.addEventListener('submit', () => {
-                bag.innerHTML = '';
-
-                const imgRows = frm.querySelectorAll('[data-img-row] input');
-                Array.from(imgRows).forEach((inp, i) => {
-                    const val = (inp.value || '').trim();
-                    if (val.length > 0) {
-                        const h = document.createElement('input');
-                        h.type = 'hidden';
-                        h.name = `Imagenes[${i}]`;
-                        h.value = val;
-                        bag.appendChild(h);
-                    }
+        let k = 0;
+        $$('#ptcs [data-ptc-row]').forEach(row => {
+            const talla = row.querySelector('select[name="talla"]')?.value;
+            const color = row.querySelector('select[name="color"]')?.value;
+            const stock = row.querySelector('input[name="stock"]')?.value;
+            if (talla && color && stock !== '') {
+                [['TallaID', talla], ['ColorID', color], ['Stock', stock]].forEach(([key, val]) => {
+                    const h = document.createElement('input');
+                    h.type = 'hidden'; h.name = `PTCs[${k}].${key}`; h.value = val;
+                    hiddenBag.appendChild(h);
                 });
-
-                const ptcRows = frm.querySelectorAll('[data-ptc-row]');
-                Array.from(ptcRows).forEach((row, i) => {
-                    const talla = row.querySelector('select[data-field="talla"]')?.value || '';
-                    const color = row.querySelector('select[data-field="color"]')?.value || '';
-                    const stock = row.querySelector('input[data-field="stock"]')?.value || '0';
-
-                    const h1 = document.createElement('input');
-                    h1.type = 'hidden';
-                    h1.name = `PTCs[${i}].TallaID`;
-                    h1.value = talla;
-                    bag.appendChild(h1);
-
-                    const h2 = document.createElement('input');
-                    h2.type = 'hidden';
-                    h2.name = `PTCs[${i}].ColorID`;
-                    h2.value = color;
-                    bag.appendChild(h2);
-
-                    const h3 = document.createElement('input');
-                    h3.type = 'hidden';
-                    h3.name = `PTCs[${i}].Stock`;
-                    h3.value = stock;
-                    bag.appendChild(h3);
-                });
-            });
-        }
+                k++;
+            }
+        });
     });
 })();

@@ -10,9 +10,10 @@ namespace ProyectoGrupo1.API.Repositories
         Task<(AdminProductoDto? Producto, AdminLookupsDto Lookups)> ObtenerAsync(int id);
 
         Task<int> CrearAsync(AdminProductoSaveDto dto);
-
         Task<bool> ActualizarAsync(int id, AdminProductoSaveDto dto);
 
         Task<bool> EliminarAsync(int id);
+
+        Task<bool> ActivarAsync(int id);
     }
 }

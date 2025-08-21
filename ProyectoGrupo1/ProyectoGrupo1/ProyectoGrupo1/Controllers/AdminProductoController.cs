@@ -80,30 +80,48 @@ namespace ProyectoGrupo1.Controllers
             if (NoEsAdmin()) return RedirectToAction("Index", "Home");
 
             TempData.Remove("Error");
-
             var (ok, err) = await _api.ActualizarAsync(id, vm);
 
             if (!ok)
             {
-                var friendly = string.IsNullOrWhiteSpace(err)
-                    ? "No se pudo actualizar."
-                    : (err.Trim().Equals("Not Found", StringComparison.OrdinalIgnoreCase)
-                        ? "El producto no existe o fue eliminado."
-                        : err);
+                if (!string.IsNullOrWhiteSpace(err) && err.Contains("no existe", StringComparison.OrdinalIgnoreCase))
+                {
+                    TempData["Mensaje"] = err;         
+                    TempData.Remove("Error");
+                    return RedirectToAction(nameof(Index));
+                }
 
-                TempData["Error"] = friendly;
+                TempData["Error"] = string.IsNullOrWhiteSpace(err) ? "No se pudo actualizar." : err;
                 TempData.Remove("Mensaje");
                 return RedirectToAction(nameof(Editar), new { id });
             }
 
-            TempData.Remove("Error");
             TempData["Mensaje"] = "Producto actualizado.";
+            TempData.Remove("Error");
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpPost("activar")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Activar(int id)
+        {
+            if (NoEsAdmin()) return RedirectToAction("Index", "Home");
 
+            var (ok, err) = await _api.ActivarAsync(id);
+            if (!ok)
+            {
+                TempData["Error"] = err ?? "No se pudo activar.";
+                TempData.Remove("Mensaje");
+                return RedirectToAction(nameof(Index));
+            }
 
-        [HttpPost, ValidateAntiForgeryToken]
+            TempData.Remove("Error");
+            TempData["Mensaje"] = "Producto activado.";
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost("eliminar")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Eliminar(int id)
         {
             if (NoEsAdmin()) return RedirectToAction("Index", "Home");
@@ -111,13 +129,13 @@ namespace ProyectoGrupo1.Controllers
             var (ok, err) = await _api.EliminarAsync(id);
             if (!ok)
             {
-                TempData["Error"] = err ?? "No se pudo eliminar.";
+                TempData["Error"] = err ?? "No se pudo inactivar.";
                 TempData.Remove("Mensaje");
                 return RedirectToAction(nameof(Index));
             }
 
             TempData.Remove("Error");
-            TempData["Mensaje"] = "Producto eliminado.";
+            TempData["Mensaje"] = "Producto inactivado.";
             return RedirectToAction(nameof(Index));
         }
     }

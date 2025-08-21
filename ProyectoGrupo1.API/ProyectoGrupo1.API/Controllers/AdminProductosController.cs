@@ -88,5 +88,20 @@ namespace ProyectoGrupo1.API.Controllers
                 return Problem("No se pudo eliminar el producto.", statusCode: 500);
             }
         }
+        [HttpPost("{id:int}/activar")]
+        public async Task<ActionResult> Activar(int id)
+        {
+            try
+            {
+                var ok = await _repo.ActivarAsync(id); 
+                return ok ? NoContent() : NotFound();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error activando producto {Id}", id);
+                return Problem("No se pudo activar el producto.", statusCode: 500);
+            }
+        }
+
     }
 }

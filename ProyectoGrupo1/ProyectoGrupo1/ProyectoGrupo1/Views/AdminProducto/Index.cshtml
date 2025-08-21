@@ -5,7 +5,6 @@
 
 @{
     var hayExito = TempData.ContainsKey("Mensaje");
-
     var rawError = hayExito ? null : TempData["Error"] as string;
 
     if (!string.IsNullOrWhiteSpace(rawError))
@@ -99,6 +98,7 @@ else
                 <th>Nombre</th>
                 <th>Categoría</th>
                 <th class="text-end">Precio</th>
+                <th class="text-center">Estado</th>
                 <th class="text-end">Acciones</th>
             </tr>
         </thead>
@@ -117,17 +117,40 @@ else
                     <td>@p.Nombre</td>
                     <td>@p.Categoria</td>
                     <td class="text-end">@p.Precio.ToString("C")</td>
+
+                    <td class="text-center">
+                        @if (p.Activo)
+                        {
+                            <span class="badge bg-success">Activo</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-secondary">Inactivo</span>
+                        }
+                    </td>
+
                     <td class="text-end">
                         <a asp-action="Editar"
                            asp-route-id="@p.ProductoID"
                            class="btn btn-sm btn-outline-primary">Editar</a>
 
-                        <button type="button"
-                                class="btn btn-sm btn-outline-danger btn-delete"
-                                data-id="@p.ProductoID"
-                                data-name="@p.Nombre">
-                            Eliminar
-                        </button>
+                        @if (p.Activo)
+                        {
+                            <button type="button"
+                                    class="btn btn-sm btn-outline-warning btn-delete"
+                                    data-id="@p.ProductoID"
+                                    data-name="@p.Nombre">
+                                Inactivar
+                            </button>
+                        }
+                        else
+                        {
+                            <form asp-action="Activar" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@p.ProductoID" />
+                                <button type="submit" class="btn btn-sm btn-success">Activar</button>
+                            </form>
+                        }
                     </td>
                 </tr>
             }
@@ -138,12 +161,12 @@ else
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content shadow-lg">
-            <div class="modal-header bg-danger text-white">
-                <h5 class="modal-title">Eliminar producto</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title">Inactivar producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                ¿Seguro que quieres eliminar <strong id="delName"></strong>?
+                ¿Seguro que quieres inactivar <strong id="delName"></strong>?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -155,8 +178,9 @@ else
                       class="d-inline">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="id" id="delId" />
-                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                    <button type="submit" class="btn btn-warning">Sí, inactivar</button>
                 </form>
+
             </div>
         </div>
     </div>

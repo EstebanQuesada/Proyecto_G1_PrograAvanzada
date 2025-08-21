@@ -21,11 +21,21 @@ namespace ProyectoGrupo1.Service
             List<string> Imagenes, List<AdminPtcVm> PTCs
         );
 
-        public record AdminProductoVm(
-            int ProductoID, string Nombre, string Descripcion, decimal Precio,
-            int CategoriaID, int MarcaID, int ProveedorID,
-            List<string> Imagenes, List<AdminPtcVm> PTCs
-        );
+        public record AdminProductoVm
+        {
+            public int ProductoID { get; init; }
+            public string Nombre { get; init; } = "";
+            public string Descripcion { get; init; } = "";
+            public decimal Precio { get; init; }
+            public int CategoriaID { get; init; }
+            public int MarcaID { get; init; }
+            public int ProveedorID { get; init; }
+            public List<string> Imagenes { get; init; } = new();
+            public List<AdminPtcVm> PTCs { get; init; } = new();
+            public bool Activo { get; init; } = true; 
+        }
+
+
 
         public record AdminLookupsVm(
             List<LookupItemVm> Categorias,
@@ -66,7 +76,30 @@ namespace ProyectoGrupo1.Service
 
         public async Task<(bool ok, string? error)> ActualizarAsync(int id, AdminProductoSaveVm dto, CancellationToken ct = default)
         {
+            dto = new AdminProductoSaveVm(
+                dto.Nombre, dto.Descripcion, dto.Precio,
+                dto.CategoriaID, dto.MarcaID, dto.ProveedorID,
+                dto.Imagenes ?? new List<string>(),
+                dto.PTCs ?? new List<AdminPtcVm>()
+            );
+
             var res = await _http.PutAsJsonAsync($"api/v1/admin/productos/{id}", dto, _json, ct);
+            if (res.IsSuccessStatusCode) return (true, null);
+
+            if (res.StatusCode == System.Net.HttpStatusCode.NotFound)
+                return (false, "Producto actualizado.");
+
+            var body = (await res.Content.ReadAsStringAsync(ct))?.Trim();
+            if (string.Equals(body, "Not Found", StringComparison.OrdinalIgnoreCase))
+                return (false, "Producto actualizado.");
+
+            return (false, string.IsNullOrWhiteSpace(body) ? "No se pudo actualizar." : body);
+        }
+
+
+        public async Task<(bool ok, string? error)> ActivarAsync(int id, CancellationToken ct = default)
+        {
+            var res = await _http.PostAsync($"api/v1/admin/productos/{id}/activar", null, ct);
             return (res.IsSuccessStatusCode, res.IsSuccessStatusCode ? null : await res.Content.ReadAsStringAsync(ct));
         }
 

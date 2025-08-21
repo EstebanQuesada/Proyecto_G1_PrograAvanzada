@@ -209,6 +209,22 @@
   },
   {
     "ContainingType": "ProyectoGrupo1.API.Controllers.AdminProductosController",
+    "Method": "Activar",
+    "RelativePath": "api/v1/admin/productos/{id}/activar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminProductosController",
     "Method": "Lookups",
     "RelativePath": "api/v1/admin/productos/lookups",
     "HttpMethod": "GET",

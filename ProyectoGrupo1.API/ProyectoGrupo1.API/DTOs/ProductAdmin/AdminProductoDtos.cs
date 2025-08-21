@@ -8,6 +8,8 @@
         public int CategoriaID { get; set; }
         public string Categoria { get; set; } = "";
         public string? UrlImagenPrincipal { get; set; }
+
+        public bool Activo { get; set; }   
     }
 
     public class AdminProductoSaveDto
@@ -25,6 +27,8 @@
     public class AdminProductoDto : AdminProductoSaveDto
     {
         public int ProductoID { get; set; }
+
+        public bool Activo { get; set; }   
     }
 
     public class AdminPtcDto

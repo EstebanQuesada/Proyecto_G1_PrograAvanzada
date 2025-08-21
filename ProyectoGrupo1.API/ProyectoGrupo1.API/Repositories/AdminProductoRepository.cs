@@ -10,6 +10,16 @@ namespace ProyectoGrupo1.API.Repositories
         private readonly IDbConnectionFactory _factory;
         public AdminProductoRepository(IDbConnectionFactory factory) => _factory = factory;
 
+        public async Task<bool> ActivarAsync(int id)
+        {
+            using var cn = _factory.Create();
+            var rows = await cn.ExecuteAsync(
+                "dbo.usp_Admin_Producto_Activar",
+                new { ProductoID = id },
+                commandType: CommandType.StoredProcedure);
+            return rows > 0;
+        }
+
         public async Task<(int Total, IEnumerable<AdminProductoListItemDto> Items)> ListarAsync(
             int page, int pageSize, string? search)
         {
