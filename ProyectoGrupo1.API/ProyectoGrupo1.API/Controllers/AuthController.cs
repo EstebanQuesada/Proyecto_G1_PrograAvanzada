@@ -42,21 +42,33 @@ namespace ProyectoGrupo1.Api.Controllers
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterDto dto)
         {
-            var nuevoId = await _svc.RegistrarUsuarioAsync(new Usuario
+            try
             {
-                Nombre = dto.Nombre,
-                Apellido = dto.Apellido,
-                Correo = dto.Correo,
-                Contrasena = dto.Contrasena,
-                Direccion = dto.Direccion,
-                Ciudad = dto.Ciudad,
-                Provincia = dto.Provincia,
-                CodigoPostal = dto.CodigoPostal
-            });
+                var nuevoId = await _svc.RegistrarUsuarioAsync(new Usuario
+                {
+                    Nombre = dto.Nombre,
+                    Apellido = dto.Apellido,
+                    Correo = dto.Correo,
+                    Contrasena = dto.Contrasena,
+                    Direccion = dto.Direccion,
+                    Ciudad = dto.Ciudad,
+                    Provincia = dto.Provincia,
+                    CodigoPostal = dto.CodigoPostal
+                });
 
-            return nuevoId > 0
-                ? StatusCode(201, new { id = nuevoId })
-                : BadRequest(new { error = "No se pudo registrar" });
+                return nuevoId > 0
+                    ? StatusCode(StatusCodes.Status201Created, new { id = nuevoId })
+                    : BadRequest(new { error = "No se pudo registrar" });
+            }
+            catch (AppException ex)
+            {
+                var code = (ex.StatusCode >= 400 && ex.StatusCode <= 599) ? ex.StatusCode : 400;
+                return StatusCode(code, new { error = ex.Message });
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { error = "Error inesperado" });
+            }
         }
     }
 }

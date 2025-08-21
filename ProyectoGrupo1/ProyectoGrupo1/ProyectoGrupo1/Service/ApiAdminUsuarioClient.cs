@@ -1,60 +1,78 @@
 ﻿using System.Text;
 using System.Text.Json;
 
-public class ApiAdminUsuarioClient
+namespace ProyectoGrupo1.Services
 {
-    private readonly HttpClient _http;
-    private static readonly JsonSerializerOptions _json = new() { PropertyNameCaseInsensitive = true };
-
-    public ApiAdminUsuarioClient(HttpClient httpClient)
+    public class ApiAdminUsuarioClient
     {
-        _http = httpClient;
-    }
+        private readonly HttpClient _http;
+        private static readonly JsonSerializerOptions _json = new() { PropertyNameCaseInsensitive = true };
 
-public record PagedResult<T>(int Total, IEnumerable<T> Items);
-    public record AdminUserListItemDto(int UsuarioID, string Nombre, string Apellido, string Correo, int RolID, DateTime? FechaRegistro, bool Bloqueado, bool Activo);
-    public record AdminUserDetailDto(int UsuarioID, string Nombre, string Apellido, string Correo, int RolID, string Direccion, string Ciudad, string Provincia, string CodigoPostal, bool Bloqueado, bool Activo);
+        public ApiAdminUsuarioClient(HttpClient httpClient) => _http = httpClient;
 
-    public Task<PagedResult<AdminUserListItemDto>?> ListarAsync(int page = 1, int pageSize = 10, string? q = null)
-        => Get<PagedResult<AdminUserListItemDto>>($"/api/v1/admin/usuarios?page={page}&pageSize={pageSize}&q={Uri.EscapeDataString(q ?? "")}");
+        public record PagedResult<T>(int Total, IEnumerable<T> Items);
+        public record AdminUserListItemDto(
+            int UsuarioID, string Nombre, string Apellido, string Correo,
+            int RolID, DateTime? FechaRegistro, bool Bloqueado, bool Activo);
+        public record AdminUserDetailDto(
+            int UsuarioID, string Nombre, string Apellido, string Correo, int RolID,
+            string Direccion, string Ciudad, string Provincia, string CodigoPostal,
+            bool Bloqueado, bool Activo);
 
-    public Task<AdminUserDetailDto?> ObtenerAsync(int id)
-        => Get<AdminUserDetailDto>($"/api/v1/admin/usuarios/{id}");
+        public Task<PagedResult<AdminUserListItemDto>?> ListarAsync(int page = 1, int pageSize = 10, string? q = null)
+            => Get<PagedResult<AdminUserListItemDto>>(
+                $"api/v1/admin/usuarios?page={page}&pageSize={pageSize}&q={Uri.EscapeDataString(q ?? "")}");
 
-    public Task<bool> CrearAsync(object dto)
-        => Send(HttpMethod.Post, "/api/v1/admin/usuarios", dto);
+        public Task<AdminUserDetailDto?> ObtenerAsync(int id)
+            => Get<AdminUserDetailDto>($"api/v1/admin/usuarios/{id}");
 
-    public Task<bool> ActualizarAsync(int id, object dto)
-        => Send(HttpMethod.Put, $"/api/v1/admin/usuarios/{id}", dto);
+        public Task<bool> CrearAsync(object dto)
+            => Send(HttpMethod.Post, "api/v1/admin/usuarios", dto);
 
-    public Task<bool> CambiarRolAsync(int id, int rolId)
-        => Send(HttpMethod.Put, $"/api/v1/admin/usuarios/{id}/rol", new { RolID = rolId });
+        public Task<bool> ActualizarAsync(int id, object dto)
+            => Send(HttpMethod.Put, $"api/v1/admin/usuarios/{id}", dto);
 
-    public Task<bool> BloquearAsync(int id, bool bloqueado)
-        => Send(HttpMethod.Put, $"/api/v1/admin/usuarios/{id}/bloqueo", new { Bloqueado = bloqueado });
+        public Task<bool> CambiarRolAsync(int id, int rolId)
+            => Send(HttpMethod.Put, $"api/v1/admin/usuarios/{id}/rol", new { RolID = rolId });
 
-    public Task<bool> ResetPasswordAsync(int id, string nueva)
-        => Send(HttpMethod.Put, $"/api/v1/admin/usuarios/{id}/reset-password", new { NuevaContrasena = nueva });
+        public Task<bool> BloquearAsync(int id, bool bloqueado)
+            => Send(HttpMethod.Put, $"api/v1/admin/usuarios/{id}/bloqueo", new { Bloqueado = bloqueado });
 
-    public Task<bool> EliminarAsync(int id)
-        => Send(HttpMethod.Delete, $"/api/v1/admin/usuarios/{id}", null);
+        public Task<bool> ResetPasswordAsync(int id, string nueva)
+            => Send(HttpMethod.Put, $"api/v1/admin/usuarios/{id}/reset-password", new { NuevaContrasena = nueva });
 
-    public Task<bool> RestaurarAsync(int id)
-        => Send(HttpMethod.Put, $"/api/v1/admin/usuarios/{id}/restore", null);
+        public Task<bool> EliminarAsync(int id)
+            => Send(HttpMethod.Delete, $"api/v1/admin/usuarios/{id}", null);
 
-    private async Task<T?> Get<T>(string url)
-    {
-        var res = await _http.GetAsync(url);
-        if (!res.IsSuccessStatusCode) return default;
-        var json = await res.Content.ReadAsStringAsync();
-        return JsonSerializer.Deserialize<T>(json, _json);
-    }
-    private async Task<bool> Send(HttpMethod m, string url, object? body)
-    {
-        var req = new HttpRequestMessage(m, url);
-        if (body != null)
-            req.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
-        var res = await _http.SendAsync(req);
-        return res.IsSuccessStatusCode;
+        public Task<bool> RestaurarAsync(int id)
+            => Send(HttpMethod.Put, $"api/v1/admin/usuarios/{id}/restore", null);
+        
+        private async Task<T?> Get<T>(string url)
+        {
+            using var res = await _http.GetAsync(url);
+            var json = await res.Content.ReadAsStringAsync();
+
+            if (!res.IsSuccessStatusCode)
+                throw new HttpRequestException($"[{(int)res.StatusCode}] {json}", null, res.StatusCode);
+
+            if (string.IsNullOrWhiteSpace(json)) return default;
+            return JsonSerializer.Deserialize<T>(json, _json);
+        }
+
+        private async Task<bool> Send(HttpMethod method, string url, object? body)
+        {
+            using var req = new HttpRequestMessage(method, url);
+            if (body != null)
+                req.Content = new StringContent(JsonSerializer.Serialize(body), Encoding.UTF8, "application/json");
+
+            using var res = await _http.SendAsync(req);
+            var json = await res.Content.ReadAsStringAsync();
+
+            if (!res.IsSuccessStatusCode)
+                throw new HttpRequestException($"[{(int)res.StatusCode}] {json}", null, res.StatusCode);
+
+            return true;
+        }
     }
 }
+
