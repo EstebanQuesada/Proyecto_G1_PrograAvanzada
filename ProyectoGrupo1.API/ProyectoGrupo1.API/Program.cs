@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using ProyectoGrupo1.API.Infra;
 using ProyectoGrupo1.Api.Services;
 using ProyectoGrupo1.API.Repositories;
+using ProyectoGrupo1.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +18,15 @@ builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 
+builder.Services.AddScoped<IContactoRepository, ContactoRepository>();
+builder.Services.AddScoped<IContactoService, ContactoService>();
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
+
+
+
 {
     opt.SwaggerDoc("v1", new OpenApiInfo { Title = "ProyectoGrupo1 API", Version = "v1" });
 });

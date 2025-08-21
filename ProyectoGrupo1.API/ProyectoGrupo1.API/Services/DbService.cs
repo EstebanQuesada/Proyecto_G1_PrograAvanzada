@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
-namespace ProyectoGrupo1.Services
+namespace ProyectoGrupo1.API.Services
 {
     public class DbService
     {
@@ -10,10 +10,7 @@ namespace ProyectoGrupo1.Services
 
         public DbService(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("TiendaRopaDB")
-                                ?? configuration.GetConnectionString("Default")
-                                ?? throw new InvalidOperationException(
-                                    "Falta cadena de conexión en appsettings.json");
+            _connectionString = configuration.GetConnectionString("TiendaRopaDB");
         }
 
         public IDbConnection CreateConnection()
@@ -22,3 +19,4 @@ namespace ProyectoGrupo1.Services
         }
     }
 }
+

@@ -583,6 +583,47 @@
         }
       }
     },
+    "/api/v1/contactos": {
+      "post": {
+        "tags": [
+          "Contactos"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactoCrearDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactoCrearDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContactoCrearDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Contactos"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/v1/pedidos": {
       "post": {
         "tags": [
@@ -1190,6 +1231,24 @@
         "properties": {
           "bloqueado": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContactoCrearDto": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "correo": {
+            "type": "string",
+            "nullable": true
+          },
+          "mensaje": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

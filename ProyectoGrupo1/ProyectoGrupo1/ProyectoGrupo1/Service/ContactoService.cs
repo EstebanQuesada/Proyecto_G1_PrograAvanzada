@@ -16,16 +16,18 @@ namespace ProyectoGrupo1.Services
         public void GuardarMensaje(ContactoViewModel modelo)
         {
             using IDbConnection connection = _dbService.CreateConnection();
-            string sql = @"
-                INSERT INTO Contactos (Nombre, Correo, Mensaje, FechaEnvio) 
-                VALUES (@Nombre, @Correo, @Mensaje, @FechaEnvio)";
-            connection.Execute(sql, new
-            {
-                Nombre = modelo.Nombre,
-                Correo = modelo.Correo,
-                Mensaje = modelo.Mensaje,
-                FechaEnvio = DateTime.Now
-            });
+
+            connection.Execute(
+                "SP_GuardarContacto",
+                new
+                {
+                    Nombre = modelo.Nombre,
+                    Correo = modelo.Correo,
+                    Mensaje = modelo.Mensaje,
+                    FechaEnvio = DateTime.Now
+                },
+                commandType: CommandType.StoredProcedure
+            );
         }
     }
 }

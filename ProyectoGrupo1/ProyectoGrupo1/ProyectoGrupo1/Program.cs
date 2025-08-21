@@ -6,9 +6,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<CarritoService>();
-builder.Services.AddSingleton<ProyectoGrupo1.Services.DbService>();
+builder.Services.AddScoped<DbService>();   
 builder.Services.AddScoped<TextoService>();
 builder.Services.AddScoped<ContactoService>();
+
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(o =>
@@ -17,6 +18,7 @@ builder.Services.AddSession(o =>
     o.Cookie.HttpOnly = true;
     o.Cookie.IsEssential = true;
 });
+
 var apiBase = builder.Configuration["Api:BaseUrl"]
     ?? throw new InvalidOperationException("Falta configurar 'Api:BaseUrl' en appsettings.json");
 if (!apiBase.EndsWith("/")) apiBase += "/";
@@ -73,9 +75,12 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseSession();
+
+app.UseAuthentication();   
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -86,5 +91,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapControllers();  
 
 app.Run();
+

@@ -855,6 +855,7 @@ BEGIN
 END
 GO
 
+<<<<<<< Updated upstream
 -- Tipos de tabla (TVP) para imágenes y PTC
 IF TYPE_ID(N'dbo.ImagenProductoType') IS NULL
     CREATE TYPE dbo.ImagenProductoType AS TABLE(UrlImagen NVARCHAR(500) NOT NULL);
@@ -1051,3 +1052,17 @@ BEGIN
 END
 GO
 
+=======
+CREATE PROCEDURE SP_GuardarContacto
+    @Nombre NVARCHAR(100),
+    @Correo NVARCHAR(100),
+    @Mensaje NVARCHAR(MAX),
+    @FechaEnvio DATETIME
+AS
+BEGIN
+    INSERT INTO Contactos (Nombre, Correo, Mensaje, FechaEnvio)
+    VALUES (@Nombre, @Correo, @Mensaje, @FechaEnvio);
+END
+
+
+>>>>>>> Stashed changes
