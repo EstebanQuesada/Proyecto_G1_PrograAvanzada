@@ -44,7 +44,7 @@
               "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Controllers\\UsuariosController.cs",
               "ToolTip": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Controllers\\UsuariosController.cs",
               "RelativeToolTip": "ProyectoGrupo1.API\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAACwAAAAAAAAAAAAwwDQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAowDQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-21T04:18:52.296Z",
               "EditorCaption": ""
@@ -59,8 +59,7 @@
               "RelativeToolTip": "ProyectoGrupo1.API\\Models\\Usuario.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T04:18:18.181Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T04:18:18.181Z"
             },
             {
               "$type": "Document",
@@ -72,8 +71,7 @@
               "RelativeToolTip": "ProyectoGrupo1.API\\Services\\UsuarioService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T04:17:50.76Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T04:17:50.76Z"
             }
           ]
         }

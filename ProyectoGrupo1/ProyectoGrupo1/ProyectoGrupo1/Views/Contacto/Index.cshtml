@@ -1,44 +1,40 @@
-﻿
-@model ProyectoGrupo1.Models.ContactoViewModel
+﻿@model ProyectoGrupo1.Models.ContactoViewModel
 @{
     ViewData["Title"] = "Contacto";
-    var descripcion = (string)(ViewBag.Descripcion ?? "");
-    var confirmacion = (string)(ViewBag.Confirmacion ?? "");
+    var descripcion = ViewBag.Descripcion as string ?? "";
+    var confirmacion = ViewBag.Confirmacion as string ?? TempData["Confirmacion"] as string ?? "";
 }
 
-<link rel="stylesheet" href="~/css/index.css" />
-
 <h1>Contacto</h1>
+
 <p class="descripcion">@descripcion</p>
 
 @if (!string.IsNullOrWhiteSpace(confirmacion))
 {
-    <p class="confirmacion">@confirmacion</p>
+    <div class="alert alert-success">@confirmacion</div>
 }
 
 <form asp-controller="Contacto" asp-action="Index" method="post">
     @Html.AntiForgeryToken()
-    <div asp-validation-summary="ModelOnly"></div>
-
-    <div>
-        <label asp-for="Nombre"></label>
-        <input asp-for="Nombre" />
-        <span asp-validation-for="Nombre"></span>
+    <div class="mb-3">
+        <label asp-for="Nombre" class="form-label"></label>
+        <input asp-for="Nombre" class="form-control" />
+        <span asp-validation-for="Nombre" class="text-danger"></span>
     </div>
 
-    <div>
-        <label asp-for="Correo"></label>
-        <input asp-for="Correo" type="email" />
-        <span asp-validation-for="Correo"></span>
+    <div class="mb-3">
+        <label asp-for="Correo" class="form-label"></label>
+        <input asp-for="Correo" type="email" class="form-control" />
+        <span asp-validation-for="Correo" class="text-danger"></span>
     </div>
 
-    <div>
-        <label asp-for="Mensaje"></label>
-        <textarea asp-for="Mensaje"></textarea>
-        <span asp-validation-for="Mensaje"></span>
+    <div class="mb-3">
+        <label asp-for="Mensaje" class="form-label"></label>
+        <textarea asp-for="Mensaje" class="form-control" rows="4"></textarea>
+        <span asp-validation-for="Mensaje" class="text-danger"></span>
     </div>
 
-    <button type="submit">Enviar</button>
+    <button type="submit" class="btn btn-primary">Enviar</button>
 </form>
 
 @section Scripts {
