@@ -46,6 +46,13 @@ builder.Services.AddHttpClient<ApiAdminUsuarioClient>(c =>
         new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });
 
+builder.Services.AddHttpClient<ApiAdminProductoClient>(c =>
+{
+    c.BaseAddress = new Uri(apiBase);
+    c.DefaultRequestHeaders.Accept.Add(
+        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
+
 builder.Services.AddHttpClient<PedidoApiService>(c =>
 {
     c.BaseAddress = apiUri;
@@ -74,5 +81,10 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
 app.Run();

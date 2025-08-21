@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-
 using ProyectoGrupo1.API.Infra;
 using ProyectoGrupo1.Api.Services;
 using ProyectoGrupo1.API.Repositories;
@@ -13,7 +12,7 @@ builder.Services.AddSingleton<IDbConnectionFactory, SqlConnectionFactory>();
 
 builder.Services.AddScoped<UsuarioService>();
 builder.Services.AddScoped<AdminUsuarioService>();
-
+builder.Services.AddScoped<IAdminProductoRepository, AdminProductoRepository>(); 
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();

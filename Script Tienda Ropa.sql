@@ -854,3 +854,200 @@ BEGIN
     WHERE ptc.PTCID = @PTCID;
 END
 GO
+
+-- Tipos de tabla (TVP) para imágenes y PTC
+IF TYPE_ID(N'dbo.ImagenProductoType') IS NULL
+    CREATE TYPE dbo.ImagenProductoType AS TABLE(UrlImagen NVARCHAR(500) NOT NULL);
+GO
+
+IF TYPE_ID(N'dbo.PTCType') IS NULL
+    CREATE TYPE dbo.PTCType AS TABLE(
+        TallaID INT NOT NULL,
+        ColorID INT NOT NULL,
+        Stock   INT NOT NULL CHECK (Stock >= 0)
+    );
+GO
+
+-- Listar con paginación y búsqueda
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Listar
+    @Page     INT = 1,
+    @PageSize INT = 10,
+    @Search   NVARCHAR(200) = NULL
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    DECLARE @s NVARCHAR(202) =
+        CASE WHEN @Search IS NULL OR LTRIM(RTRIM(@Search)) = ''
+             THEN NULL
+             ELSE '%' + LTRIM(RTRIM(@Search)) + '%'
+        END;
+
+    DECLARE @q TABLE (
+        ProductoID         INT,
+        Nombre             NVARCHAR(200),
+        Precio             DECIMAL(18,2),
+        CategoriaID        INT,
+        Categoria          NVARCHAR(200),
+        UrlImagenPrincipal NVARCHAR(500) NULL
+    );
+
+    INSERT INTO @q (ProductoID, Nombre, Precio, CategoriaID, Categoria, UrlImagenPrincipal)
+    SELECT  p.ProductoID,
+            p.Nombre,
+            p.Precio,
+            c.CategoriaID,
+            c.NombreCategoria AS Categoria,          
+            (SELECT TOP(1) UrlImagen
+             FROM ImagenProducto i
+             WHERE i.ProductoID = p.ProductoID
+             ORDER BY i.ImagenID)
+    FROM Producto p
+    INNER JOIN CategoriaProducto c ON c.CategoriaID = p.CategoriaID
+    WHERE (@s IS NULL
+           OR p.Nombre       LIKE @s
+           OR p.Descripcion  LIKE @s
+           OR c.NombreCategoria LIKE @s);
+
+    SELECT COUNT(*) AS Total
+    FROM @q;
+
+    SELECT  ProductoID, Nombre, Precio, CategoriaID, Categoria, UrlImagenPrincipal
+    FROM @q
+    ORDER BY ProductoID DESC
+    OFFSET (@Page - 1) * @PageSize ROWS
+    FETCH NEXT @PageSize ROWS ONLY;
+END
+GO
+
+
+-- Obtener detalle para edición (producto + imágenes + PTC + lookups)
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Obtener
+    @ProductoID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP(1)
+        p.ProductoID, p.Nombre, p.Descripcion, p.Precio,
+        p.CategoriaID, p.MarcaID, p.ProveedorID
+    FROM Producto p
+    WHERE p.ProductoID = @ProductoID;
+
+    SELECT UrlImagen
+    FROM ImagenProducto
+    WHERE ProductoID = @ProductoID
+    ORDER BY ImagenID;
+
+    SELECT ptc.PTCID, ptc.TallaID, t.NombreTalla, ptc.ColorID, c.NombreColor, ptc.Stock
+    FROM ProductoTallaColor ptc
+    INNER JOIN Talla t ON t.TallaID = ptc.TallaID
+    INNER JOIN Color c ON c.ColorID = ptc.ColorID
+    WHERE ptc.ProductoID = @ProductoID;
+
+	-- Lookups para combos en el front (alias a Id/Nombre)
+	SELECT CategoriaID  AS Id, NombreCategoria AS Nombre FROM CategoriaProducto ORDER BY NombreCategoria;
+	SELECT MarcaID      AS Id, NombreMarca     AS Nombre FROM Marca            ORDER BY NombreMarca;
+	SELECT ProveedorID  AS Id, NombreProveedor AS Nombre FROM Proveedor        ORDER BY NombreProveedor;
+	SELECT TallaID      AS Id, NombreTalla     AS Nombre FROM Talla            ORDER BY NombreTalla;
+	SELECT ColorID      AS Id, NombreColor     AS Nombre FROM Color            ORDER BY NombreColor;
+
+END
+GO
+
+-- Crear producto con imágenes y PTC (TVPs)
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Crear
+    @Nombre NVARCHAR(200),
+    @Descripcion NVARCHAR(MAX),
+    @Precio DECIMAL(18,2),
+    @CategoriaID INT,
+    @MarcaID INT,
+    @ProveedorID INT,
+    @Imagenes dbo.ImagenProductoType READONLY,
+    @PTCs dbo.PTCType READONLY,
+    @NuevoProductoID INT OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON; SET XACT_ABORT ON;
+    BEGIN TRY
+        BEGIN TRAN;
+
+        INSERT INTO Producto (Nombre, Descripcion, Precio, CategoriaID, MarcaID, ProveedorID)
+        VALUES (@Nombre, @Descripcion, @Precio, @CategoriaID, @MarcaID, @ProveedorID);
+
+        SET @NuevoProductoID = SCOPE_IDENTITY();
+
+        INSERT INTO ImagenProducto(ProductoID, UrlImagen)
+        SELECT @NuevoProductoID, UrlImagen FROM @Imagenes;
+
+        INSERT INTO ProductoTallaColor(ProductoID, TallaID, ColorID, Stock)
+        SELECT @NuevoProductoID, TallaID, ColorID, Stock FROM @PTCs;
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK;
+        THROW;
+    END CATCH
+END
+GO
+
+-- Actualizar producto: reemplaza imágenes y PTC del producto
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Actualizar
+    @ProductoID INT,
+    @Nombre NVARCHAR(200),
+    @Descripcion NVARCHAR(MAX),
+    @Precio DECIMAL(18,2),
+    @CategoriaID INT,
+    @MarcaID INT,
+    @ProveedorID INT,
+    @Imagenes dbo.ImagenProductoType READONLY,
+    @PTCs dbo.PTCType READONLY
+AS
+BEGIN
+    SET NOCOUNT ON; SET XACT_ABORT ON;
+    BEGIN TRY
+        BEGIN TRAN;
+
+        UPDATE Producto
+        SET Nombre=@Nombre, Descripcion=@Descripcion, Precio=@Precio,
+            CategoriaID=@CategoriaID, MarcaID=@MarcaID, ProveedorID=@ProveedorID
+        WHERE ProductoID=@ProductoID;
+
+        DELETE FROM ImagenProducto WHERE ProductoID=@ProductoID;
+        INSERT INTO ImagenProducto(ProductoID, UrlImagen)
+        SELECT @ProductoID, UrlImagen FROM @Imagenes;
+
+        DELETE FROM ProductoTallaColor WHERE ProductoID=@ProductoID;
+        INSERT INTO ProductoTallaColor(ProductoID, TallaID, ColorID, Stock)
+        SELECT @ProductoID, TallaID, ColorID, Stock FROM @PTCs;
+
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK;
+        THROW;
+    END CATCH
+END
+GO
+
+-- Eliminar producto (fuerte: elimina imágenes y PTC)
+CREATE OR ALTER PROCEDURE dbo.usp_Admin_Producto_Eliminar
+    @ProductoID INT
+AS
+BEGIN
+    SET NOCOUNT ON; SET XACT_ABORT ON;
+    BEGIN TRY
+        BEGIN TRAN;
+        DELETE FROM ImagenProducto WHERE ProductoID=@ProductoID;
+        DELETE FROM ProductoTallaColor WHERE ProductoID=@ProductoID;
+        DELETE FROM Producto WHERE ProductoID=@ProductoID;
+        COMMIT;
+    END TRY
+    BEGIN CATCH
+        IF @@TRANCOUNT > 0 ROLLBACK;
+        THROW;
+    END CATCH
+END
+GO
+

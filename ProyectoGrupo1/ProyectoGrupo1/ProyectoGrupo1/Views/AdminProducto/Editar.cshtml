@@ -1,0 +1,45 @@
+﻿@model ProyectoGrupo1.Service.ApiAdminProductoClient.AdminProductoSaveVm
+@{
+    ViewData["Title"] = "Editar producto";
+}
+
+<h2 class="mb-3">@ViewData["Title"]</h2>
+
+<form id="frmProducto"
+      asp-controller="AdminProducto"
+      asp-action="Editar"
+      asp-route-id="@ViewBag.ProductoID"
+      method="post">
+    @Html.AntiForgeryToken()
+    @await Html.PartialAsync("_Form", Model)
+
+    <div id="hiddenBag"></div>
+
+    <div class="mt-3">
+        <button type="submit" class="btn btn-primary w-100">Guardar</button>
+    </div>
+</form>
+
+@section Scripts {
+    @using System.Text.Json
+    <script>
+        window.__LOOKUPS__ = @Html.Raw(JsonSerializer.Serialize(
+        ViewBag.Lookups ?? new
+        {
+            Categorias = Array.Empty<object>(),
+            Marcas = Array.Empty<object>(),
+            Proveedores = Array.Empty<object>(),
+            Tallas = Array.Empty<object>(),
+            Colores = Array.Empty<object>()
+        }
+    ));
+
+        window.__SEED__ = {
+            imagenes: @Html.Raw(JsonSerializer.Serialize(Model.Imagenes ?? new List<string>())),
+            ptcs: @Html.Raw(JsonSerializer.Serialize(
+               Model.PTCs ?? new List<ProyectoGrupo1.Service.ApiAdminProductoClient.AdminPtcVm>()))
+        };
+    </script>
+
+    <script src="~/js/admin-producto-form.js"></script>
+}

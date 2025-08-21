@@ -1,0 +1,31 @@
+﻿@model ProyectoGrupo1.Service.ApiAdminProductoClient.AdminProductoSaveVm
+@using System.Text.Json
+
+<h2 class="mb-3">Nuevo producto</h2>
+
+<form id="frmProducto" asp-controller="AdminProducto" asp-action="Crear" method="post">
+    @Html.AntiForgeryToken()
+    @await Html.PartialAsync("_Form", Model)
+
+    <div id="hiddenBag"></div>
+
+    <button type="submit" class="btn btn-primary w-100">Guardar</button>
+</form>
+
+<script>
+    window.__LOOKUPS__ = @Html.Raw(
+        JsonSerializer.Serialize(
+            ViewBag.Lookups ?? new
+            {
+                Categorias = Array.Empty<object>(),
+                Marcas = Array.Empty<object>(),
+                Proveedores = Array.Empty<object>(),
+                Tallas = Array.Empty<object>(),
+                Colores = Array.Empty<object>()
+            }
+        )
+    );
+    window.__SEED__ = { imagenes: [], ptcs: [] };
+</script>
+
+<script src="~/js/admin-producto-form.js"></script>

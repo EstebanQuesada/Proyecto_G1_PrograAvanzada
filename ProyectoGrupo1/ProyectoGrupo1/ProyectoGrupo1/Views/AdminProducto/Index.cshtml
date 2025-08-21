@@ -1,0 +1,182 @@
+﻿@using ProyectoGrupo1.Models
+@using ProyectoGrupo1.Models.AdminProducto
+@using System.Text.Json
+@model ListResult<AdminProductoListItemVm>
+
+@{
+    var hayExito = TempData.ContainsKey("Mensaje");
+
+    var rawError = hayExito ? null : TempData["Error"] as string;
+
+    if (!string.IsNullOrWhiteSpace(rawError))
+    {
+        var title = "Ocurrió un error";
+        var lines = new List<string>();
+
+        try
+        {
+            using var doc = JsonDocument.Parse(rawError);
+
+            if (doc.RootElement.TryGetProperty("title", out var t) && t.ValueKind == JsonValueKind.String)
+                title = t.GetString() ?? title;
+
+            if (doc.RootElement.TryGetProperty("errors", out var errs) && errs.ValueKind == JsonValueKind.Object)
+            {
+                foreach (var prop in errs.EnumerateObject())
+                {
+                    foreach (var v in prop.Value.EnumerateArray())
+                    {
+                        var msg = v.GetString();
+                        if (!string.IsNullOrWhiteSpace(msg)) lines.Add(msg!);
+                    }
+                }
+            }
+            else if (doc.RootElement.TryGetProperty("detail", out var d) && d.ValueKind == JsonValueKind.String)
+            {
+                lines.Add(d.GetString()!);
+            }
+        }
+        catch
+        {
+            lines.Add(rawError);
+        }
+
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>@title</strong>
+            @if (lines.Count > 0)
+            {
+                <ul class="mb-0 mt-2">
+                    @foreach (var m in lines)
+                    {
+                        <li>@m</li>
+                    }
+                </ul>
+            }
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+
+        TempData.Remove("Error");
+    }
+
+    ViewData["Title"] = "Productos (Admin)";
+}
+
+<h2 class="mb-3">Productos</h2>
+
+@if (TempData["Mensaje"] is string okMsg)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @okMsg
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <form asp-action="Index" method="get" class="d-flex gap-2">
+        <input type="text"
+               class="form-control"
+               name="q"
+               value="@(Context.Request.Query["q"])"
+               placeholder="Buscar nombre/categoría..." />
+        <button class="btn btn-primary" type="submit">Buscar</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
+    </form>
+
+    <a asp-action="Crear" class="btn btn-success">Nuevo producto</a>
+</div>
+
+@if (Model is null || Model.Items is null || !Model.Items.Any())
+{
+    <div class="alert alert-info">No hay productos para mostrar.</div>
+}
+else
+{
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th style="width:70px">Imagen</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th class="text-end">Precio</th>
+                <th class="text-end">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Items)
+            {
+                <tr>
+                    <td>@p.ProductoID</td>
+                    <td>
+                        @if (!string.IsNullOrWhiteSpace(p.UrlImagenPrincipal))
+                        {
+                            <img src="@p.UrlImagenPrincipal"
+                                 style="width:50px;height:50px;object-fit:cover;border:1px solid #ddd" />
+                        }
+                    </td>
+                    <td>@p.Nombre</td>
+                    <td>@p.Categoria</td>
+                    <td class="text-end">@p.Precio.ToString("C")</td>
+                    <td class="text-end">
+                        <a asp-action="Editar"
+                           asp-route-id="@p.ProductoID"
+                           class="btn btn-sm btn-outline-primary">Editar</a>
+
+                        <button type="button"
+                                class="btn btn-sm btn-outline-danger btn-delete"
+                                data-id="@p.ProductoID"
+                                data-name="@p.Nombre">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Eliminar producto</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                ¿Seguro que quieres eliminar <strong id="delName"></strong>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+
+                <form id="deleteForm"
+                      asp-controller="AdminProducto"
+                      asp-action="Eliminar"
+                      method="post"
+                      class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="id" id="delId" />
+                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modalEl = document.getElementById('confirmDeleteModal');
+            const modal   = new bootstrap.Modal(modalEl);
+            const nameEl  = document.getElementById('delName');
+            const idEl    = document.getElementById('delId');
+
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    nameEl.textContent = btn.dataset.name;
+                    idEl.value = btn.dataset.id;
+                    modal.show();
+                });
+            });
+        });
+    </script>
+}
