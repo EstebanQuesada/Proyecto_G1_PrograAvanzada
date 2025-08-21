@@ -25,7 +25,7 @@
 <div class="card-elevated">
     <div class="card-header"><h5 class="mb-0">Envíanos un mensaje</h5></div>
     <div class="card-body">
-        <form asp-controller="Contacto" asp-action="Index" method="post" autocomplete="on">
+        <form id="frmContacto" asp-controller="Contacto" asp-action="Index" method="post" autocomplete="on">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
 
@@ -64,9 +64,10 @@
     }
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-          const ta = document.getElementById('@Html.IdFor(m => m.Mensaje)');
+          const ta    = document.getElementById('@Html.IdFor(m => m.Mensaje)');
           const count = document.getElementById('msgCount');
-          const btn = document.getElementById('btnEnviar');
+          const form  = document.getElementById('frmContacto');
+          const btn   = document.getElementById('btnEnviar');
 
           const update = () => {
             if (!ta || !count) return;
@@ -74,18 +75,18 @@
             const len = (ta.value || '').length;
             count.textContent = `${len} / ${max}`;
           };
+          if (ta) { update(); ta.addEventListener('input', update); }
 
-          if (ta) {
-            update();
-            ta.addEventListener('input', update);
-          }
-
-          if (btn) {
-            btn.addEventListener('click', () => {
+          if (form && btn) {
+            form.addEventListener('submit', () => {
               btn.disabled = true;
               btn.textContent = 'Enviando...';
-              setTimeout(() => { btn.disabled = false; btn.textContent = 'Enviar'; }, 8000);
             });
+
+            document.addEventListener('invalid', () => {
+              btn.disabled = false;
+              btn.textContent = 'Enviar';
+            }, true);
           }
         });
     </script>

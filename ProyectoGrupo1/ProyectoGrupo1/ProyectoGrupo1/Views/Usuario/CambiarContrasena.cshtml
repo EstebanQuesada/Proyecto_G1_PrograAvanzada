@@ -17,8 +17,10 @@
 
 <div class="card-elevated">
     <div class="card-body">
-        <form asp-action="CambiarContrasena" method="post" class="row g-3" autocomplete="off">
+        <form id="frmCambiarPwd" asp-action="CambiarContrasena" method="post" class="row g-3" autocomplete="off">
             @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="All" class="text-danger mb-2"></div>
 
             <div class="col-12">
                 <label for="ContrasenaActual" class="form-label">Contraseña Actual</label>
@@ -74,7 +76,6 @@
           const strength = document.getElementById('pwdStrength');
           const confirm = document.getElementById('ConfirmarContrasena');
           const hint = document.getElementById('matchHint');
-          const btn = document.getElementById('btnGuardarPwd');
 
           function scorePass(v){
             let s = 0;
@@ -99,11 +100,19 @@
           if (pwd) pwd.addEventListener('input', sync);
           if (confirm) confirm.addEventListener('input', sync);
 
-          if (btn){
-            btn.addEventListener('click', () => {
+          const form = document.getElementById('frmCambiarPwd');
+          const btn  = document.getElementById('btnGuardarPwd');
+
+          if (form && btn){
+            form.addEventListener('submit', () => {
               btn.disabled = true;
-              setTimeout(()=>btn.disabled=false, 8000);
+              btn.textContent = 'Guardando...';
             });
+
+            document.addEventListener('invalid', () => {
+              btn.disabled = false;
+              btn.textContent = 'Guardar Nueva Contraseña';
+            }, true);
           }
         });
     </script>

@@ -52,23 +52,31 @@ else
         </div>
     </div>
 
-    <form asp-action="Confirmar" method="post" class="d-grid d-sm-flex gap-2">
+    <form id="frmConfirmar" asp-action="Confirmar" method="post" class="d-grid d-sm-flex gap-2">
         @Html.AntiForgeryToken()
         <a asp-controller="Carrito" asp-action="Index" class="btn btn-ghost">Volver al carrito</a>
-        <button id="btnConfirmar" type="submit" class="btn btn-main">Confirmar pedido</button>
+        <button id="btnConfirmar" type="submit" class="btn btn-main">
+            Confirmar pedido
+        </button>
     </form>
-}
 
-@section Scripts {
+    @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-          const btn = document.getElementById('btnConfirmar');
-          if (!btn) return;
-          btn.addEventListener('click', () => {
+          const form = document.getElementById('frmConfirmar');
+          const btn  = document.getElementById('btnConfirmar');
+          if (!form || !btn) return;
+
+          form.addEventListener('submit', () => {
             btn.disabled = true;
+
             btn.textContent = 'Confirmando...';
-            setTimeout(() => { btn.disabled = false; btn.textContent = 'Confirmar pedido'; }, 8000);
           });
+          document.addEventListener('invalid', () => {
+            btn.disabled = false;
+            btn.textContent = 'Confirmar pedido';
+          }, true);
         });
     </script>
+    }
 }
