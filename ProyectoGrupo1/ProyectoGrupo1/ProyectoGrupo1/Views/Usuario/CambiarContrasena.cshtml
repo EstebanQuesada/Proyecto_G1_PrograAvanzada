@@ -6,9 +6,9 @@
 <div class="container mt-5">
     <h2 class="text-center mb-4">Cambiar Contraseña</h2>
 
-    @if (TempData["MensajeClave"] != null)
+    @if (TempData["MensajeClave"] is string okMsg)
     {
-        <div class="alert alert-info text-center">@TempData["MensajeClave"]</div>
+        <div class="alert alert-success text-center">@okMsg</div>
     }
 
     <form asp-action="CambiarContrasena" method="post" class="row g-3">

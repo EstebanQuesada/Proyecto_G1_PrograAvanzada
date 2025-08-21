@@ -1,8 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Http
+@using ProyectoGrupo1
 @{
     var rol = ViewContext.HttpContext.Session.GetInt32("RolID") ?? 0;
+    var isAdmin = rol == Roles.Admin;
+    var loggedIn = ViewContext.HttpContext.Session.GetInt32("UsuarioID").HasValue;
 }
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -11,64 +13,142 @@
     <title>@ViewData["Title"] - Tienda Ropa</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/layout.css" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <style>
+        .header-pill {
+            background: #fff;
+            border-radius: 40px;
+            padding: .75rem 1.25rem;
+            box-shadow: 0 .5rem 1.25rem rgba(0,0,0,.06);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            overflow: hidden
+        }
+
+        .header-brand {
+            font-weight: 700;
+            color: #111;
+            text-decoration: none;
+            margin-right: .5rem
+        }
+
+        .nav-main {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            flex: 1 1 auto;
+            min-width: 0
+        }
+
+            .nav-main .nav-link {
+                color: #111;
+                padding: .35rem 0;
+                font-weight: 500;
+                text-decoration: none
+            }
+
+                .nav-main .nav-link:hover {
+                    text-decoration: underline
+                }
+
+                .nav-main .nav-link.active {
+                    color: #12b9b1
+                }
+
+        .header-actions {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem
+        }
+
+            .header-actions form {
+                margin: 0
+            }
+
+        .btn-pill {
+            background: #00d1ff;
+            color: #fff;
+            border: none;
+            border-radius: 999px;
+            padding: .5rem 1.25rem;
+            box-shadow: 0 .5rem 1rem rgba(0,209,255,.25);
+            line-height: 1.1;
+            white-space: nowrap
+        }
+
+            .btn-pill:hover {
+                filter: brightness(.95);
+                color: #fff
+            }
+
+        .btn-outline-pill {
+            background: #fff;
+            color: #dc3545;
+            border: none;
+            border-radius: 999px;
+            padding: .5rem 1rem;
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.08);
+            line-height: 1.1;
+            white-space: nowrap
+        }
+
+            .btn-outline-pill:hover {
+                color: #b02a37
+            }
+    </style>
+
 </head>
 
 <body>
     <header class="container py-3">
-        <nav class="navbar navbar-expand-lg bg-white rounded-pill shadow-sm px-4 py-2">
-            <a class="navbar-brand fw-bold text-dark" asp-controller="Home" asp-action="Index">Tienda Ropa</a>
+        <div class="header-pill">
+            <a class="header-brand" asp-controller="Home" asp-action="Index">Tienda Ropa</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent" aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+            <nav class="nav-main">
+                @if (!(ViewContext.HttpContext.Session.GetInt32("RolID") == Roles.Admin))
+                {
+                    <a class="nav-link @(ViewContext.RouteData.Values["action"]?.ToString()=="Index" ? "active" : null)" asp-controller="Home" asp-action="Index">Inicio</a>
+                    <a class="nav-link" asp-controller="Producto" asp-action="Catalogo">Catálogo</a>
+                    <a class="nav-link" asp-controller="Carrito" asp-action="Index">Carrito</a>
+                    <a class="nav-link" asp-controller="Pedido" asp-action="Historial">Historial de pedidos</a>
+                    <a class="nav-link" asp-controller="Contacto" asp-action="Index">Contacto</a>
+                }
+                else
+                {
+                    <a class="nav-link" asp-controller="AdminUsuarios" asp-action="Index">Administración</a>
+                    <a class="nav-link" asp-controller="AdminProducto" asp-action="Index">Productos</a>
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Catálogos</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Categorias">Categorías</a></li>
+                            <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Marcas">Marcas</a></li>
+                            <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Tallas">Tallas</a></li>
+                            <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Colores">Colores</a></li>
+                            <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Proveedores">Proveedores</a></li>
+                        </ul>
+                    </div>
+                    <a class="nav-link" asp-controller="AdminContacto" asp-action="Index">Mensajes</a>
+                }
+            </nav>
 
-            <div class="collapse navbar-collapse justify-content-between" id="navContent">
-                <ul class="navbar-nav gap-3">
-                    <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Producto" asp-action="Catalogo">Catálogo</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Carrito" asp-action="Index">Carrito</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Pedido" asp-action="Historial">Historial de pedidos</a></li>
-                    <li class="nav-item"><a class="nav-link" asp-controller="Contacto" asp-action="Index">Contacto</a></li>
-
-                    @* --- SOLO ADMIN --- *@
-                    @if (rol == 2)
-                    {
-                        <li class="nav-item">
-                            <a class="nav-link text-primary" asp-controller="AdminUsuarios" asp-action="Index">Administración</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-primary" asp-controller="AdminProducto" asp-action="Index">Productos</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                Catálogos
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Categorias">Categorías</a></li>
-                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Marcas">Marcas</a></li>
-                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Tallas">Tallas</a></li>
-                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Colores">Colores</a></li>
-                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Proveedores">Proveedores</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-primary" asp-controller="AdminContacto" asp-action="Index">Mensajes</a>
-                        </li>        
-
-                    }
-                </ul>
-
-                <ul class="navbar-nav gap-3">
-                    <li class="nav-item">
-                        <a class="btn btn-info text-white rounded-pill px-4" asp-controller="Usuario" asp-action="Perfil">Mi Perfil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-danger" asp-controller="Usuario" asp-action="Logout">Cerrar sesión</a>
-                    </li>
-                </ul>
+            <div class="header-actions">
+                @if (ViewContext.HttpContext.Session.GetInt32("UsuarioID").HasValue)
+                {
+                    <a class="btn btn-pill" asp-controller="Usuario" asp-action="Perfil">Mi Perfil</a>
+                    <form asp-controller="Usuario" asp-action="Logout" method="post" class="logout-form">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn-outline-pill">Cerrar sesión</button>
+                    </form>
+                }
+                else
+                {
+                    <a class="nav-link" asp-controller="Usuario" asp-action="Login">Iniciar sesión</a>
+                    <a class="nav-link" asp-controller="Usuario" asp-action="Register">Registrarse</a>
+                }
             </div>
-        </nav>
+        </div>
     </header>
 
     <main class="container py-4">

@@ -1,15 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
-using ProyectoGrupo1.Models;
 
+using ProyectoGrupo1.Models;
+using ProyectoGrupo1.Services;
 
 namespace ProyectoGrupo1.Controllers
 {
+    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
     public class UsuarioController : Controller
     {
         private readonly ApiUsuarioClient _api;
 
         public UsuarioController(ApiUsuarioClient api) => _api = api;
+
 
         [HttpGet]
         public IActionResult Login() => View();
@@ -21,7 +24,6 @@ namespace ProyectoGrupo1.Controllers
             try
             {
                 var perfil = await _api.LoginAsync(u.Correo, u.Contrasena);
-
                 if (perfil == null)
                 {
                     ViewBag.Mensaje = "Credenciales incorrectas.";
@@ -40,12 +42,13 @@ namespace ProyectoGrupo1.Controllers
                 ViewBag.Mensaje = ex.Message;
                 return View(u);
             }
-            catch (HttpRequestException ex) 
+            catch (HttpRequestException ex)
             {
                 ViewBag.Mensaje = "No se pudo contactar la API: " + ex.Message;
                 return View(u);
             }
         }
+
 
         [HttpGet]
         public IActionResult Register() => View();
@@ -73,6 +76,7 @@ namespace ProyectoGrupo1.Controllers
             ViewBag.Mensaje = "No se pudo registrar el usuario.";
             return View(u);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Perfil()
@@ -159,6 +163,7 @@ namespace ProyectoGrupo1.Controllers
             return View("Perfil", model2);
         }
 
+
         [HttpGet]
         public IActionResult CambiarContrasena()
             => HttpContext.Session.GetInt32("UsuarioID") == null ? RedirectToAction(nameof(Login)) : View();
@@ -170,21 +175,38 @@ namespace ProyectoGrupo1.Controllers
             var id = HttpContext.Session.GetInt32("UsuarioID");
             if (id is null) return RedirectToAction(nameof(Login));
 
-            if (NuevaContrasena != ConfirmarContrasena)
+            if (!string.Equals(NuevaContrasena, ConfirmarContrasena, StringComparison.Ordinal))
             {
-                TempData["MensajeClave"] = "La nueva contraseña y la confirmación no coinciden.";
                 return View();
             }
 
             var (ok, _) = await _api.CambiarPasswordAsync(id.Value, ContrasenaActual, NuevaContrasena);
-            TempData["MensajeClave"] = ok ? "Contraseña cambiada exitosamente." : "La contraseña actual no es válida.";
+
+            if (ok)
+            {
+                TempData["MensajeClave"] = "Contraseña cambiada exitosamente.";
+                return RedirectToAction(nameof(CambiarContrasena));
+            }
+
             return View();
         }
 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return RedirectToAction(nameof(Login));
+            Response.Cookies.Delete(".AspNetCore.Session");
+
+            Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+            Response.Headers["Pragma"] = "no-cache";
+            Response.Headers["Expires"] = "0";
+
+            return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public IActionResult LogoutGet() => RedirectToAction("Index", "Home");
     }
 }

@@ -1,15 +1,12 @@
-﻿
-using ProyectoGrupo1.Service;
-using ProyectoGrupo1.Services;
+﻿using ProyectoGrupo1.Service;
+using ProyectoGrupo1.Services; 
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<CarritoService>();
-
-builder.Services.AddScoped<ProyectoGrupo1.Services.DbService>();
-
+builder.Services.AddScoped<DbService>();
 builder.Services.AddScoped<TextoService>();
 
 builder.Services.AddDistributedMemoryCache();
@@ -103,9 +100,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseSession();
+app.UseSession();           
 
-app.UseAuthentication();
+app.UseAuthentication();   
 app.UseAuthorization();
 
 app.MapControllerRoute(
