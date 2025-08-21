@@ -72,6 +72,14 @@ builder.Services.AddHttpClient<PedidoApiService>(c =>
         new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });
 
+builder.Services.AddHttpClient<ApiCatalogosClient>(c =>
+{
+    c.BaseAddress = apiUri;
+    c.Timeout = TimeSpan.FromSeconds(15);
+    c.DefaultRequestHeaders.Accept.Add(
+        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
+
 builder.Services.AddHttpClient<IContactoApiClient, ContactoApiClient>(c =>
 {
     c.BaseAddress = apiUri;

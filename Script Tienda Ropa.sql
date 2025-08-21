@@ -1500,3 +1500,196 @@ BEGIN
       AND EXISTS (SELECT 1 FROM Producto WHERE ProductoID=@ProductoID AND Activo=1);
 END
 GO
+
+
+
+
+
+-- ===== CATEGORÍAS ===== 
+CREATE OR ALTER PROC dbo.usp_Admin_Categoria_Listar
+AS
+BEGIN
+  SELECT CategoriaID AS Id, NombreCategoria AS Nombre
+  FROM CategoriaProducto ORDER BY NombreCategoria;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Categoria_Crear
+  @Nombre NVARCHAR(100), @NuevoId INT OUTPUT
+AS
+BEGIN
+  INSERT INTO CategoriaProducto(NombreCategoria) VALUES(@Nombre);
+  SET @NuevoId = SCOPE_IDENTITY();
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Categoria_Actualizar
+  @Id INT, @Nombre NVARCHAR(100)
+AS
+BEGIN
+  UPDATE CategoriaProducto SET NombreCategoria=@Nombre WHERE CategoriaID=@Id;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Categoria_Eliminar
+  @Id INT
+AS
+BEGIN
+  IF EXISTS(SELECT 1 FROM Producto WHERE CategoriaID=@Id)
+     RAISERROR('CATEGORIA_EN_USO',16,1);
+  ELSE
+     DELETE FROM CategoriaProducto WHERE CategoriaID=@Id;
+END
+GO
+
+-- ===== MARCAS ===== 
+CREATE OR ALTER PROC dbo.usp_Admin_Marca_Listar
+AS
+BEGIN
+  SELECT MarcaID AS Id, NombreMarca AS Nombre
+  FROM Marca ORDER BY NombreMarca;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Marca_Crear
+  @Nombre NVARCHAR(100), @NuevoId INT OUTPUT
+AS
+BEGIN
+  INSERT INTO Marca(NombreMarca) VALUES(@Nombre);
+  SET @NuevoId = SCOPE_IDENTITY();
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Marca_Actualizar
+  @Id INT, @Nombre NVARCHAR(100)
+AS
+BEGIN
+  UPDATE Marca SET NombreMarca=@Nombre WHERE MarcaID=@Id;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Marca_Eliminar
+  @Id INT
+AS
+BEGIN
+  IF EXISTS(SELECT 1 FROM Producto WHERE MarcaID=@Id)
+     RAISERROR('MARCA_EN_USO',16,1);
+  ELSE
+     DELETE FROM Marca WHERE MarcaID=@Id;
+END
+GO
+
+---===== TALLAS ===== 
+CREATE OR ALTER PROC dbo.usp_Admin_Talla_Listar
+AS
+BEGIN
+  SELECT TallaID AS Id, NombreTalla AS Nombre
+  FROM Talla ORDER BY NombreTalla;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Talla_Crear
+  @Nombre NVARCHAR(10), @NuevoId INT OUTPUT
+AS
+BEGIN
+  INSERT INTO Talla(NombreTalla) VALUES(@Nombre);
+  SET @NuevoId = SCOPE_IDENTITY();
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Talla_Actualizar
+  @Id INT, @Nombre NVARCHAR(10)
+AS
+BEGIN
+  UPDATE Talla SET NombreTalla=@Nombre WHERE TallaID=@Id;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Talla_Eliminar
+  @Id INT
+AS
+BEGIN
+  IF EXISTS(SELECT 1 FROM ProductoTallaColor WHERE TallaID=@Id)
+     RAISERROR('TALLA_EN_USO',16,1);
+  ELSE
+     DELETE FROM Talla WHERE TallaID=@Id;
+END
+GO
+
+----===== COLORES ===== 
+CREATE OR ALTER PROC dbo.usp_Admin_Color_Listar
+AS
+BEGIN
+  SELECT ColorID AS Id, NombreColor AS Nombre
+  FROM Color ORDER BY NombreColor;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Color_Crear
+  @Nombre NVARCHAR(50), @NuevoId INT OUTPUT
+AS
+BEGIN
+  INSERT INTO Color(NombreColor) VALUES(@Nombre);
+  SET @NuevoId = SCOPE_IDENTITY();
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Color_Actualizar
+  @Id INT, @Nombre NVARCHAR(50)
+AS
+BEGIN
+  UPDATE Color SET NombreColor=@Nombre WHERE ColorID=@Id;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Color_Eliminar
+  @Id INT
+AS
+BEGIN
+  IF EXISTS(SELECT 1 FROM ProductoTallaColor WHERE ColorID=@Id)
+     RAISERROR('COLOR_EN_USO',16,1);
+  ELSE
+     DELETE FROM Color WHERE ColorID=@Id;
+END
+GO
+
+--===== PROVEEDORES ===== 
+CREATE OR ALTER PROC dbo.usp_Admin_Proveedor_Listar
+AS
+BEGIN
+  SELECT ProveedorID AS Id, NombreProveedor, Correo, Telefono
+  FROM Proveedor ORDER BY NombreProveedor;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Proveedor_Crear
+  @Nombre NVARCHAR(100), @Correo NVARCHAR(100), @Telefono NVARCHAR(50),
+  @NuevoId INT OUTPUT
+AS
+BEGIN
+  INSERT INTO Proveedor(NombreProveedor,Correo,Telefono)
+  VALUES(@Nombre,@Correo,@Telefono);
+  SET @NuevoId = SCOPE_IDENTITY();
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Proveedor_Actualizar
+  @Id INT, @Nombre NVARCHAR(100), @Correo NVARCHAR(100), @Telefono NVARCHAR(50)
+AS
+BEGIN
+  UPDATE Proveedor
+  SET NombreProveedor=@Nombre, Correo=@Correo, Telefono=@Telefono
+  WHERE ProveedorID=@Id;
+END
+GO
+
+CREATE OR ALTER PROC dbo.usp_Admin_Proveedor_Eliminar
+  @Id INT
+AS
+BEGIN
+  IF EXISTS(SELECT 1 FROM Producto WHERE ProveedorID=@Id)
+     RAISERROR('PROVEEDOR_EN_USO',16,1);
+  ELSE
+     DELETE FROM Proveedor WHERE ProveedorID=@Id;
+END
+GO

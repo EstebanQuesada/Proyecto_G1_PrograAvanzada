@@ -113,6 +113,321 @@
     ]
   },
   {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "Categorias",
+    "RelativePath": "api/v1/admin/catalogos/categorias",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "CrearCategoria",
+    "RelativePath": "api/v1/admin/catalogos/categorias",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.LookupItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "ActualizarCategoria",
+    "RelativePath": "api/v1/admin/catalogos/categorias/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.LookupItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "EliminarCategoria",
+    "RelativePath": "api/v1/admin/catalogos/categorias/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "Colores",
+    "RelativePath": "api/v1/admin/catalogos/colores",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "CrearColor",
+    "RelativePath": "api/v1/admin/catalogos/colores",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.LookupItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "ActualizarColor",
+    "RelativePath": "api/v1/admin/catalogos/colores/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.LookupItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "EliminarColor",
+    "RelativePath": "api/v1/admin/catalogos/colores/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "Marcas",
+    "RelativePath": "api/v1/admin/catalogos/marcas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "CrearMarca",
+    "RelativePath": "api/v1/admin/catalogos/marcas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.LookupItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "ActualizarMarca",
+    "RelativePath": "api/v1/admin/catalogos/marcas/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.LookupItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "EliminarMarca",
+    "RelativePath": "api/v1/admin/catalogos/marcas/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "Proveedores",
+    "RelativePath": "api/v1/admin/catalogos/proveedores",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "CrearProveedor",
+    "RelativePath": "api/v1/admin/catalogos/proveedores",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.ProveedorSaveDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "ActualizarProveedor",
+    "RelativePath": "api/v1/admin/catalogos/proveedores/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.ProveedorSaveDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "EliminarProveedor",
+    "RelativePath": "api/v1/admin/catalogos/proveedores/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "Tallas",
+    "RelativePath": "api/v1/admin/catalogos/tallas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "CrearTalla",
+    "RelativePath": "api/v1/admin/catalogos/tallas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.LookupItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "ActualizarTalla",
+    "RelativePath": "api/v1/admin/catalogos/tallas/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "ProyectoGrupo1.API.DTOs.LookupItemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ProyectoGrupo1.API.Controllers.AdminCatalogosController",
+    "Method": "EliminarTalla",
+    "RelativePath": "api/v1/admin/catalogos/tallas/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ProyectoGrupo1.API.Controllers.AdminProductosController",
     "Method": "Listar",
     "RelativePath": "api/v1/admin/productos",

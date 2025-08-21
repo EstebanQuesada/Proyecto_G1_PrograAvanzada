@@ -11,7 +11,7 @@ using ProyectoGrupo1.API.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IDbConnectionFactory, SqlConnectionFactory>();
-
+builder.Services.AddScoped<ICatalogosRepository, CatalogosRepository>();
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IAdminProductoRepository, AdminProductoRepository>();

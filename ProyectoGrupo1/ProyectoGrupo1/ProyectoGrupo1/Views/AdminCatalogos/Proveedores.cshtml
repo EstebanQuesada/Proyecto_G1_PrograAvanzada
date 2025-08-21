@@ -1,0 +1,133 @@
+﻿@using ProyectoGrupo1.Service
+@model IEnumerable<ApiCatalogosClient.ProveedorVm>
+
+@{
+    ViewData["Title"] = "Proveedores";
+}
+
+<h2 class="mb-3">Proveedores</h2>
+
+@if (TempData["Mensaje"] is string ok)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @ok <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+@if (TempData["Error"] is string err)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @err <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+
+<form asp-action="ProveedorCrear" asp-controller="AdminCatalogos" method="post" class="row g-2 align-items-center mb-3">
+    @Html.AntiForgeryToken()
+    <div class="col">
+        <input name="nombre" class="form-control" placeholder="Nombre proveedor" />
+    </div>
+    <div class="col">
+        <input name="correo" class="form-control" placeholder="Correo" />
+    </div>
+    <div class="col">
+        <input name="telefono" class="form-control" placeholder="Teléfono" />
+    </div>
+    <div class="col-auto">
+        <button type="submit" class="btn btn-success">Agregar</button>
+    </div>
+</form>
+
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th style="width:70px">ID</th>
+            <th>Nombre</th>
+            <th style="width:28%">Correo</th>
+            <th style="width:18%">Teléfono</th>
+            <th style="width:200px" class="text-end">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            var formId = $"f-{p.Id}";
+            <tr>
+                <td>@p.Id</td>
+
+                <td colspan="3" style="padding:0;border:0;">
+                    <form id="@formId"
+                          asp-action="ProveedorGuardar"
+                          asp-controller="AdminCatalogos"
+                          method="post"
+                          class="m-0">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@p.Id" />
+                        <div class="row g-2 m-0">
+                            <div class="col">
+                                <input class="form-control" name="nombre" value="@p.Nombre" />
+                            </div>
+                            <div class="col">
+                                <input class="form-control" name="correo" value="@p.Correo" />
+                            </div>
+                            <div class="col">
+                                <input class="form-control" name="telefono" value="@p.Telefono" />
+                            </div>
+                        </div>
+                    </form>
+                </td>
+
+                <td class="text-end">
+                    <button type="submit" class="btn btn-primary btn-sm" form="@formId">Guardar</button>
+
+                    <button type="button"
+                            class="btn btn-outline-danger btn-sm ms-1"
+                            data-id="@p.Id"
+                            data-name="@p.Nombre"
+                            data-bs-toggle="modal"
+                            data-bs-target="#confirmProveedorDelete">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="confirmProveedorDelete" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <form id="delProvForm" asp-action="ProveedorEliminar" asp-controller="AdminCatalogos" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="" />
+                <div class="modal-body">
+                    ¿Seguro que deseas eliminar el proveedor <strong data-del-name></strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const modalEl = document.getElementById('confirmProveedorDelete');
+          const nameEl  = modalEl.querySelector('[data-del-name]');
+          const idInput = modalEl.querySelector('input[name="id"]');
+
+          modalEl.addEventListener('show.bs.modal', function (ev) {
+            const btn = ev.relatedTarget;
+            if (!btn) return;
+            nameEl.textContent = btn.getAttribute('data-name') || '';
+            idInput.value      = btn.getAttribute('data-id')   || '';
+          });
+        });
+    </script>
+}

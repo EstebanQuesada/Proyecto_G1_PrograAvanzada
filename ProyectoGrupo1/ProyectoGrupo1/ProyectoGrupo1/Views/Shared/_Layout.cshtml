@@ -40,9 +40,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-primary" asp-controller="AdminProducto" asp-action="Index">Productos</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                Catálogos
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Categorias">Categorías</a></li>
+                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Marcas">Marcas</a></li>
+                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Tallas">Tallas</a></li>
+                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Colores">Colores</a></li>
+                                <li><a class="dropdown-item" asp-controller="AdminCatalogos" asp-action="Proveedores">Proveedores</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link text-primary" asp-controller="AdminContacto" asp-action="Index">Mensajes</a>
-                        </li>
+                        </li>        
+
                     }
                 </ul>
 

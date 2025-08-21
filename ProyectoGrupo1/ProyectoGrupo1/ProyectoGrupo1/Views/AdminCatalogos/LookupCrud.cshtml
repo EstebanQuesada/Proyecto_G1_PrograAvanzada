@@ -1,0 +1,131 @@
+﻿@model List<ProyectoGrupo1.Service.ApiCatalogosClient.LookupVm>
+
+@{
+    ViewData["Title"] = (string)(ViewBag.Titulo ?? "Catálogo");
+    var tipo = (string)(ViewBag.Tipo ?? "item");
+
+    string Pascal(string s) => string.IsNullOrEmpty(s) ? "" : char.ToUpper(s[0]) + s.Substring(1);
+    var accionCrear = $"Crear{Pascal(tipo)}";
+    var accionActualizar = $"Actualizar{Pascal(tipo)}";
+    var accionEliminar = $"Eliminar{Pascal(tipo)}";
+}
+
+<h2 class="mb-3">@ViewData["Title"]</h2>
+
+@if (TempData["Mensaje"] is string ok)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @ok
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+@if (TempData["Error"] is string err)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @err
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form asp-action="@accionCrear" method="post" class="row g-2 align-items-center mb-3">
+            @Html.AntiForgeryToken()
+            <div class="col">
+                <input name="nombre" class="form-control" placeholder="Nuevo @ViewData["Title"]..." />
+            </div>
+            <div class="col-auto">
+                <button class="btn btn-success">Agregar</button>
+            </div>
+        </form>
+
+        <table class="table table-sm align-middle">
+            <thead>
+                <tr>
+                    <th style="width:80px">ID</th>
+                    <th>Nombre</th>
+                    <th class="text-end" style="width:160px">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model is { Count: > 0 })
+                {
+                    foreach (var it in Model)
+                    {
+                        <tr>
+                            <td>@it.Id</td>
+
+                            <td>
+                                <form asp-action="@accionActualizar"
+                                      method="post"
+                                      class="d-flex gap-2 align-items-center mb-0">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="id" value="@it.Id" />
+                                    <input name="nombre" value="@it.Nombre" class="form-control" />
+                                    <button class="btn btn-primary btn-sm">Guardar</button>
+                                </form>
+                            </td>
+
+                            <td class="text-end">
+                                <button type="button"
+                                        class="btn btn-outline-danger btn-sm"
+                                        data-id="@it.Id"
+                                        data-name="@it.Nombre"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#confirmDeleteModal">
+                                    Eliminar
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center text-muted">Sin datos.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar eliminación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+
+            <form id="delForm" asp-action="@accionEliminar" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="" />
+                <div class="modal-body">
+                    ¿Seguro que deseas eliminar <strong data-del-name></strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          const modalEl = document.getElementById('confirmDeleteModal');
+          const nameEl  = modalEl.querySelector('[data-del-name]');
+          const idInput = modalEl.querySelector('input[name="id"]');
+
+          modalEl.addEventListener('show.bs.modal', function (ev) {
+            const btn = ev.relatedTarget;
+            if (!btn) return;
+            nameEl.textContent = btn.getAttribute('data-name') || '';
+            idInput.value      = btn.getAttribute('data-id')   || '';
+          });
+        });
+    </script>
+}
