@@ -1,4 +1,5 @@
-﻿using ProyectoGrupo1.Service;
+﻿
+using ProyectoGrupo1.Service;
 using ProyectoGrupo1.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,10 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddScoped<CarritoService>();
-builder.Services.AddScoped<DbService>();   
-builder.Services.AddScoped<TextoService>();
-builder.Services.AddScoped<ContactoService>();
 
+builder.Services.AddScoped<ProyectoGrupo1.Services.DbService>();
+
+builder.Services.AddScoped<TextoService>();
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(o =>
@@ -25,6 +26,14 @@ if (!apiBase.EndsWith("/")) apiBase += "/";
 var apiUri = new Uri(apiBase, UriKind.Absolute);
 
 builder.Services.AddHttpClient<ApiProductoClient>(c =>
+{
+    c.BaseAddress = apiUri;
+    c.Timeout = TimeSpan.FromSeconds(10);
+    c.DefaultRequestHeaders.Accept.Add(
+        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
+
+builder.Services.AddHttpClient<ApiAdminContactoClient>(c =>
 {
     c.BaseAddress = apiUri;
     c.Timeout = TimeSpan.FromSeconds(10);
@@ -50,7 +59,7 @@ builder.Services.AddHttpClient<ApiAdminUsuarioClient>(c =>
 
 builder.Services.AddHttpClient<ApiAdminProductoClient>(c =>
 {
-    c.BaseAddress = new Uri(apiBase);
+    c.BaseAddress = apiUri;
     c.DefaultRequestHeaders.Accept.Add(
         new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });
@@ -59,6 +68,14 @@ builder.Services.AddHttpClient<PedidoApiService>(c =>
 {
     c.BaseAddress = apiUri;
     c.Timeout = TimeSpan.FromSeconds(15);
+    c.DefaultRequestHeaders.Accept.Add(
+        new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+});
+
+builder.Services.AddHttpClient<IContactoApiClient, ContactoApiClient>(c =>
+{
+    c.BaseAddress = apiUri;
+    c.Timeout = TimeSpan.FromSeconds(10);
     c.DefaultRequestHeaders.Accept.Add(
         new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 });
@@ -80,18 +97,13 @@ app.UseRouting();
 
 app.UseSession();
 
-app.UseAuthentication();   
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.MapControllers();  
+app.MapControllers();
 
 app.Run();
-

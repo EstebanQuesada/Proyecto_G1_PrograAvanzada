@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using ProyectoGrupo1.Models;
 using ProyectoGrupo1.Services;
 
@@ -7,40 +8,45 @@ namespace ProyectoGrupo1.Controllers
     public class ContactoController : Controller
     {
         private readonly TextoService _textoService;
-        private readonly ContactoService _contactoService;
+        private readonly IContactoApiClient _apiClient;
+        private readonly ILogger<ContactoController> _logger;
 
-        public ContactoController(TextoService textoService, ContactoService contactoService)
+        public ContactoController(TextoService textoService, IContactoApiClient apiClient, ILogger<ContactoController> logger)
         {
             _textoService = textoService;
-            _contactoService = contactoService;
+            _apiClient = apiClient;
+            _logger = logger;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
             ViewBag.Descripcion = _textoService.ObtenerDescripcionContacto();
+            ViewBag.Confirmacion = TempData["Confirmacion"];
             return View(new ContactoViewModel());
         }
 
         [HttpPost]
-        public IActionResult Index(ContactoViewModel modelo)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(ContactoViewModel modelo, CancellationToken ct)
         {
-            if (ModelState.IsValid)
-            {
-                _contactoService.GuardarMensaje(modelo);
-                ViewBag.Confirmacion = "¡Tu mensaje ha sido enviado correctamente!";
-                ModelState.Clear();
-
-                ViewBag.Descripcion = _textoService.ObtenerDescripcionContacto();
-                return View(new ContactoViewModel());
-            }
-
             ViewBag.Descripcion = _textoService.ObtenerDescripcionContacto();
-            return View(modelo);
+
+            if (!ModelState.IsValid)
+                return View(modelo);
+
+            try
+            {
+                await _apiClient.CrearAsync(modelo, ct);
+                TempData["Confirmacion"] = "¡Tu mensaje ha sido enviado correctamente!";
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error enviando mensaje de contacto desde MVC");
+                ModelState.AddModelError(string.Empty, "No se pudo enviar el mensaje. Intenta más tarde.");
+                return View(modelo);
+            }
         }
     }
 }
-
-
-
-

@@ -1,27 +1,21 @@
-﻿using System.Data.SqlClient;
+﻿
 using Microsoft.Extensions.Configuration;
-using System.Threading.Tasks;
-using Dapper;
-using System.Data;
 
 namespace ProyectoGrupo1.Services
 {
     public class TextoService
     {
-        private readonly DbService _dbService;
+        private readonly IConfiguration _config;
 
-        public TextoService(DbService dbService)
+        public TextoService(IConfiguration config)
         {
-            _dbService = dbService;
+            _config = config;
         }
 
         public string ObtenerDescripcionContacto()
         {
-            using var connection = _dbService.CreateConnection();
-
-            return connection.ExecuteScalar<string>(
-                "ObtenerDescripcionContacto",
-                commandType: CommandType.StoredProcedure);
+            return _config["Textos:ContactoDescripcion"]
+                   ?? "¿Tienes preguntas? Envíanos un mensaje y te responderemos lo antes posible.";
         }
     }
 }

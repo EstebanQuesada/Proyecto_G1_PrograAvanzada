@@ -1,16 +1,25 @@
-﻿@model ProyectoGrupo1.Models.ContactoViewModel
+﻿
+@model ProyectoGrupo1.Models.ContactoViewModel
 @{
     ViewData["Title"] = "Contacto";
-    var descripcion = ViewBag.Descripcion ?? "";
+    var descripcion = (string)(ViewBag.Descripcion ?? "");
+    var confirmacion = (string)(ViewBag.Confirmacion ?? "");
 }
 
 <link rel="stylesheet" href="~/css/index.css" />
 
 <h1>Contacto</h1>
-
 <p class="descripcion">@descripcion</p>
 
+@if (!string.IsNullOrWhiteSpace(confirmacion))
+{
+    <p class="confirmacion">@confirmacion</p>
+}
+
 <form asp-controller="Contacto" asp-action="Index" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="ModelOnly"></div>
+
     <div>
         <label asp-for="Nombre"></label>
         <input asp-for="Nombre" />
@@ -32,14 +41,8 @@
     <button type="submit">Enviar</button>
 </form>
 
-@if (ViewBag.Confirmacion != null)
-{
-    <p class="confirmacion">@ViewBag.Confirmacion</p>
-}
-
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
-

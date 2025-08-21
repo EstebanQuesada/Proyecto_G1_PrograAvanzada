@@ -1,0 +1,168 @@
+﻿@* Proyecto: ProyectoGrupo1 (MVC)
+   Archivo: Views/AdminUsuarios/Editar.cshtml *@
+@model ProyectoGrupo1.Models.AdminEditarVm
+@{
+    ViewData["Title"] = "Editar usuario";
+
+    // Opcionales por si tu VM los tiene (evita reventar si no existen)
+    var t = Model?.GetType();
+    bool Tiene(string prop) => t?.GetProperty(prop) != null;
+    bool Bool(string prop) => (bool?)t?.GetProperty(prop)?.GetValue(Model) ?? false;
+    int Int(string prop) => (int?)t?.GetProperty(prop)?.GetValue(Model) ?? 0;
+
+    var tieneBloqueado = Tiene("Bloqueado");
+    var tieneActivo = Tiene("Activo");
+
+    var bloqueado = Bool("Bloqueado");
+    var activo = Bool("Activo");
+    var rolId = (int?)t?.GetProperty("RolID")?.GetValue(Model) ?? 1;
+}
+
+<h1 class="mb-3">Editar usuario</h1>
+
+@if (TempData["Msg"] is string msg)
+{
+    <div class="alert alert-info">@msg</div>
+}
+
+<form asp-action="Editar" method="post" class="row g-3">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="UsuarioID" value="@Model.UsuarioID" />
+
+    <div class="col-md-6">
+        <label class="form-label">Nombre</label>
+        <input class="form-control" name="Nombre" value="@Model.Nombre" required />
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Apellido</label>
+        <input class="form-control" name="Apellido" value="@Model.Apellido" required />
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Correo</label>
+        <input class="form-control" type="email" name="Correo" value="@Model.Correo" required />
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Rol</label>
+        <select class="form-select" name="RolID">
+            <option value="1" selected="@(rolId == 1)">Cliente</option>
+            <option value="2" selected="@(rolId == 2)">Admin</option>
+        </select>
+    </div>
+
+    <div class="col-md-6">
+        <label class="form-label">Dirección</label>
+        <input class="form-control" name="Direccion" value="@(t?.GetProperty("Direccion")?.GetValue(Model) ?? "")" />
+    </div>
+
+    <div class="col-md-3">
+        <label class="form-label">Ciudad</label>
+        <input class="form-control" name="Ciudad" value="@(t?.GetProperty("Ciudad")?.GetValue(Model) ?? "")" />
+    </div>
+
+    <div class="col-md-2">
+        <label class="form-label">Provincia</label>
+        <input class="form-control" name="Provincia" value="@(t?.GetProperty("Provincia")?.GetValue(Model) ?? "")" />
+    </div>
+
+    <div class="col-md-1">
+        <label class="form-label">C. Postal</label>
+        <input class="form-control" name="CodigoPostal" value="@(t?.GetProperty("CodigoPostal")?.GetValue(Model) ?? "")" />
+    </div>
+
+    <div class="col-12 d-flex gap-2 mt-2">
+        <button class="btn btn-primary" type="submit">Guardar cambios</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+    </div>
+</form>
+
+@if (tieneBloqueado || tieneActivo)
+{
+    <hr class="my-4" />
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Estado de la cuenta</h5>
+                    @if (tieneActivo)
+                    {
+                        <span class="badge bg-@(activo ? "success" : "secondary") me-2">
+                            @(activo ? "Activo" : "Inactivo")
+                        </span>
+                    }
+                    @if (tieneBloqueado)
+                    {
+                        <span class="badge bg-@(bloqueado ? "warning text-dark" : "info")">
+                            @(bloqueado ? "Bloqueado" : "Desbloqueado")
+                        </span>
+                    }
+
+                    @if (tieneBloqueado)
+                    {
+                        <div class="mt-3">
+                            <form asp-action="Bloquear" method="post" class="d-inline">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@Model.UsuarioID" />
+                                <input type="hidden" name="bloqueado" value="@(bloqueado ? "false" : "true")" />
+                                <button class="btn btn-outline-warning">
+                                    @(bloqueado ? "Desbloquear" : "Bloquear")
+                                </button>
+                            </form>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">Cambios rápidos</h5>
+
+                    <form asp-action="CambiarRol" method="post" class="d-flex align-items-end gap-2 mb-3">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.UsuarioID" />
+                        <div class="flex-grow-1">
+                            <label class="form-label">Nuevo Rol</label>
+                            <select class="form-select" name="rolId">
+                                <option value="1" selected="@(rolId == 1)">Cliente</option>
+                                <option value="2" selected="@(rolId == 2)">Admin</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-outline-primary">Aplicar</button>
+                    </form>
+
+                    <form asp-action="ResetPassword" method="post" class="d-flex gap-2">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="id" value="@Model.UsuarioID" />
+                        <input type="password" class="form-control" name="nueva" placeholder="Nueva contraseña" required />
+                        <button class="btn btn-outline-secondary">Resetear</button>
+                    </form>
+
+                    <div class="mt-3">
+                        <form asp-action="Restaurar" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@Model.UsuarioID" />
+                            <button class="btn btn-success">Restaurar</button>
+                        </form>
+
+                        <form asp-action="Eliminar" method="post" class="d-inline ms-2">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="id" value="@Model.UsuarioID" />
+                            <button class="btn btn-outline-danger" onclick="return confirm('¿Eliminar (soft) este usuario?');">Eliminar</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

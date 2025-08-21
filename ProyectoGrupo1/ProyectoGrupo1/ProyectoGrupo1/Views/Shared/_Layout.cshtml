@@ -1,7 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Http
 @{
-
-    var rol = Context.Session.GetInt32("RolID") ?? 0;
+    var rol = ViewContext.HttpContext.Session.GetInt32("RolID") ?? 0;
 }
 
 <!DOCTYPE html>
@@ -29,20 +28,22 @@
                     <li class="nav-item"><a class="nav-link active" asp-controller="Home" asp-action="Index">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Producto" asp-action="Catalogo">Catálogo</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Carrito" asp-action="Index">Carrito</a></li>
-                    <li class="nav-item"><a class="nav-link"<a asp-controller="Pedido" asp-action="Historial">Historial de pedidos</a>
+                    <li class="nav-item"><a class="nav-link" asp-controller="Pedido" asp-action="Historial">Historial de pedidos</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Contacto" asp-action="Index">Contacto</a></li>
 
-                    @* SOLO ADMIN *@
+                    @* --- SOLO ADMIN --- *@
                     @if (rol == 2)
                     {
                         <li class="nav-item">
                             <a class="nav-link text-primary" asp-controller="AdminUsuarios" asp-action="Index">Administración</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" asp-controller="AdminProducto" asp-action="Index">Productos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-primary" asp-controller="AdminContacto" asp-action="Index">Mensajes</a>
+                        </li>
                     }
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="AdminProducto" asp-action="Index">Productos</a>
-                    </li>
-
                 </ul>
 
                 <ul class="navbar-nav gap-3">

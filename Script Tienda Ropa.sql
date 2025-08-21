@@ -1052,7 +1052,10 @@ BEGIN
 END
 GO
 
-=======
+
+
+
+--Contactos
 CREATE PROCEDURE SP_GuardarContacto
     @Nombre NVARCHAR(100),
     @Correo NVARCHAR(100),
@@ -1065,4 +1068,141 @@ BEGIN
 END
 
 
->>>>>>> Stashed changes
+
+
+--Contacto Admin
+IF OBJECT_ID('dbo.ContactoMensaje', 'U') IS NULL
+BEGIN
+    CREATE TABLE dbo.ContactoMensaje
+    (
+        Id               INT IDENTITY(1,1) NOT NULL CONSTRAINT PK_ContactoMensaje PRIMARY KEY,
+        Nombre           NVARCHAR(100)     NOT NULL,
+        Correo           NVARCHAR(150)     NOT NULL,
+        Mensaje          NVARCHAR(1000)    NOT NULL,
+        FechaEnvio       DATETIME2         NOT NULL CONSTRAINT DF_ContactoMensaje_FechaEnvio DEFAULT (SYSUTCDATETIME()),
+        Visto            BIT               NOT NULL CONSTRAINT DF_ContactoMensaje_Visto DEFAULT (0),
+        Completado       BIT               NOT NULL CONSTRAINT DF_ContactoMensaje_Completado DEFAULT (0),
+        FechaVisto       DATETIME2         NULL,
+        FechaCompletado  DATETIME2         NULL
+    );
+
+    CREATE INDEX IX_ContactoMensaje_Visto_Completado_Fecha
+        ON dbo.ContactoMensaje (Visto, Completado, FechaEnvio DESC);
+END
+GO
+
+
+-- Insertar mensaje 
+IF OBJECT_ID('dbo.SP_GuardarContacto', 'P') IS NOT NULL DROP PROC dbo.SP_GuardarContacto;
+GO
+CREATE PROC dbo.SP_GuardarContacto
+    @Nombre NVARCHAR(100),
+    @Correo NVARCHAR(150),
+    @Mensaje NVARCHAR(1000),
+    @FechaEnvio DATETIME2
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO dbo.ContactoMensaje (Nombre, Correo, Mensaje, FechaEnvio)
+    VALUES (@Nombre, @Correo, @Mensaje, @FechaEnvio);
+
+    RETURN @@ROWCOUNT; -- Dapper usa esto como filas afectadas
+END
+GO
+
+-- Listar mensajes publicos
+IF OBJECT_ID('dbo.SP_ListarContactos', 'P') IS NOT NULL DROP PROC dbo.SP_ListarContactos;
+GO
+CREATE PROC dbo.SP_ListarContactos
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT Id, Nombre, Correo, Mensaje, FechaEnvio, Visto, Completado, FechaVisto, FechaCompletado
+    FROM dbo.ContactoMensaje
+    ORDER BY FechaEnvio DESC, Id DESC;
+END
+GO
+
+
+
+-- Listado admin con filtros 
+IF OBJECT_ID('dbo.SP_Contacto_ListarAdmin','P') IS NOT NULL
+    DROP PROC dbo.SP_Contacto_ListarAdmin;
+GO
+CREATE PROC dbo.SP_Contacto_ListarAdmin
+    @Buscar   NVARCHAR(200) = NULL,
+    @Estado   VARCHAR(20)   = NULL,   
+    @Page     INT           = 1,
+    @PageSize INT           = 20,
+    @Total    INT           OUTPUT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SET @Buscar = NULLIF(@Buscar, '');
+    SET @Estado = LOWER(NULLIF(@Estado, ''));
+
+    SELECT 
+        c.Id, c.Nombre, c.Correo, c.Mensaje, c.FechaEnvio,
+        c.Visto, c.Completado, c.FechaVisto, c.FechaCompletado
+    INTO #Filtro
+    FROM dbo.ContactoMensaje c
+    WHERE
+        (@Buscar IS NULL 
+            OR c.Nombre  LIKE '%' + @Buscar + '%'
+            OR c.Correo  LIKE '%' + @Buscar + '%'
+            OR c.Mensaje LIKE '%' + @Buscar + '%')
+        AND
+        (
+            @Estado IS NULL
+            OR (@Estado = 'pendiente'  AND c.Visto = 0 AND c.Completado = 0)
+            OR (@Estado = 'visto'      AND c.Visto = 1)
+            OR (@Estado = 'completado' AND c.Completado = 1)
+        );
+
+    SELECT @Total = COUNT(*) FROM #Filtro;
+
+    SELECT 
+        Id, Nombre, Correo, Mensaje, FechaEnvio,
+        Visto, Completado, FechaVisto, FechaCompletado
+    FROM #Filtro
+    ORDER BY FechaEnvio DESC, Id DESC
+    OFFSET (@Page - 1) * @PageSize ROWS
+    FETCH NEXT @PageSize ROWS ONLY;
+END
+GO
+
+-- Actualizar estado
+IF OBJECT_ID('dbo.SP_Contacto_ActualizarEstado','P') IS NOT NULL DROP PROC dbo.SP_Contacto_ActualizarEstado;
+GO
+CREATE PROC dbo.SP_Contacto_ActualizarEstado
+    @Id         INT,
+    @Visto      BIT,
+    @Completado BIT,
+    @Fecha      DATETIME2
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE c
+    SET
+        Visto = @Visto,
+        FechaVisto = CASE
+                        WHEN @Visto = 1 AND c.FechaVisto IS NULL THEN @Fecha
+                        WHEN @Visto = 0 THEN NULL
+                        ELSE c.FechaVisto
+                     END,
+        Completado = @Completado,
+        FechaCompletado = CASE
+                            WHEN @Completado = 1 AND c.FechaCompletado IS NULL THEN @Fecha
+                            WHEN @Completado = 0 THEN NULL
+                            ELSE c.FechaCompletado
+                          END
+    FROM dbo.ContactoMensaje c
+    WHERE c.Id = @Id;
+
+    RETURN @@ROWCOUNT;
+END
+GO

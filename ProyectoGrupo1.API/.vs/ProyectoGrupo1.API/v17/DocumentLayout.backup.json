@@ -1,50 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\",
+  "WorkspaceRootPath": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\controllers\\adminproductoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\controllers\\adminproductoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\estep\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\repositories\\adminproductorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\repositories\\adminproductorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\estep\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\repositories\\iadminproductorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\repositories\\iadminproductorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\dtos\\productadmin\\adminproductodtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\dtos\\productadmin\\adminproductodtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\dtos\\pedido\\historialpedidodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\dtos\\pedido\\historialpedidodto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\controllers\\pedidoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\controllers\\pedidoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\dtos\\pedido\\pedidocreardto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\dtos\\pedido\\pedidocreardto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\repositories\\pedidorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\repositories\\pedidorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\11alp\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\repositories\\ipedidorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\repositories\\ipedidorepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|c:\\users\\estep\\source\\repos\\proyecto_g1_prograavanzada\\proyectogrupo1.api\\proyectogrupo1.api\\services\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21D09AE4-193F-469C-BD05-1167CBDD679E}|ProyectoGrupo1.API\\ProyectoGrupo1.API.csproj|solutionrelative:proyectogrupo1.api\\services\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,150 +26,54 @@
           "Children": [
             {
               "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AdminProductoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Repositories\\AdminProductoRepository.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Repositories\\AdminProductoRepository.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Repositories\\AdminProductoRepository.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\Repositories\\AdminProductoRepository.cs",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAowEkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T18:52:31.549Z",
-              "EditorCaption": ""
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AdminProductosController.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Controllers\\AdminProductosController.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Controllers\\AdminProductosController.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Controllers\\AdminProductosController.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\Controllers\\AdminProductosController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
+              "Title": "UsuariosController.cs",
+              "DocumentMoniker": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Controllers\\UsuariosController.cs",
+              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Controllers\\UsuariosController.cs",
+              "ToolTip": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Controllers\\UsuariosController.cs",
+              "RelativeToolTip": "ProyectoGrupo1.API\\Controllers\\UsuariosController.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAAwwDQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T18:53:41.397Z",
+              "WhenOpened": "2025-08-21T04:18:52.296Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IAdminProductoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Repositories\\IAdminProductoRepository.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Repositories\\IAdminProductoRepository.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Repositories\\IAdminProductoRepository.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\Repositories\\IAdminProductoRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Models\\Usuario.cs",
+              "RelativeToolTip": "ProyectoGrupo1.API\\Models\\Usuario.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T18:51:59.364Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AdminProductoDtos.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\DTOs\\ProductAdmin\\AdminProductoDtos.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\DTOs\\ProductAdmin\\AdminProductoDtos.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\DTOs\\ProductAdmin\\AdminProductoDtos.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\DTOs\\ProductAdmin\\AdminProductoDtos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T18:50:40.688Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\appsettings.json",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\appsettings.json",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\appsettings.json",
-              "RelativeToolTip": "ProyectoGrupo1.API\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAACZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-08-20T18:25:07.941Z",
+              "WhenOpened": "2025-08-21T04:18:18.181Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Program.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Program.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Program.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Title": "UsuarioService.cs",
+              "DocumentMoniker": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Services\\UsuarioService.cs",
+              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Services\\UsuarioService.cs",
+              "ToolTip": "C:\\Users\\EsteP\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Services\\UsuarioService.cs",
+              "RelativeToolTip": "ProyectoGrupo1.API\\Services\\UsuarioService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T17:28:01.043Z",
+              "WhenOpened": "2025-08-21T04:17:50.76Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "PedidosController.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Controllers\\PedidosController.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Controllers\\PedidosController.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Controllers\\PedidosController.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\Controllers\\PedidosController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T17:27:41.815Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "HistorialPedidoDto.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\DTOs\\Pedido\\HistorialPedidoDto.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\DTOs\\Pedido\\HistorialPedidoDto.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\DTOs\\Pedido\\HistorialPedidoDto.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\DTOs\\Pedido\\HistorialPedidoDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T17:27:28.691Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "PedidoCrearDto.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\DTOs\\Pedido\\PedidoCrearDto.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\DTOs\\Pedido\\PedidoCrearDto.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\DTOs\\Pedido\\PedidoCrearDto.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\DTOs\\Pedido\\PedidoCrearDto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T17:27:12.685Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "PedidoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Repositories\\PedidoRepository.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Repositories\\PedidoRepository.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Repositories\\PedidoRepository.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\Repositories\\PedidoRepository.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAUwCMAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T17:25:57.317Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "IPedidoRepository.cs",
-              "DocumentMoniker": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Repositories\\IPedidoRepository.cs",
-              "RelativeDocumentMoniker": "ProyectoGrupo1.API\\Repositories\\IPedidoRepository.cs",
-              "ToolTip": "C:\\Users\\11alp\\source\\repos\\Proyecto_G1_PrograAvanzada\\ProyectoGrupo1.API\\ProyectoGrupo1.API\\Repositories\\IPedidoRepository.cs",
-              "RelativeToolTip": "ProyectoGrupo1.API\\Repositories\\IPedidoRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-20T17:25:31.764Z"
             }
           ]
         }

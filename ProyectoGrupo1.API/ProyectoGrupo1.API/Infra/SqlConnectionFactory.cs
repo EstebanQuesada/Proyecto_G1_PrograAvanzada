@@ -1,6 +1,6 @@
-﻿namespace ProyectoGrupo1.API.Infra;
+﻿
+namespace ProyectoGrupo1.API.Infra;
 
-using System;
 using System.Data;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;

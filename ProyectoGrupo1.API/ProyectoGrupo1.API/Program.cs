@@ -2,42 +2,36 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
-using ProyectoGrupo1.API.Infra;
 using ProyectoGrupo1.Api.Services;
+using ProyectoGrupo1.API.Infra;
 using ProyectoGrupo1.API.Repositories;
 using ProyectoGrupo1.API.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton<IDbConnectionFactory, SqlConnectionFactory>();
 
-builder.Services.AddScoped<UsuarioService>();
-builder.Services.AddScoped<AdminUsuarioService>();
-builder.Services.AddScoped<IAdminProductoRepository, AdminProductoRepository>(); 
-builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
-
 builder.Services.AddScoped<IProductoRepository, ProductoRepository>();
-
+builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
+builder.Services.AddScoped<IAdminProductoRepository, AdminProductoRepository>();
 builder.Services.AddScoped<IContactoRepository, ContactoRepository>();
 builder.Services.AddScoped<IContactoService, ContactoService>();
+
+builder.Services.AddScoped<UsuarioService>();
+builder.Services.AddScoped<AdminUsuarioService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
-
-
-
 {
     opt.SwaggerDoc("v1", new OpenApiInfo { Title = "ProyectoGrupo1 API", Version = "v1" });
 });
 
 var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
                       ?? new[] { "https://localhost:5001", "http://localhost:5000" };
-
 builder.Services.AddCors(o => o.AddPolicy("AppCors", p =>
-    p.WithOrigins(allowedOrigins)
-     .AllowAnyHeader()
-     .AllowAnyMethod()
+    p.WithOrigins(allowedOrigins).AllowAnyHeader().AllowAnyMethod()
 ));
 
 var app = builder.Build();
