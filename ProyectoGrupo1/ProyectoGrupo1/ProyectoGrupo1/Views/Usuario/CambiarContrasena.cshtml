@@ -3,30 +3,108 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container mt-5">
-    <h2 class="text-center mb-4">Cambiar Contraseña</h2>
-
-    @if (TempData["MensajeClave"] is string okMsg)
-    {
-        <div class="alert alert-success text-center">@okMsg</div>
-    }
-
-    <form asp-action="CambiarContrasena" method="post" class="row g-3">
-        <div class="col-md-12">
-            <label for="ContrasenaActual" class="form-label">Contraseña Actual</label>
-            <input type="password" name="ContrasenaActual" class="form-control" required />
-        </div>
-        <div class="col-md-6">
-            <label for="NuevaContrasena" class="form-label">Nueva Contraseña</label>
-            <input type="password" name="NuevaContrasena" class="form-control" required />
-        </div>
-        <div class="col-md-6">
-            <label for="ConfirmarContrasena" class="form-label">Confirmar Contraseña</label>
-            <input type="password" name="ConfirmarContrasena" class="form-control" required />
-        </div>
-
-        <div class="col-12 text-center mt-3">
-            <button type="submit" class="btn btn-primary">Guardar Nueva Contraseña</button>
-        </div>
-    </form>
+<div class="page-header mb-3">
+    <h2 class="page-title">Cambiar Contraseña</h2>
 </div>
+
+@if (TempData["MensajeClave"] is string okMsg)
+{
+    <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+        @okMsg
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+}
+
+<div class="card-elevated">
+    <div class="card-body">
+        <form asp-action="CambiarContrasena" method="post" class="row g-3" autocomplete="off">
+            @Html.AntiForgeryToken()
+
+            <div class="col-12">
+                <label for="ContrasenaActual" class="form-label">Contraseña Actual</label>
+                <div class="input-group">
+                    <input type="password" name="ContrasenaActual" id="ContrasenaActual" class="form-control" required />
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="pwd" data-target="#ContrasenaActual">Mostrar</button>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="NuevaContrasena" class="form-label">Nueva Contraseña</label>
+                <div class="input-group">
+                    <input type="password" name="NuevaContrasena" id="NuevaContrasena" class="form-control" aria-describedby="pwdHelp" required />
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="pwd" data-target="#NuevaContrasena">Mostrar</button>
+                </div>
+                <div id="pwdHelp" class="form-text">Recomendado: 8+ caracteres, mayúscula, minúscula y número.</div>
+                <div class="progress mt-2" role="progressbar" aria-label="Fuerza de contraseña">
+                    <div id="pwdStrength" class="progress-bar" style="width:0%"></div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label for="ConfirmarContrasena" class="form-label">Confirmar Contraseña</label>
+                <div class="input-group">
+                    <input type="password" name="ConfirmarContrasena" id="ConfirmarContrasena" class="form-control" required />
+                    <button class="btn btn-outline-secondary" type="button" data-toggle="pwd" data-target="#ConfirmarContrasena">Mostrar</button>
+                </div>
+                <div class="small mt-1" id="matchHint"></div>
+            </div>
+
+            <div class="col-12 text-center mt-2">
+                <button id="btnGuardarPwd" type="submit" class="btn btn-main">Guardar Nueva Contraseña</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('[data-toggle="pwd"]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const sel = btn.getAttribute('data-target');
+              const input = document.querySelector(sel);
+              if (!input) return;
+              const isPwd = input.type === 'password';
+              input.type = isPwd ? 'text' : 'password';
+              btn.textContent = isPwd ? 'Ocultar' : 'Mostrar';
+            });
+          });
+
+          const pwd = document.getElementById('NuevaContrasena');
+          const strength = document.getElementById('pwdStrength');
+          const confirm = document.getElementById('ConfirmarContrasena');
+          const hint = document.getElementById('matchHint');
+          const btn = document.getElementById('btnGuardarPwd');
+
+          function scorePass(v){
+            let s = 0;
+            if (v.length >= 8) s+=25;
+            if (/[A-Z]/.test(v)) s+=25;
+            if (/[a-z]/.test(v)) s+=25;
+            if (/\d|[^A-Za-z0-9]/.test(v)) s+=25;
+            return s;
+          }
+          function sync(){
+            if (pwd && strength){
+              const s = scorePass(pwd.value||'');
+              strength.style.width = s + '%';
+              strength.className = 'progress-bar ' + (s>=75 ? 'bg-success' : s>=50 ? 'bg-warning' : 'bg-danger');
+            }
+            if (pwd && confirm && hint){
+              const ok = confirm.value && pwd.value && (pwd.value === confirm.value);
+              hint.textContent = ok ? 'Las contraseñas coinciden.' : (confirm.value ? 'Las contraseñas no coinciden.' : '');
+              hint.className = 'small ' + (ok ? 'text-success' : 'text-danger');
+            }
+          }
+          if (pwd) pwd.addEventListener('input', sync);
+          if (confirm) confirm.addEventListener('input', sync);
+
+          if (btn){
+            btn.addEventListener('click', () => {
+              btn.disabled = true;
+              setTimeout(()=>btn.disabled=false, 8000);
+            });
+          }
+        });
+    </script>
+}

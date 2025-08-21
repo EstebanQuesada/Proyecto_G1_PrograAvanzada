@@ -1,109 +1,146 @@
 ﻿@model ProyectoGrupo1.Models.Usuario
-
 @{
     ViewData["Title"] = "Registro";
     Layout = null;
 }
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>@ViewData["Title"] - Tienda Ropa</title>
 
-<link rel="stylesheet" href="~/css/registro.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<div class="registro-contenedor">
+  <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+</head>
+<body>
+  <div class="registro-contenedor">
     <div class="registro-formulario">
-        <h2 class="registro-titulo">Registro de Usuario</h2>
+      <h2 class="registro-titulo">Registro de Usuario</h2>
 
-        <div class="registro-pasos">
-            <span class="paso activo" id="paso-1">1</span>
-            <span class="linea"></span>
-            <span class="paso" id="paso-2">2</span>
-            <span class="linea"></span>
-            <span class="paso" id="paso-3">3</span>
+      <div class="registro-pasos">
+        <span class="paso activo" id="paso-1">1</span>
+        <span class="linea"></span>
+        <span class="paso" id="paso-2">2</span>
+        <span class="linea"></span>
+        <span class="paso" id="paso-3">3</span>
+      </div>
+
+      <form asp-action="Register" method="post" id="formulario-registro" autocomplete="on">
+        @Html.AntiForgeryToken()
+
+        <div class="form-step active" id="step-1">
+          <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
+          <span asp-validation-for="Nombre" class="text-danger"></span>
+
+          <input asp-for="Apellido" class="form-control mt-2" placeholder="Apellido" />
+          <span asp-validation-for="Apellido" class="text-danger"></span>
+
+          <button type="button" class="btn-siguiente mt-3" onclick="mostrarPaso(2)">Siguiente</button>
         </div>
 
-        <form asp-action="Register" method="post" id="formulario-registro">
+        <div class="form-step" id="step-2">
+          <input asp-for="Correo" class="form-control" placeholder="Correo electrónico" />
+          <span asp-validation-for="Correo" class="text-danger"></span>
 
-            <div class="form-step active" id="step-1">
-                <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+          <div class="password-wrap mt-2">
+            <input asp-for="Contrasena" type="password" class="form-control" placeholder="Contraseña" id="pwdReg" />
+            <button type="button" class="toggle-pwd" data-target="#pwdReg">Mostrar</button>
+          </div>
+          <span asp-validation-for="Contrasena" class="text-danger"></span>
 
-                <input asp-for="Apellido" class="form-control" placeholder="Apellido" />
-                <span asp-validation-for="Apellido" class="text-danger"></span>
+          <div class="botones mt-3 d-flex gap-2">
+            <button type="button" class="btn-anterior" onclick="mostrarPaso(1)">Anterior</button>
+            <button type="button" class="btn-siguiente" onclick="mostrarPaso(3)">Siguiente</button>
+          </div>
+        </div>
 
-                <button type="button" class="btn-siguiente" onclick="mostrarPaso(2)">Siguiente</button>
-            </div>
+        <div class="form-step" id="step-3">
+          <input asp-for="Direccion" class="form-control" placeholder="Dirección" />
+          <span asp-validation-for="Direccion" class="text-danger"></span>
 
-            <div class="form-step" id="step-2">
-                <input asp-for="Correo" class="form-control" placeholder="Correo electrónico" />
-                <span asp-validation-for="Correo" class="text-danger"></span>
+          <input asp-for="Ciudad" class="form-control mt-2" placeholder="Ciudad" />
+          <span asp-validation-for="Ciudad" class="text-danger"></span>
 
-                <input asp-for="Contrasena" type="password" class="form-control" placeholder="Contraseña" />
-                <span asp-validation-for="Contrasena" class="text-danger"></span>
+          <input asp-for="Provincia" class="form-control mt-2" placeholder="Provincia" />
+          <span asp-validation-for="Provincia" class="text-danger"></span>
 
-                <div class="botones">
-                    <button type="button" class="btn-anterior" onclick="mostrarPaso(1)">Anterior</button>
-                    <button type="button" class="btn-siguiente" onclick="mostrarPaso(3)">Siguiente</button>
-                </div>
-            </div>
+          <input asp-for="CodigoPostal" class="form-control mt-2" placeholder="Código Postal" />
+          <span asp-validation-for="CodigoPostal" class="text-danger"></span>
 
-            <div class="form-step" id="step-3">
-                <input asp-for="Direccion" class="form-control" placeholder="Dirección" />
-                <span asp-validation-for="Direccion" class="text-danger"></span>
+          <div class="botones mt-3 d-flex gap-2">
+            <button type="button" class="btn-anterior" onclick="mostrarPaso(2)">Anterior</button>
+            <button type="submit" class="btn-finalizar">Registrarse</button>
+          </div>
+        </div>
 
-                <input asp-for="Ciudad" class="form-control" placeholder="Ciudad" />
-                <span asp-validation-for="Ciudad" class="text-danger"></span>
+        @if (ViewBag.Mensaje != null)
+        {
+          <div class="alert alert-danger mt-3">@ViewBag.Mensaje</div>
+        }
 
-                <input asp-for="Provincia" class="form-control" placeholder="Provincia" />
-                <span asp-validation-for="Provincia" class="text-danger"></span>
-
-                <input asp-for="CodigoPostal" class="form-control" placeholder="Código Postal" />
-                <span asp-validation-for="CodigoPostal" class="text-danger"></span>
-
-                <div class="botones">
-                    <button type="button" class="btn-anterior" onclick="mostrarPaso(2)">Anterior</button>
-                    <button type="submit" class="btn-finalizar">Registrarse</button>
-                </div>
-            </div>
-
-            @if (ViewBag.Mensaje != null)
-            {
-                <div class="alert alert-danger mt-3">@ViewBag.Mensaje</div>
-            }
-
-            <p class="text-center mt-3">
-                ¿Ya tienes cuenta? <a asp-controller="Usuario" asp-action="Login">Inicia sesión</a>
-            </p>
-        </form>
+        <p class="text-center mt-3">
+          ¿Ya tienes cuenta? <a asp-controller="Usuario" asp-action="Login">Inicia sesión</a>
+        </p>
+      </form>
     </div>
-</div>
+  </div>
 
-
-<script>
+  <script>
     function mostrarPaso(paso) {
-        const pasoActual = paso - 1;
-        const grupo = document.querySelector(`#step-${pasoActual}`);
-        let valido = true;
+      const pasoActual = paso - 1;
+      const grupo = document.querySelector(`#step-${pasoActual}`);
+      let valido = true;
 
-        if (grupo) {
-            const inputs = grupo.querySelectorAll("input");
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    input.classList.add("is-invalid");
-                    valido = false;
-                } else {
-                    input.classList.remove("is-invalid");
-                }
-            });
+      if (grupo) {
+        const inputs = grupo.querySelectorAll("input");
+        inputs.forEach(input => {
+          if (!input.value.trim()) {
+            input.classList.add("is-invalid");
+            valido = false;
+          } else {
+            input.classList.remove("is-invalid");
+          }
+        });
+      }
 
-            if (!valido) return;
+      if (paso === 3) {
+        const email = document.querySelector('#step-2 input[name="Correo"]');
+        const re = /^\S+@@\S+\.\S+$/; 
+        if (email && !re.test(email.value)) {
+          email.classList.add("is-invalid");
+          valido = false;
         }
+      }
 
-        document.querySelectorAll(".form-step").forEach(s => s.classList.remove("active"));
-        document.querySelector(`#step-${paso}`).classList.add("active");
+      if (!valido) return;
 
-        document.querySelectorAll(".paso").forEach(p => p.classList.remove("activo"));
-        for (let i = 1; i <= paso; i++) {
-            document.querySelector(`#paso-${i}`).classList.add("activo");
-        }
+      document.querySelectorAll(".form-step").forEach(s => s.classList.remove("active"));
+      document.querySelector(`#step-${paso}`).classList.add("active");
+
+      document.querySelectorAll(".paso").forEach(p => p.classList.remove("activo"));
+      for (let i = 1; i <= paso; i++) {
+        document.querySelector(`#paso-${i}`).classList.add("activo");
+      }
     }
-</script>
 
-@await Html.PartialAsync("_ValidationScriptsPartial")
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.toggle-pwd').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const sel = btn.getAttribute('data-target');
+          const input = document.querySelector(sel);
+          if (!input) return;
+          const isPwd = input.type === 'password';
+          input.type = isPwd ? 'text' : 'password';
+          btn.textContent = isPwd ? 'Ocultar' : 'Mostrar';
+        });
+      });
+    });
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  @await Html.PartialAsync("_ValidationScriptsPartial")
+</body>
+</html>

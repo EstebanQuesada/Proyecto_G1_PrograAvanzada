@@ -1,64 +1,192 @@
 @model ProyectoGrupo1.Models.Carrito
 @{
     ViewData["Title"] = "Carrito de Compras";
+    var tieneItems = Model?.Detalles != null && Model.Detalles.Count > 0;
+    var total = tieneItems ? Model.Detalles.Sum(x => x.Subtotal) : 0m;
 }
-<h2>Carrito de Compras</h2>
-@if (Model.Detalles.Count == 0)
+
+<div class="page-header mb-3">
+    <h2 class="page-title">Carrito de Compras</h2>
+
+    @if (tieneItems)
+    {
+        <button class="btn btn-outline-danger"
+                data-bs-toggle="modal"
+                data-bs-target="#confirmVaciar">
+            Vaciar carrito
+        </button>
+    }
+</div>
+
+@if (!tieneItems)
 {
-    <div class="alert alert-info">Tu carrito está vacío.</div>
+    <div class="empty-state">
+        Tu carrito está vacío.
+        <div class="mt-2">
+            <a asp-controller="Producto" asp-action="Catalogo" class="btn btn-main">Ver productos</a>
+        </div>
+    </div>
 }
 else
 {
-    <form asp-action="Vaciar" method="post">
-        <button type="submit" class="btn btn-danger mb-3">Vaciar carrito</button>
-    </form>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Imagen</th>
-                <th>Producto</th>
-                <th>Talla</th>
-                <th>Color</th>
-                <th>Cantidad</th>
-                <th>Precio unitario</th>
-                <th>Subtotal</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model.Detalles)
-        {
-            <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.UrlImagen))
-                    {
-                        <img src="@item.UrlImagen" alt="Imagen" width="60" />
-                    }
-                </td>
-                <td>@item.NombreProducto</td>
-                <td>@item.NombreTalla</td>
-                <td>@item.NombreColor</td>
-                <td>
-                    <form asp-action="ModificarCantidad" method="post" style="display:inline-flex;">
-                        <input type="hidden" name="detalleId" value="@item.DetalleID" />
-                        <input type="number" name="cantidad" value="@item.Cantidad" min="1" class="form-control" style="width:70px;" />
-                        <button type="submit" class="btn btn-sm btn-primary ml-2">Actualizar</button>
-                    </form>
-                </td>
-                <td>@item.PrecioUnitario.ToString("C")</td>
-                <td>@item.Subtotal.ToString("C")</td>
-                <td>
-                    <form asp-action="Eliminar" method="post" style="display:inline;">
-                        <input type="hidden" name="detalleId" value="@item.DetalleID" />
-                        <button type="submit" class="btn btn-sm btn-danger">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-        }
-        </tbody>
-    </table>
-    <div class="text-right">
-        <h4>Total: @Model.Detalles.Sum(x => x.Subtotal).ToString("C")</h4>
-        <a asp-controller="Pedido" asp-action="Checkout" class="btn btn-success">Finalizar compra</a>
+    <div class="row g-3">
+        <div class="col-lg-8">
+            <div class="table-wrap">
+                <div class="table-responsive">
+                    <table class="table table-modern table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th style="width:84px">Imagen</th>
+                                <th>Producto</th>
+                                <th style="width:100px">Talla</th>
+                                <th style="width:110px">Color</th>
+                                <th style="width:210px">Cantidad</th>
+                                <th class="text-end" style="width:140px">Precio</th>
+                                <th class="text-end" style="width:140px">Subtotal</th>
+                                <th class="text-end" style="width:120px">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Detalles)
+                            {
+                                <tr>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.UrlImagen))
+                                        {
+                                            <img src="@item.UrlImagen" alt="Imagen"
+                                                 style="width:64px;height:64px;object-fit:cover;border-radius:8px;border:1px solid #e5e7eb" />
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class="fw-semibold">@item.NombreProducto</div>
+                                        <div class="small text-muted">ID: @item.DetalleID</div>
+                                    </td>
+                                    <td>@item.NombreTalla</td>
+                                    <td>@item.NombreColor</td>
+                                    <td>
+                                        <form asp-action="ModificarCantidad" method="post" class="d-inline-flex align-items-center gap-2">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="detalleId" value="@item.DetalleID" />
+                                            <div class="input-group" style="max-width: 140px;">
+                                                <button class="btn btn-outline-secondary" type="button" data-step="-1" aria-label="Disminuir">–</button>
+                                                <input type="number" name="cantidad" value="@item.Cantidad" min="1" class="form-control text-center" />
+                                                <button class="btn btn-outline-secondary" type="button" data-step="1" aria-label="Aumentar">+</button>
+                                            </div>
+                                            <button type="submit" class="btn btn-sm btn-primary ms-1">Actualizar</button>
+                                        </form>
+                                    </td>
+                                    <td class="text-end">@item.PrecioUnitario.ToString("C")</td>
+                                    <td class="text-end">@item.Subtotal.ToString("C")</td>
+                                    <td class="text-end">
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-danger"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#confirmEliminarItem"
+                                                data-id="@item.DetalleID"
+                                                data-name="@item.NombreProducto">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card-elevated">
+                <div class="card-header"><h5 class="mb-0">Resumen de compra</h5></div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <span class="text-muted">Subtotal</span>
+                        <span>@total.ToString("C")</span>
+                    </div>
+                    <div class="d-flex justify-content-between mt-1">
+                        <span class="text-muted">Envío</span>
+                        <span class="text-muted">Se calcula en checkout</span>
+                    </div>
+                    <hr />
+                    <div class="d-flex justify-content-between fw-bold">
+                        <span>Total</span>
+                        <span>@total.ToString("C")</span>
+                    </div>
+                    <a asp-controller="Pedido" asp-action="Checkout" class="btn btn-main w-100 mt-3">
+                        Finalizar compra
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
-} 
+}
+
+<div class="modal fade" id="confirmVaciar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title">Vaciar carrito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                ¿Seguro que deseas eliminar todos los productos del carrito?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form asp-action="Vaciar" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">Sí, vaciar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="confirmEliminarItem" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar artículo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <form asp-action="Eliminar" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="detalleId" id="delItemId" />
+                <div class="modal-body">
+                    ¿Seguro que deseas eliminar <strong id="delItemName"></strong> del carrito?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          document.querySelectorAll('button[data-step]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const step = parseInt(btn.getAttribute('data-step') || '0', 10);
+              const input = btn.parentElement.querySelector('input[name="cantidad"]');
+              if (!input) return;
+              const curr = parseInt(input.value || '1', 10);
+              const next = Math.max(1, curr + step);
+              input.value = next;
+            });
+          });
+
+          const delModal = document.getElementById('confirmEliminarItem');
+          if (delModal) {
+            delModal.addEventListener('show.bs.modal', ev => {
+              const btn = ev.relatedTarget;
+              if (!btn) return;
+              delModal.querySelector('#delItemId').value = btn.getAttribute('data-id') || '';
+              delModal.querySelector('#delItemName').textContent = btn.getAttribute('data-name') || '';
+            });
+          }
+        });
+    </script>
+}

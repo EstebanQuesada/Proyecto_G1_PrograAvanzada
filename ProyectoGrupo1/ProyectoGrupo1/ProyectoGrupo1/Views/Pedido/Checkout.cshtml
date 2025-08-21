@@ -1,50 +1,74 @@
 @model ProyectoGrupo1.Models.Carrito
 @{
     ViewData["Title"] = "Confirmar pedido";
+    var tieneItems = Model?.Detalles != null && Model.Detalles.Count > 0;
+    var total = tieneItems ? Model.Detalles.Sum(x => x.Subtotal) : 0m;
 }
-<h2>Confirmar pedido</h2>
 
-@if (Model.Detalles.Count == 0)
+<div class="page-header mb-3">
+    <h2 class="page-title">Confirmar pedido</h2>
+    <a asp-controller="Carrito" asp-action="Index" class="btn btn-ghost">Volver al carrito</a>
+</div>
+
+@if (!tieneItems)
 {
-    <div class="alert alert-info">Tu carrito está vacío.</div>
+    <div class="empty-state">Tu carrito está vacío.</div>
 }
 else
 {
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Talla</th>
-                <th>Color</th>
-                <th class="text-end">Cant.</th>
-                <th class="text-end">P. Unit</th>
-                <th class="text-end">Subtotal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var d in Model.Detalles)
-            {
-                <tr>
-                    <td>@d.NombreProducto</td>
-                    <td>@d.NombreTalla</td>
-                    <td>@d.NombreColor</td>
-                    <td class="text-end">@d.Cantidad</td>
-                    <td class="text-end">@d.PrecioUnitario.ToString("C")</td>
-                    <td class="text-end">@d.Subtotal.ToString("C")</td>
-                </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr>
-                <th colspan="5" class="text-end">Total</th>
-                <th class="text-end">@Model.Detalles.Sum(x => x.Subtotal).ToString("C")</th>
-            </tr>
-        </tfoot>
-    </table>
+    <div class="table-wrap mb-3">
+        <div class="table-responsive">
+            <table class="table table-modern table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th style="width:120px">Talla</th>
+                        <th style="width:120px">Color</th>
+                        <th class="text-end" style="width:100px">Cant.</th>
+                        <th class="text-end" style="width:140px">P. Unit</th>
+                        <th class="text-end" style="width:160px">Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in Model.Detalles)
+                    {
+                        <tr>
+                            <td class="fw-semibold">@d.NombreProducto</td>
+                            <td>@d.NombreTalla</td>
+                            <td>@d.NombreColor</td>
+                            <td class="text-end">@d.Cantidad</td>
+                            <td class="text-end">@d.PrecioUnitario.ToString("C")</td>
+                            <td class="text-end">@d.Subtotal.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="5" class="text-end">Total</th>
+                        <th class="text-end">@total.ToString("C")</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
 
-    <form asp-action="Confirmar" method="post">
+    <form asp-action="Confirmar" method="post" class="d-grid d-sm-flex gap-2">
         @Html.AntiForgeryToken()
-        <a asp-controller="Carrito" asp-action="Index" class="btn btn-outline-secondary">Volver al carrito</a>
-        <button type="submit" class="btn btn-success">Confirmar pedido</button>
+        <a asp-controller="Carrito" asp-action="Index" class="btn btn-ghost">Volver al carrito</a>
+        <button id="btnConfirmar" type="submit" class="btn btn-main">Confirmar pedido</button>
     </form>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const btn = document.getElementById('btnConfirmar');
+          if (!btn) return;
+          btn.addEventListener('click', () => {
+            btn.disabled = true;
+            btn.textContent = 'Confirmando...';
+            setTimeout(() => { btn.disabled = false; btn.textContent = 'Confirmar pedido'; }, 8000);
+          });
+        });
+    </script>
 }

@@ -16,28 +16,27 @@
     <div id="hiddenBag"></div>
 
     <div class="mt-3">
-        <button type="submit" class="btn btn-primary w-100">Guardar</button>
+        <button type="submit" class="btn btn-main w-100">Guardar</button>
     </div>
 </form>
 
 @section Scripts {
-    @using System.Text.Json
+  @using System.Text.Json
     <script>
         window.__LOOKUPS__ = @Html.Raw(JsonSerializer.Serialize(
-        ViewBag.Lookups ?? new
-        {
-            Categorias = Array.Empty<object>(),
-            Marcas = Array.Empty<object>(),
-            Proveedores = Array.Empty<object>(),
-            Tallas = Array.Empty<object>(),
-            Colores = Array.Empty<object>()
-        }
+      ViewBag.Lookups ?? new
+      {
+          Categorias = Array.Empty<object>(),
+          Marcas = Array.Empty<object>(),
+          Proveedores = Array.Empty<object>(),
+          Tallas = Array.Empty<object>(),
+          Colores = Array.Empty<object>()
+      }
     ));
-
         window.__SEED__ = {
-            imagenes: @Html.Raw(JsonSerializer.Serialize(Model.Imagenes ?? new List<string>())),
-            ptcs: @Html.Raw(JsonSerializer.Serialize(
-               Model.PTCs ?? new List<ProyectoGrupo1.Service.ApiAdminProductoClient.AdminPtcVm>()))
+          imagenes: @Html.Raw(JsonSerializer.Serialize(Model.Imagenes ?? new List<string>())),
+          ptcs: @Html.Raw(JsonSerializer.Serialize(
+             Model.PTCs ?? new List<ProyectoGrupo1.Service.ApiAdminProductoClient.AdminPtcVm>()))
         };
     </script>
 

@@ -5,19 +5,36 @@
 
 <link rel="stylesheet" href="~/css/index.css" />
 
-<section class="hero-container d-flex">
+<section class="hero-container container-xxl my-4 d-flex">
     <div class="hero-left text-white d-flex flex-column justify-content-center align-items-center px-5">
-        <h5 class="text-uppercase text-warning mb-2">Nueva colección</h5>
-        <h1 class="display-4 fw-bold text-center">¡Bienvenido, @nombre!</h1>
-        <p class="lead text-center mb-4">Explora Loop Store, encuentra las últimas tendencias y disfruta de una experiencia de compra única.</p>
+        <span class="badge-hero text-uppercase">Nueva colección</span>
+
+        <h1 class="display-4 fw-bold text-center mt-2">
+            ¡Bienvenido, <span class="grad">@nombre</span>!
+        </h1>
+
+        <p class="lead text-center mb-4">
+            Explora Loop Store, encuentra las últimas tendencias y disfruta de una experiencia de compra única.
+        </p>
 
         <div class="d-flex gap-3 flex-wrap justify-content-center">
-            <a class="btn btn-danger px-4 py-2" asp-controller="Producto" asp-action="Catalogo">Ver Catálogo</a>
+            <a class="btn btn-cta px-4 py-2" asp-controller="Producto" asp-action="Catalogo">Ver Catálogo</a>
             <a class="btn btn-outline-light px-4 py-2" asp-controller="Usuario" asp-action="Perfil">Mi Perfil</a>
         </div>
+
+        <ul class="mini-features mt-4">
+            <li>🚚 Envíos rápidos</li>
+            <li>🔒 Pago seguro</li>
+            <li>💬 Soporte 24/7</li>
+        </ul>
     </div>
 
     <div class="hero-right d-flex align-items-center justify-content-center">
-        <h2 class="fw-bold text-dark">¡Descubre lo nuevo en Loop Store!</h2>
+        <div class="hero-device shadow-lg">
+            <h2 class="fw-bold text-dark text-center m-0">¡Descubre lo nuevo en Loop Store!</h2>
+        </div>
+
+        <div class="blob b1"></div>
+        <div class="blob b2"></div>
     </div>
 </section>

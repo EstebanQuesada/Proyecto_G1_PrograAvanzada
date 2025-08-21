@@ -1,14 +1,13 @@
 @{
     ViewData["Title"] = "Confirmación de Compra";
+    var msg = ViewBag.Mensaje as string ?? "¡Compra realizada con éxito!";
 }
-<div class="container mt-5">
-    <div class="alert alert-success text-center">
-        <h2>@ViewBag.Mensaje</h2>
-        <p>Gracias por tu compra. Pronto recibirás un correo con los detalles de tu pedido.</p>
-
-        <a asp-controller="Producto"
-           asp-action="Catalogo"
-           class="btn btn-primary mt-3">
+<div class="card-elevated mt-4">
+    <div class="card-body text-center py-5">
+        <div class="display-6 mb-2">✅</div>
+        <h2 class="mb-2">@msg</h2>
+        <p class="text-muted">Gracias por tu compra. Pronto recibirás un correo con los detalles de tu pedido.</p>
+        <a asp-controller="Producto" asp-action="Catalogo" class="btn btn-main mt-3">
             Volver al catálogo
         </a>
     </div>

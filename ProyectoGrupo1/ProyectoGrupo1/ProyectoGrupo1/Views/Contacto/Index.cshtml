@@ -5,40 +5,88 @@
     var confirmacion = ViewBag.Confirmacion as string ?? TempData["Confirmacion"] as string ?? "";
 }
 
-<h1>Contacto</h1>
+<div class="page-header mb-3">
+    <h2 class="page-title">Contacto</h2>
+</div>
 
-<p class="descripcion">@descripcion</p>
+@if (!string.IsNullOrWhiteSpace(descripcion))
+{
+    <p class="text-muted mb-3">@descripcion</p>
+}
 
 @if (!string.IsNullOrWhiteSpace(confirmacion))
 {
-    <div class="alert alert-success">@confirmacion</div>
+    <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
+        @confirmacion
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
 }
 
-<form asp-controller="Contacto" asp-action="Index" method="post">
-    @Html.AntiForgeryToken()
-    <div class="mb-3">
-        <label asp-for="Nombre" class="form-label"></label>
-        <input asp-for="Nombre" class="form-control" />
-        <span asp-validation-for="Nombre" class="text-danger"></span>
-    </div>
+<div class="card-elevated">
+    <div class="card-header"><h5 class="mb-0">Envíanos un mensaje</h5></div>
+    <div class="card-body">
+        <form asp-controller="Contacto" asp-action="Index" method="post" autocomplete="on">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
 
-    <div class="mb-3">
-        <label asp-for="Correo" class="form-label"></label>
-        <input asp-for="Correo" type="email" class="form-control" />
-        <span asp-validation-for="Correo" class="text-danger"></span>
-    </div>
+            <div class="mb-3">
+                <label asp-for="Nombre" class="form-label"></label>
+                <input asp-for="Nombre" class="form-control" placeholder="Tu nombre" autocomplete="name" />
+                <span asp-validation-for="Nombre" class="text-danger small"></span>
+            </div>
 
-    <div class="mb-3">
-        <label asp-for="Mensaje" class="form-label"></label>
-        <textarea asp-for="Mensaje" class="form-control" rows="4"></textarea>
-        <span asp-validation-for="Mensaje" class="text-danger"></span>
-    </div>
+            <div class="mb-3">
+                <label asp-for="Correo" class="form-label"></label>
+                <input asp-for="Correo" type="email" class="form-control" placeholder="tu@correo.com" autocomplete="email" />
+                <span asp-validation-for="Correo" class="text-danger small"></span>
+            </div>
 
-    <button type="submit" class="btn btn-primary">Enviar</button>
-</form>
+            <div class="mb-1">
+                <label asp-for="Mensaje" class="form-label"></label>
+                <textarea asp-for="Mensaje" class="form-control" rows="5" maxlength="1000"
+                          placeholder="Cuéntanos en qué podemos ayudarte..." aria-describedby="msgHelp msgCount"></textarea>
+                <div id="msgHelp" class="form-text">Máximo 1000 caracteres.</div>
+                <div id="msgCount" class="text-muted small">0 / 1000</div>
+                <span asp-validation-for="Mensaje" class="text-danger small"></span>
+            </div>
+
+            <div class="d-grid d-sm-flex gap-2 mt-3">
+                <button id="btnEnviar" type="submit" class="btn btn-main">Enviar</button>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-ghost">Volver al inicio</a>
+            </div>
+        </form>
+    </div>
+</div>
 
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          const ta = document.getElementById('@Html.IdFor(m => m.Mensaje)');
+          const count = document.getElementById('msgCount');
+          const btn = document.getElementById('btnEnviar');
+
+          const update = () => {
+            if (!ta || !count) return;
+            const max = parseInt(ta.getAttribute('maxlength') || '1000', 10);
+            const len = (ta.value || '').length;
+            count.textContent = `${len} / ${max}`;
+          };
+
+          if (ta) {
+            update();
+            ta.addEventListener('input', update);
+          }
+
+          if (btn) {
+            btn.addEventListener('click', () => {
+              btn.disabled = true;
+              btn.textContent = 'Enviando...';
+              setTimeout(() => { btn.disabled = false; btn.textContent = 'Enviar'; }, 8000);
+            });
+          }
+        });
+    </script>
 }

@@ -2,19 +2,22 @@
 
 @{
     ViewData["Title"] = "Catálogo de Productos";
+    var total = Model?.Count ?? 0;
 }
 
-<h2 class="text-center mb-4">Catálogo de Productos</h2>
+<div class="page-header mb-3">
+    <h2 class="page-title">Catálogo de Productos</h2>
+    <span class="count-pill">Total: @total</span>
+</div>
 
-<form method="get" asp-action="Catalogo" class="mb-5">
-    <div class="card p-4 shadow-sm">
-        <div class="row g-3">
-            <div class="col-md-4">
-                <input type="text" name="busqueda" class="form-control" placeholder="Buscar por nombre..."
+<form method="get" asp-action="Catalogo" class="mb-4" autocomplete="off">
+    <div class="card-elevated">
+        <div class="card-body">
+            <div class="toolbar">
+                <input type="text" name="busqueda" class="form-control"
+                       placeholder="Buscar por nombre..."
                        value="@ViewBag.Busqueda" />
-            </div>
 
-            <div class="col-md-3">
                 <select name="categoria" class="form-select">
                     <option value="">-- Todas las categorías --</option>
                     @foreach (var cat in (List<string>)ViewBag.Categorias)
@@ -24,45 +27,68 @@
                         </option>
                     }
                 </select>
-            </div>
 
-            <div class="col-md-2">
                 <input type="number" step="0.01" name="precioMin" class="form-control" placeholder="Precio mínimo"
                        value="@ViewBag.PrecioMin" />
-            </div>
 
-            <div class="col-md-2">
                 <input type="number" step="0.01" name="precioMax" class="form-control" placeholder="Precio máximo"
                        value="@ViewBag.PrecioMax" />
-            </div>
 
-            <div class="col-md-1">
-                <button type="submit" class="btn btn-dark w-100">Buscar</button>
+                <button type="submit" class="btn btn-main"><i class="bi bi-search me-1"></i>Buscar</button>
+                <a asp-action="Catalogo" class="btn btn-ghost">Limpiar</a>
             </div>
         </div>
     </div>
 </form>
 
-<hr />
+@if (total == 0)
+{
+    <div class="empty-state">
+        No hay productos que coincidan con tu búsqueda.
+        <div class="mt-2"><a asp-action="Catalogo" class="btn btn-main">Ver todo</a></div>
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        @foreach (var producto in Model)
+        {
+            <div class="col">
+                <div class="card h-100 card-elevated">
+                    <div class="position-relative">
+                        @if (!string.IsNullOrWhiteSpace(producto.UrlImagenPrincipal))
+                        {
+                            <img src="@producto.UrlImagenPrincipal"
+                                 class="card-img-top"
+                                 alt="@producto.Nombre"
+                                 style="height:240px;object-fit:cover;border-top-left-radius:16px;border-top-right-radius:16px;">
+                        }
+                        else
+                        {
+                            <div class="d-flex align-items-center justify-content-center text-muted"
+                                 style="height:240px;background:#f3f4f6;border-top-left-radius:16px;border-top-right-radius:16px;">
+                                Sin imagen
+                            </div>
+                        }
+                    </div>
 
-<div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach (var producto in Model)
-    {
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <img src="@producto.UrlImagenPrincipal" class="card-img-top" alt="@producto.Nombre"
-                     style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                    <h5 class="card-title">@producto.Nombre</h5>
-                    <p class="card-text text-muted">@producto.Categoria</p>
-                    <p class="card-text">@producto.DescripcionCorta</p>
-                    <p class="fw-bold text-success">₡@producto.Precio</p>
-                    <a href="@Url.Action("Detalle", "Producto", new { id = producto.ProductoID })"
-                       class="btn btn-dark w-100">Ver Detalles</a>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title mb-1">@producto.Nombre</h5>
+                        <div class="text-muted small">@producto.Categoria</div>
+                        <p class="card-text mt-2 mb-2 line-clamp-2">@producto.DescripcionCorta</p>
+
+                        <div class="d-flex align-items-center justify-content-between mt-auto">
+                            <div class="fw-bold fs-5 text-success">
+                                @producto.Precio.ToString("C")
+                            </div>
+                            <a href="@Url.Action("Detalle", "Producto", new { id = producto.ProductoID })"
+                               class="btn btn-outline-primary">
+                                Ver Detalles
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
-
-
+        }
+    </div>
+}

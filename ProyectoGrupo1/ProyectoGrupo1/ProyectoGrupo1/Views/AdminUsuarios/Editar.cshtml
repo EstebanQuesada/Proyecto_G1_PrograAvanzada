@@ -1,100 +1,105 @@
-﻿@* Proyecto: ProyectoGrupo1 (MVC)
-   Archivo: Views/AdminUsuarios/Editar.cshtml *@
-@model ProyectoGrupo1.Models.AdminEditarVm
+﻿@model ProyectoGrupo1.Models.AdminEditarVm
 @{
     ViewData["Title"] = "Editar usuario";
 
-    // Opcionales por si tu VM los tiene (evita reventar si no existen)
     var t = Model?.GetType();
     bool Tiene(string prop) => t?.GetProperty(prop) != null;
     bool Bool(string prop) => (bool?)t?.GetProperty(prop)?.GetValue(Model) ?? false;
-    int Int(string prop) => (int?)t?.GetProperty(prop)?.GetValue(Model) ?? 0;
 
     var tieneBloqueado = Tiene("Bloqueado");
     var tieneActivo = Tiene("Activo");
 
     var bloqueado = Bool("Bloqueado");
     var activo = Bool("Activo");
-    var rolId = (int?)t?.GetProperty("RolID")?.GetValue(Model) ?? 1;
+    var rolId = (int?)(t?.GetProperty("RolID")?.GetValue(Model)) ?? 1;
 }
 
-<h1 class="mb-3">Editar usuario</h1>
+<div class="page-header mb-3">
+    <h2 class="page-title">Editar usuario</h2>
+    <a asp-action="Index" class="btn btn-ghost">Volver</a>
+</div>
 
 @if (TempData["Msg"] is string msg)
 {
-    <div class="alert alert-info">@msg</div>
+    <div class="alert alert-info mb-3">@msg</div>
 }
 
-<form asp-action="Editar" method="post" class="row g-3">
+<form asp-action="Editar" method="post">
     @Html.AntiForgeryToken()
     <input type="hidden" name="UsuarioID" value="@Model.UsuarioID" />
 
-    <div class="col-md-6">
-        <label class="form-label">Nombre</label>
-        <input class="form-control" name="Nombre" value="@Model.Nombre" required />
-    </div>
+    <div class="card-elevated mb-3">
+        <div class="card-header"><h5 class="mb-0">Datos básicos</h5></div>
+        <div class="card-body">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nombre</label>
+                    <input class="form-control" name="Nombre" value="@Model.Nombre" required />
+                </div>
 
-    <div class="col-md-6">
-        <label class="form-label">Apellido</label>
-        <input class="form-control" name="Apellido" value="@Model.Apellido" required />
-    </div>
+                <div class="col-md-6">
+                    <label class="form-label">Apellido</label>
+                    <input class="form-control" name="Apellido" value="@Model.Apellido" required />
+                </div>
 
-    <div class="col-md-6">
-        <label class="form-label">Correo</label>
-        <input class="form-control" type="email" name="Correo" value="@Model.Correo" required />
-    </div>
+                <div class="col-md-6">
+                    <label class="form-label">Correo</label>
+                    <input class="form-control" type="email" name="Correo" value="@Model.Correo" required />
+                </div>
 
-    <div class="col-md-6">
-        <label class="form-label">Rol</label>
-        <select class="form-select" name="RolID">
-            <option value="1" selected="@(rolId == 1)">Cliente</option>
-            <option value="2" selected="@(rolId == 2)">Admin</option>
-        </select>
-    </div>
+                <div class="col-md-6">
+                    <label class="form-label">Rol</label>
+                    <select class="form-select" name="RolID">
+                        <option value="1" selected="@(rolId == 1)">Cliente</option>
+                        <option value="2" selected="@(rolId == 2)">Admin</option>
+                    </select>
+                </div>
 
-    <div class="col-md-6">
-        <label class="form-label">Dirección</label>
-        <input class="form-control" name="Direccion" value="@(t?.GetProperty("Direccion")?.GetValue(Model) ?? "")" />
-    </div>
+                <div class="col-md-6">
+                    <label class="form-label">Dirección</label>
+                    <input class="form-control" name="Direccion" value="@(t?.GetProperty("Direccion")?.GetValue(Model) ?? "")" />
+                </div>
 
-    <div class="col-md-3">
-        <label class="form-label">Ciudad</label>
-        <input class="form-control" name="Ciudad" value="@(t?.GetProperty("Ciudad")?.GetValue(Model) ?? "")" />
-    </div>
+                <div class="col-md-3">
+                    <label class="form-label">Ciudad</label>
+                    <input class="form-control" name="Ciudad" value="@(t?.GetProperty("Ciudad")?.GetValue(Model) ?? "")" />
+                </div>
 
-    <div class="col-md-2">
-        <label class="form-label">Provincia</label>
-        <input class="form-control" name="Provincia" value="@(t?.GetProperty("Provincia")?.GetValue(Model) ?? "")" />
-    </div>
+                <div class="col-md-2">
+                    <label class="form-label">Provincia</label>
+                    <input class="form-control" name="Provincia" value="@(t?.GetProperty("Provincia")?.GetValue(Model) ?? "")" />
+                </div>
 
-    <div class="col-md-1">
-        <label class="form-label">C. Postal</label>
-        <input class="form-control" name="CodigoPostal" value="@(t?.GetProperty("CodigoPostal")?.GetValue(Model) ?? "")" />
-    </div>
+                <div class="col-md-1">
+                    <label class="form-label">C. Postal</label>
+                    <input class="form-control" name="CodigoPostal" value="@(t?.GetProperty("CodigoPostal")?.GetValue(Model) ?? "")" />
+                </div>
+            </div>
 
-    <div class="col-12 d-flex gap-2 mt-2">
-        <button class="btn btn-primary" type="submit">Guardar cambios</button>
-        <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+            <div class="d-flex gap-2 mt-3">
+                <button class="btn btn-main" type="submit">Guardar cambios</button>
+                <a asp-action="Index" class="btn btn-outline-secondary">Volver</a>
+            </div>
+        </div>
     </div>
 </form>
 
 @if (tieneBloqueado || tieneActivo)
 {
-    <hr class="my-4" />
     <div class="row g-3">
         <div class="col-md-6">
-            <div class="card shadow-sm">
+            <div class="card-elevated h-100">
+                <div class="card-header"><h5 class="mb-0">Estado de la cuenta</h5></div>
                 <div class="card-body">
-                    <h5 class="card-title mb-3">Estado de la cuenta</h5>
                     @if (tieneActivo)
                     {
-                        <span class="badge bg-@(activo ? "success" : "secondary") me-2">
+                        <span class="badge rounded-pill bg-@(activo ? "success" : "secondary") me-2">
                             @(activo ? "Activo" : "Inactivo")
                         </span>
                     }
                     @if (tieneBloqueado)
                     {
-                        <span class="badge bg-@(bloqueado ? "warning text-dark" : "info")">
+                        <span class="badge rounded-pill bg-@(bloqueado ? "warning text-dark" : "info")">
                             @(bloqueado ? "Bloqueado" : "Desbloqueado")
                         </span>
                     }
@@ -117,10 +122,9 @@
         </div>
 
         <div class="col-md-6">
-            <div class="card shadow-sm">
+            <div class="card-elevated h-100">
+                <div class="card-header"><h5 class="mb-0">Cambios rápidos</h5></div>
                 <div class="card-body">
-                    <h5 class="card-title mb-3">Cambios rápidos</h5>
-
                     <form asp-action="CambiarRol" method="post" class="d-flex align-items-end gap-2 mb-3">
                         @Html.AntiForgeryToken()
                         <input type="hidden" name="id" value="@Model.UsuarioID" />
@@ -151,10 +155,12 @@
                         <form asp-action="Eliminar" method="post" class="d-inline ms-2">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="id" value="@Model.UsuarioID" />
-                            <button class="btn btn-outline-danger" onclick="return confirm('¿Eliminar (soft) este usuario?');">Eliminar</button>
+                            <button class="btn btn-outline-danger"
+                                    onclick="return confirm('¿Eliminar (soft) este usuario?');">
+                                Eliminar
+                            </button>
                         </form>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -15,30 +15,21 @@
         try
         {
             using var doc = JsonDocument.Parse(rawError);
-
             if (doc.RootElement.TryGetProperty("title", out var t) && t.ValueKind == JsonValueKind.String)
                 title = t.GetString() ?? title;
 
             if (doc.RootElement.TryGetProperty("errors", out var errs) && errs.ValueKind == JsonValueKind.Object)
             {
                 foreach (var prop in errs.EnumerateObject())
-                {
                     foreach (var v in prop.Value.EnumerateArray())
-                    {
-                        var msg = v.GetString();
-                        if (!string.IsNullOrWhiteSpace(msg)) lines.Add(msg!);
-                    }
-                }
+                        if (!string.IsNullOrWhiteSpace(v.GetString())) lines.Add(v.GetString()!);
             }
             else if (doc.RootElement.TryGetProperty("detail", out var d) && d.ValueKind == JsonValueKind.String)
             {
                 lines.Add(d.GetString()!);
             }
         }
-        catch
-        {
-            lines.Add(rawError);
-        }
+        catch { lines.Add(rawError); }
 
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>@title</strong>
@@ -60,102 +51,107 @@
     ViewData["Title"] = "Productos (Admin)";
 }
 
-<h2 class="mb-3">Productos</h2>
+<div class="page-header mb-3">
+    <h2 class="page-title">Productos</h2>
+    <a asp-action="Crear" class="btn btn-success">Nuevo producto</a>
+</div>
 
 @if (TempData["Mensaje"] is string okMsg)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
         @okMsg
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
     </div>
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <form asp-action="Index" method="get" class="d-flex gap-2">
-        <input type="text"
-               class="form-control"
-               name="q"
-               value="@(Context.Request.Query["q"])"
-               placeholder="Buscar nombre/categoría..." />
-        <button class="btn btn-primary" type="submit">Buscar</button>
-        <a asp-action="Index" class="btn btn-outline-secondary">Limpiar</a>
-    </form>
-
-    <a asp-action="Crear" class="btn btn-success">Nuevo producto</a>
+<div class="card-elevated mb-3">
+    <div class="card-body">
+        <form asp-action="Index" method="get" class="toolbar" autocomplete="off">
+            <input type="text"
+                   class="form-control"
+                   name="q"
+                   value="@(Context.Request.Query["q"])"
+                   placeholder="Buscar nombre/categoría..." />
+            <button class="btn btn-primary" type="submit">Buscar</button>
+            <a asp-action="Index" class="btn btn-ghost">Limpiar</a>
+        </form>
+    </div>
 </div>
 
 @if (Model is null || Model.Items is null || !Model.Items.Any())
 {
-    <div class="alert alert-info">No hay productos para mostrar.</div>
+    <div class="empty-state">No hay productos para mostrar.</div>
 }
 else
 {
-    <table class="table table-striped align-middle">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th style="width:70px">Imagen</th>
-                <th>Nombre</th>
-                <th>Categoría</th>
-                <th class="text-end">Precio</th>
-                <th class="text-center">Estado</th>
-                <th class="text-end">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var p in Model.Items)
-            {
-                <tr>
-                    <td>@p.ProductoID</td>
-                    <td>
-                        @if (!string.IsNullOrWhiteSpace(p.UrlImagenPrincipal))
-                        {
-                            <img src="@p.UrlImagenPrincipal"
-                                 style="width:50px;height:50px;object-fit:cover;border:1px solid #ddd" />
-                        }
-                    </td>
-                    <td>@p.Nombre</td>
-                    <td>@p.Categoria</td>
-                    <td class="text-end">@p.Precio.ToString("C")</td>
+    <div class="table-wrap">
+        <div class="table-responsive">
+            <table class="table table-modern table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th style="width:90px">ID</th>
+                        <th style="width:70px">Imagen</th>
+                        <th>Nombre</th>
+                        <th>Categoría</th>
+                        <th class="text-end" style="width:120px">Precio</th>
+                        <th class="text-center" style="width:120px">Estado</th>
+                        <th class="text-end" style="width:200px">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model.Items)
+                    {
+                        <tr>
+                            <td>@p.ProductoID</td>
+                            <td>
+                                @if (!string.IsNullOrWhiteSpace(p.UrlImagenPrincipal))
+                                {
+                                    <img src="@p.UrlImagenPrincipal"
+                                         style="width:48px;height:48px;object-fit:cover;border-radius:8px;border:1px solid #e5e7eb" />
+                                }
+                            </td>
+                            <td>@p.Nombre</td>
+                            <td>@p.Categoria</td>
+                            <td class="text-end">@p.Precio.ToString("C")</td>
+                            <td class="text-center">
+                                @if (p.Activo)
+                                {
+                                    <span class="badge rounded-pill bg-success">Activo</span>
+                                }
+                                else
+                                {
+                                    <span class="badge rounded-pill bg-secondary">Inactivo</span>
+                                }
+                            </td>
+                            <td class="text-end text-nowrap">
+                                <a asp-action="Editar"
+                                   asp-route-id="@p.ProductoID"
+                                   class="btn btn-sm btn-outline-primary">Editar</a>
 
-                    <td class="text-center">
-                        @if (p.Activo)
-                        {
-                            <span class="badge bg-success">Activo</span>
-                        }
-                        else
-                        {
-                            <span class="badge bg-secondary">Inactivo</span>
-                        }
-                    </td>
-
-                    <td class="text-end">
-                        <a asp-action="Editar"
-                           asp-route-id="@p.ProductoID"
-                           class="btn btn-sm btn-outline-primary">Editar</a>
-
-                        @if (p.Activo)
-                        {
-                            <button type="button"
-                                    class="btn btn-sm btn-outline-warning btn-delete"
-                                    data-id="@p.ProductoID"
-                                    data-name="@p.Nombre">
-                                Inactivar
-                            </button>
-                        }
-                        else
-                        {
-                            <form asp-action="Activar" method="post" class="d-inline">
-                                @Html.AntiForgeryToken()
-                                <input type="hidden" name="id" value="@p.ProductoID" />
-                                <button type="submit" class="btn btn-sm btn-success">Activar</button>
-                            </form>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+                                @if (p.Activo)
+                                {
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-warning btn-delete ms-1"
+                                            data-id="@p.ProductoID"
+                                            data-name="@p.Nombre">
+                                        Inactivar
+                                    </button>
+                                }
+                                else
+                                {
+                                    <form asp-action="Activar" method="post" class="d-inline">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@p.ProductoID" />
+                                        <button type="submit" class="btn btn-sm btn-success ms-1">Activar</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 }
 
 <div class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-hidden="true">
@@ -170,17 +166,11 @@ else
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-
-                <form id="deleteForm"
-                      asp-controller="AdminProducto"
-                      asp-action="Eliminar"
-                      method="post"
-                      class="d-inline">
+                <form id="deleteForm" asp-controller="AdminProducto" asp-action="Eliminar" method="post" class="d-inline">
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="id" id="delId" />
                     <button type="submit" class="btn btn-warning">Sí, inactivar</button>
                 </form>
-
             </div>
         </div>
     </div>
@@ -189,18 +179,18 @@ else
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const modalEl = document.getElementById('confirmDeleteModal');
-            const modal   = new bootstrap.Modal(modalEl);
-            const nameEl  = document.getElementById('delName');
-            const idEl    = document.getElementById('delId');
+          const modalEl = document.getElementById('confirmDeleteModal');
+          const modal   = new bootstrap.Modal(modalEl);
+          const nameEl  = document.getElementById('delName');
+          const idEl    = document.getElementById('delId');
 
-            document.querySelectorAll('.btn-delete').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    nameEl.textContent = btn.dataset.name;
-                    idEl.value = btn.dataset.id;
-                    modal.show();
-                });
+          document.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', () => {
+              nameEl.textContent = btn.dataset.name;
+              idEl.value = btn.dataset.id;
+              modal.show();
             });
+          });
         });
     </script>
 }

@@ -8,85 +8,85 @@
     var accionCrear = $"Crear{Pascal(tipo)}";
     var accionActualizar = $"Actualizar{Pascal(tipo)}";
     var accionEliminar = $"Eliminar{Pascal(tipo)}";
+    var total = Model?.Count ?? 0;
 }
 
-<h2 class="mb-3">@ViewData["Title"]</h2>
+<div class="page-header mb-3">
+    <h2 class="page-title">@ViewData["Title"]</h2>
+    <span class="count-pill">Total: @total</span>
+</div>
 
 @if (TempData["Mensaje"] is string ok)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show mb-3" role="alert">
         @ok
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
     </div>
 }
 @if (TempData["Error"] is string err)
 {
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <div class="alert alert-danger alert-dismissible fade show mb-3" role="alert">
         @err
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
     </div>
 }
 
-<div class="card shadow-sm">
+<div class="card-elevated">
     <div class="card-body">
-        <form asp-action="@accionCrear" method="post" class="row g-2 align-items-center mb-3">
+        <form asp-action="@accionCrear" method="post" class="toolbar mb-3" autocomplete="off">
             @Html.AntiForgeryToken()
-            <div class="col">
-                <input name="nombre" class="form-control" placeholder="Nuevo @ViewData["Title"]..." />
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-success">Agregar</button>
-            </div>
+            <input name="nombre" class="form-control" placeholder="Nuevo @ViewData["Title"]..." />
+            <button class="btn btn-success">Agregar</button>
         </form>
 
-        <table class="table table-sm align-middle">
-            <thead>
-                <tr>
-                    <th style="width:80px">ID</th>
-                    <th>Nombre</th>
-                    <th class="text-end" style="width:160px">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model is { Count: > 0 })
-                {
-                    foreach (var it in Model)
-                    {
+        <div class="table-wrap">
+            <div class="table-responsive">
+                <table class="table table-modern table-hover table-sm align-middle">
+                    <thead>
                         <tr>
-                            <td>@it.Id</td>
-
-                            <td>
-                                <form asp-action="@accionActualizar"
-                                      method="post"
-                                      class="d-flex gap-2 align-items-center mb-0">
-                                    @Html.AntiForgeryToken()
-                                    <input type="hidden" name="id" value="@it.Id" />
-                                    <input name="nombre" value="@it.Nombre" class="form-control" />
-                                    <button class="btn btn-primary btn-sm">Guardar</button>
-                                </form>
-                            </td>
-
-                            <td class="text-end">
-                                <button type="button"
-                                        class="btn btn-outline-danger btn-sm"
-                                        data-id="@it.Id"
-                                        data-name="@it.Nombre"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#confirmDeleteModal">
-                                    Eliminar
-                                </button>
-                            </td>
+                            <th style="width:90px">ID</th>
+                            <th>Nombre</th>
+                            <th class="text-end" style="width:170px">Acciones</th>
                         </tr>
-                    }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="3" class="text-center text-muted">Sin datos.</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                    </thead>
+                    <tbody>
+                        @if (Model is { Count: > 0 })
+                        {
+                            foreach (var it in Model)
+                            {
+                                <tr>
+                                    <td>@it.Id</td>
+                                    <td>
+                                        <form asp-action="@accionActualizar" method="post" class="row-form mb-0">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@it.Id" />
+                                            <input name="nombre" value="@it.Nombre" class="form-control form-control-sm" />
+                                            <button class="btn btn-primary btn-sm">Guardar</button>
+                                        </form>
+                                    </td>
+                                    <td class="text-end">
+                                        <button type="button"
+                                                class="btn btn-outline-danger btn-sm"
+                                                data-id="@it.Id"
+                                                data-name="@it.Nombre"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#confirmDeleteModal">
+                                            Eliminar
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3" class="empty-state">Sin datos.</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -97,7 +97,6 @@
                 <h5 class="modal-title">Confirmar eliminación</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
-
             <form id="delForm" asp-action="@accionEliminar" method="post">
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="id" value="" />
@@ -119,10 +118,8 @@
           const modalEl = document.getElementById('confirmDeleteModal');
           const nameEl  = modalEl.querySelector('[data-del-name]');
           const idInput = modalEl.querySelector('input[name="id"]');
-
           modalEl.addEventListener('show.bs.modal', function (ev) {
-            const btn = ev.relatedTarget;
-            if (!btn) return;
+            const btn = ev.relatedTarget; if (!btn) return;
             nameEl.textContent = btn.getAttribute('data-name') || '';
             idInput.value      = btn.getAttribute('data-id')   || '';
           });

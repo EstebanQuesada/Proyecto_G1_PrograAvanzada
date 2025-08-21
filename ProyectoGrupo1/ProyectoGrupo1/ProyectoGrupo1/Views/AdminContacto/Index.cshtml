@@ -1,5 +1,4 @@
-﻿
-@model List<ProyectoGrupo1.Services.AdminContactoItemVm>
+﻿@model List<ProyectoGrupo1.Services.AdminContactoItemVm>
 @{
     ViewData["Title"] = "Mensajes de Contacto";
     var buscar = (string?)ViewBag.Buscar ?? "";
@@ -8,104 +7,207 @@
     var pageSize = (int)(ViewBag.PageSize ?? 20);
     var total = (int)(ViewBag.Total ?? 0);
     var lastPage = Math.Max(1, (int)Math.Ceiling(total / (double)pageSize));
+
+    var from = total == 0 ? 0 : ((page - 1) * pageSize) + 1;
+    var to   = total == 0 ? 0 : Math.Min(page * pageSize, total);
 }
 
-<h1>Mensajes de contacto</h1>
+<div class="page-header mb-3">
+  <h2 class="page-title">Mensajes de contacto</h2>
+  <span class="count-pill">Total: @total</span>
+</div>
 
-<form method="get" class="mb-3">
-  <div class="row g-2">
-    <div class="col-sm-4">
+<div class="card-elevated mb-3">
+  <div class="card-body">
+    <form method="get" class="toolbar" autocomplete="off">
       <input name="buscar" value="@buscar" class="form-control" placeholder="Buscar por nombre, correo o texto" />
-    </div>
-    <div class="col-sm-3">
       <select name="estado" class="form-select">
         <option value="" selected="@string.IsNullOrEmpty(estado)">Todos</option>
         <option value="pendiente" selected="@(estado=="pendiente")">Pendiente</option>
         <option value="visto" selected="@(estado=="visto")">Visto</option>
         <option value="completado" selected="@(estado=="completado")">Completado</option>
       </select>
-    </div>
-    <div class="col-sm-2">
       <select name="pageSize" class="form-select">
         <option value="10" selected="@(pageSize==10)">10</option>
         <option value="20" selected="@(pageSize==20)">20</option>
         <option value="50" selected="@(pageSize==50)">50</option>
       </select>
-    </div>
-    <div class="col-sm-2">
-      <button class="btn btn-primary w-100" type="submit">Filtrar</button>
+      <button class="btn btn-primary" type="submit"><i class="bi bi-filter me-1"></i>Filtrar</button>
+      <a class="btn btn-ghost" href="@Url.Action("Index", new { buscar = "", estado = "", page = 1, pageSize = 20 })">
+        Limpiar
+      </a>
+    </form>
+  </div>
+</div>
+
+<div class="table-wrap">
+  <div class="table-responsive">
+    <table class="table table-modern table-hover table-sm align-middle">
+      <thead>
+        <tr>
+          <th style="width:80px">Id</th>
+          <th style="width:160px">Fecha</th>
+          <th style="width:16%">Nombre</th>
+          <th style="width:18%">Correo</th>
+          <th>Mensaje</th>
+          <th style="width:110px">Visto</th>
+          <th style="width:130px">Completado</th>
+          <th class="text-end" style="width:230px">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+      @if (Model?.Count > 0)
+      {
+        foreach (var x in Model)
+        {
+          var statusBadge = x.Completado ? "bg-success" : x.Visto ? "bg-warning" : "bg-secondary";
+          var statusText  = x.Completado ? "Completado" : x.Visto ? "Visto" : "Pendiente";
+
+          <tr>
+            <td>@x.Id</td>
+            <td><span class="text-muted">@x.FechaEnvio.ToString("yyyy-MM-dd HH:mm")</span></td>
+            <td>@x.Nombre</td>
+            <td>
+              <a href="mailto:@x.Correo">@x.Correo</a>
+            </td>
+            <td class="msg-cell">
+              <div class="line-clamp-2 small">@x.Mensaje</div>
+              @if (!string.IsNullOrWhiteSpace(x.Mensaje) && x.Mensaje!.Length > 80)
+              {
+                <button type="button"
+                        class="btn btn-link btn-sm p-0"
+                        data-bs-toggle="modal"
+                        data-bs-target="#msgModal"
+                        data-msg="@x.Mensaje"
+                        data-from="@x.Nombre"
+                        data-email="@x.Correo">
+                  Ver
+                </button>
+              }
+            </td>
+            <td>
+              @if (x.Visto)
+              {
+                <span class="badge rounded-pill bg-info-subtle text-dark"><i class="bi bi-eye me-1"></i> Sí</span>
+              }
+              else
+              {
+                <span class="badge rounded-pill bg-secondary"><i class="bi bi-eye-slash me-1"></i> No</span>
+              }
+            </td>
+            <td>
+              @if (x.Completado)
+              {
+                <span class="badge rounded-pill bg-success"><i class="bi bi-check2-circle me-1"></i> Sí</span>
+              }
+              else
+              {
+                <span class="badge rounded-pill bg-warning"><i class="bi bi-hourglass-split me-1"></i> No</span>
+              }
+            </td>
+            <td class="text-end text-nowrap">
+              <form asp-action="MarcarVisto" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@x.Id" />
+                <input type="hidden" name="visto" value="@x.Visto" />
+                <input type="hidden" name="completado" value="@x.Completado" />
+                <input type="hidden" name="returnUrl" value="@($"{ViewContext.HttpContext.Request.Path}{ViewContext.HttpContext.Request.QueryString}")" />
+                <button class="btn btn-outline-secondary btn-sm" @(x.Visto ? "disabled" : "")>
+                  <i class="bi bi-check2-square me-1"></i>Marcar visto
+                </button>
+              </form>
+              <form asp-action="MarcarCompletado" method="post" class="d-inline">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" value="@x.Id" />
+                <input type="hidden" name="visto" value="@x.Visto" />
+                <input type="hidden" name="completado" value="@x.Completado" />
+                <input type="hidden" name="returnUrl" value="@($"{ViewContext.HttpContext.Request.Path}{ViewContext.HttpContext.Request.QueryString}")" />
+                <button class="btn btn-success btn-sm" @(x.Completado ? "disabled" : "")>
+                  <i class="bi bi-flag me-1"></i>Completar
+                </button>
+              </form>
+            </td>
+          </tr>
+        }
+      }
+      else
+      {
+        <tr>
+          <td colspan="8" class="empty-state">Sin datos.</td>
+        </tr>
+      }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="d-flex align-items-center justify-content-between mt-3">
+  <div class="text-muted small">
+    Mostrando @from–@to de @total registros
+  </div>
+
+  @{
+      var prev = Math.Max(1, page - 1);
+      var next = Math.Min(lastPage, page + 1);
+  }
+  <nav aria-label="Paginación">
+    <ul class="pagination mb-0">
+      <li class="page-item @(page<=1 ? "disabled":"")">
+        <a class="page-link" href="@Url.Action("Index", new { buscar, estado, page = 1, pageSize })">Primera</a>
+      </li>
+      <li class="page-item @(page<=1 ? "disabled":"")">
+        <a class="page-link" href="@Url.Action("Index", new { buscar, estado, page = prev, pageSize })">Anterior</a>
+      </li>
+            <li class="page-item disabled">
+                <span class="page-link">Página @(page) de @lastPage</span>
+            </li>
+      <li class="page-item @(page>=lastPage ? "disabled":"")">
+        <a class="page-link" href="@Url.Action("Index", new { buscar, estado, page = next, pageSize })">Siguiente</a>
+      </li>
+      <li class="page-item @(page>=lastPage ? "disabled":"")">
+        <a class="page-link" href="@Url.Action("Index", new { buscar, estado, page = lastPage, pageSize })">Última</a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<div class="modal fade" id="msgModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content shadow">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <span id="msgFrom">Mensaje</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <pre class="mb-0 small" id="msgText" style="white-space:pre-wrap"></pre>
+      </div>
+      <div class="modal-footer">
+        <a id="msgEmail" href="#" class="btn btn-ghost"><i class="bi bi-envelope me-1"></i>Responder</a>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
     </div>
   </div>
-</form>
+</div>
 
-<table class="table table-striped table-sm align-middle">
-  <thead>
-    <tr>
-      <th>Id</th>
-      <th>Fecha</th>
-      <th>Nombre</th>
-      <th>Correo</th>
-      <th>Mensaje</th>
-      <th>Visto</th>
-      <th>Completado</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-@foreach (var x in Model)
-{
-    <tr>
-      <td>@x.Id</td>
-      <td>@x.FechaEnvio.ToString("yyyy-MM-dd HH:mm")</td>
-      <td>@x.Nombre</td>
-      <td>@x.Correo</td>
-      <td>@(x.Mensaje?.Length > 80 ? x.Mensaje.Substring(0,80) + "..." : x.Mensaje)</td>
-      <td>@(x.Visto ? "Sí" : "No")</td>
-      <td>@(x.Completado ? "Sí" : "No")</td>
-      <td class="text-nowrap">
-        <form asp-action="MarcarVisto" method="post" class="d-inline">
-          @Html.AntiForgeryToken()
-          <input type="hidden" name="id" value="@x.Id" />
-          <input type="hidden" name="visto" value="@x.Visto" />
-          <input type="hidden" name="completado" value="@x.Completado" />
-          <input type="hidden" name="returnUrl" value="@($"{ViewContext.HttpContext.Request.Path}{ViewContext.HttpContext.Request.QueryString}")" />
-          <button class="btn btn-outline-secondary btn-sm" @(x.Visto ? "disabled" : "")>Marcar visto</button>
-        </form>
-        <form asp-action="MarcarCompletado" method="post" class="d-inline">
-          @Html.AntiForgeryToken()
-          <input type="hidden" name="id" value="@x.Id" />
-          <input type="hidden" name="visto" value="@x.Visto" />
-          <input type="hidden" name="completado" value="@x.Completado" />
-          <input type="hidden" name="returnUrl" value="@($"{ViewContext.HttpContext.Request.Path}{ViewContext.HttpContext.Request.QueryString}")" />
-          <button class="btn btn-success btn-sm" @(x.Completado ? "disabled" : "")>Completar</button>
-        </form>
-      </td>
-    </tr>
+@section Scripts {
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const modalEl = document.getElementById('msgModal');
+      const msgText = modalEl.querySelector('#msgText');
+      const msgFrom = modalEl.querySelector('#msgFrom');
+      const msgEmail= modalEl.querySelector('#msgEmail');
+
+      modalEl.addEventListener('show.bs.modal', function (ev) {
+        const btn = ev.relatedTarget; if (!btn) return;
+        const full = btn.getAttribute('data-msg') || '';
+        const from = btn.getAttribute('data-from') || 'Mensaje';
+        const mail = btn.getAttribute('data-email') || '';
+        msgText.textContent = full;
+        msgFrom.textContent = 'Mensaje de ' + from;
+        msgEmail.href = mail ? ('mailto:' + mail) : '#';
+      });
+    });
+  </script>
 }
-  </tbody>
-</table>
-
-@{
-    var prev = Math.Max(1, page - 1);
-    var next = Math.Min(lastPage, page + 1);
-}
-
-<nav aria-label="Paginación" class="mt-3">
-  <ul class="pagination">
-    <li class="page-item @(page<=1 ? "disabled":"")">
-      <a class="page-link" href="@Url.Action("Index", new { buscar, estado, page = 1, pageSize })">Primera</a>
-    </li>
-    <li class="page-item @(page<=1 ? "disabled":"")">
-      <a class="page-link" href="@Url.Action("Index", new { buscar, estado, page = prev, pageSize })">Anterior</a>
-    </li>
-        <li class="page-item disabled">
-            <span class="page-link">Página @(page) de @lastPage</span>
-        </li>
-
-      <a class="page-link" href="@Url.Action("Index", new { buscar, estado, page = next, pageSize })">Siguiente</a>
-    </li>
-    <li class="page-item @(page>=lastPage ? "disabled":"")">
-      <a class="page-link" href="@Url.Action("Index", new { buscar, estado, page = lastPage, pageSize })">Última</a>
-    </li>
-  </ul>
-</nav>
