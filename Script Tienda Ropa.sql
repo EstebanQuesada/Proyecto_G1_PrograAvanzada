@@ -1693,3 +1693,12 @@ BEGIN
      DELETE FROM Proveedor WHERE ProveedorID=@Id;
 END
 GO
+
+---
+UPDATE Producto
+SET Nombre = 'Pantalón Mujer', Descripcion = 'Pantalón de mujer negro casual'
+WHERE Nombre = 'Pantalon Mujer';
+
+UPDATE Producto
+SET Nombre = 'Pantalón Zara Hombre'
+WHERE Nombre = 'Pantalon Zara Hombre';
